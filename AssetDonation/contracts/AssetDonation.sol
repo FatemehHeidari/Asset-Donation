@@ -10,6 +10,10 @@ contract AssetDonation is ERC721, AccessControl {
 
     uint256 lastAssetId;
     uint256 lastRequestId;
+    uint constant maxNoOfReqsPerAsst = 3;
+
+    mapping (address=>bool) public donors;
+    mapping (address=>bool) public receivers;
 
 
     constructor() ERC721("MyToken","MTS") AccessControl() public {
@@ -17,8 +21,10 @@ contract AssetDonation is ERC721, AccessControl {
       lastRequestId = 0;
     }
 
+
+
     bytes32 public constant DONOR = keccak256("DONOR");
-    //bytes32 public constant RECEIVER = keccak256("RECEIVER");
+    bytes32 public constant RECEIVER = keccak256("RECEIVER");
 
     enum Status {Free, Donated, Inactive, Burned}
 
@@ -33,18 +39,28 @@ contract AssetDonation is ERC721, AccessControl {
         Status status;
         address owner;
         address recipient;
-        uint256 DonatedDateFrom;
-        uint256 DonatedDateTo;
+        uint256 donatedDateFrom;
+        uint256 donatedDateTo;
+        address[maxNoOfReqsPerAsst] requestList;
+        uint requestCount;
         //   AssetType assetType;
     }
+    
     mapping(uint256 => Asset) public donationList;
+
     modifier isDonor(address donorAddress) {
         require(hasRole(DONOR, donorAddress));
         _;
     }
 
-    function addDonar(address assetOwner) public {
-        grantRole(DONOR, assetOwner);
+    function addDonor() public {
+        donors[msg.sender] = false;
+        approveDonor(msg.sender);
+    }
+
+    function approveDonor(address donorAddress) public {
+        grantRole(DONOR, donorAddress);
+        donors[donorAddress] = true;
     }
 
     function addAsset(
@@ -52,6 +68,7 @@ contract AssetDonation is ERC721, AccessControl {
         uint256 availablityDate,
         string memory location
     ) public /*isDonor(msg.sender)*/ {
+        address[maxNoOfReqsPerAsst] memory requests;
         uint256 assetId = mintToken(msg.sender);
         donationList[assetId] = Asset({
             assetDescription: assetDescription,
@@ -60,8 +77,10 @@ contract AssetDonation is ERC721, AccessControl {
             status: Status.Free,
             owner: msg.sender,
             recipient: address(0),
-            DonatedDateFrom: 0,
-            DonatedDateTo: 0
+            donatedDateFrom: 0,
+            donatedDateTo: 0,
+            requestList: requests,
+            requestCount:0
         });
     }
 
@@ -93,9 +112,28 @@ contract AssetDonation is ERC721, AccessControl {
       _;
     }
 
-    function donateAsset(uint tokenId,address recipientAddress)isDonor(msg.sender) assetIsFree(tokenId)  public{
+    function donateAsset(uint tokenId,address recipientAddress)/*isDonor(msg.sender) isRequester(recipientAddress)*/ assetIsFree(tokenId)  public{
       donationList[tokenId].recipient = recipientAddress;
     }
+
+    function addReceiver() public {
+        receivers[msg.sender] = false;
+    }
+
+    function approveReceiver(address receiverAddress) public {
+        grantRole(RECEIVER, receiverAddress);
+        receivers[receiverAddress] = true;
+    }
+
+    function requestAsset(address receiver, uint assetId) public{
+        Asset storage requestedItem = donationList[assetId];
+        if(requestedItem.requestCount<maxNoOfReqsPerAsst)
+        {
+            requestedItem.requestList[requestedItem.requestCount] = receiver;
+            requestedItem.requestCount++;
+        }
+    }
+
     // function addAsset(address assetOwner, string memory ownerName,AssetType memory assetType) isDonor public{
     //   _safeMint(assetOwner, lastAssetId);
     //   donationList[lastAssetId]=Asset({ownerName:ownerName,status:Status.Free,recipient:address(0),assetType:assetType});

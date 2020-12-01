@@ -91,7 +91,7 @@ contract AssetDonation is ERC721, AccessControl {
         });
     }
 
-    function getDonation() public view returns (Asset[16] memory) {
+    function getDonations() public view returns (Asset[16] memory) {
         uint256 tokenCount = balanceOf(msg.sender);
         uint256 index = 0;
         uint256 tokenId;

@@ -13,7 +13,7 @@ const OPTIONS = {
     transactionBlockTimeout: 5
 }
 const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
-const contractAddress = "0x81eDB34992aa93aAA99613b383Efb77EC3c26C78";//"0x0C7640A95b3748E1fcEEA74dED19D969696d7f18";//"0x70a477883Fff5e6820291C027e000F8665e44287";
+const contractAddress = "0x4A283f6D12D1815338fBf6770b2e91898f5B9FeC";//"0x0C7640A95b3748E1fcEEA74dED19D969696d7f18";//"0x70a477883Fff5e6820291C027e000F8665e44287";
 const assetDonationContract = new web3.eth.Contract(AssetDonation, contractAddress);
 const state = {
     hello: 0

@@ -72,6 +72,7 @@ contract AssetDonation is ERC721, AccessControl {
         string memory assetDescription,
         uint32 availablityDate,
         string memory location /*isDonor(msg.sender)*/
+        ,string memory imageIPFSHash
     ) public {
         //Request[maxNoOfReqsPerAsst] storage requests;
         //mapping(uint=>Request) memory
@@ -86,7 +87,8 @@ contract AssetDonation is ERC721, AccessControl {
             recipient: address(0),
             donatedDateFrom: 0,
             donatedDateTo: 0, //requestList: requests,
-            requestCount: 0
+            requestCount: 0,
+            imageIPFSHash: imageIPFSHash
         });
     }
 
@@ -139,7 +141,7 @@ contract AssetDonation is ERC721, AccessControl {
 
     function mintToken(address assetOwner) public returns (uint32) {
         _safeMint(assetOwner, lastAssetId);
-        uint assetId = lastAssetId;
+        uint32 assetId = lastAssetId;
         lastAssetId++;
         return assetId;
     }
@@ -176,7 +178,7 @@ contract AssetDonation is ERC721, AccessControl {
         Asset storage requestedItem = donationList[assetId];
         //if (requestedItem.requestCount < maxNoOfReqsPerAsst) {
         assetRequestList[assetId][requestedItem.requestCount] = Request({
-            msg.sender,
+            receiver:msg.sender,
             requestDescription: requestDescription,
             requestDateFrom: requestDateFrom,
             requestDateTo: requestDateTo

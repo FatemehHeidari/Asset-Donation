@@ -347,6 +347,11 @@ export const AssetDonation = [
         "internalType": "uint32",
         "name": "requestCount",
         "type": "uint32"
+      },
+      {
+        "internalType": "string",
+        "name": "imageIPFSHash",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -857,6 +862,11 @@ export const AssetDonation = [
         "internalType": "string",
         "name": "location",
         "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "imageIPFSHash",
+        "type": "string"
       }
     ],
     "name": "addAsset",
@@ -919,6 +929,11 @@ export const AssetDonation = [
             "internalType": "uint32",
             "name": "requestCount",
             "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "imageIPFSHash",
+            "type": "string"
           }
         ],
         "internalType": "struct AssetDonation.Asset[16]",
@@ -985,6 +1000,11 @@ export const AssetDonation = [
             "internalType": "uint32",
             "name": "requestCount",
             "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "imageIPFSHash",
+            "type": "string"
           }
         ],
         "internalType": "struct AssetDonation.Asset[16]",
@@ -1097,11 +1117,6 @@ export const AssetDonation = [
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "receiver",
-        "type": "address"
-      },
       {
         "internalType": "uint32",
         "name": "assetId",

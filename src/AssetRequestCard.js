@@ -38,7 +38,7 @@ class AssetRequestCard extends Component {
                     <div class="container" >
                         <Image src="donate.png" fluid />
                         <Card style={{ flex: 1 }} >
-                            <Card.Img variant="top" src="donate.png" />
+                            <Card.Img variant="top" src={'https://ipfs.io/ipfs/'+ this.props.asset.imageIPFSHash} alt="" />
                             <Card.Body>
                                 <Card.Title>Title: {this.props.asset.title}</Card.Title>
                                 <Card.Text>

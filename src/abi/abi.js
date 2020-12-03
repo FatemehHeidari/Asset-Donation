@@ -1,5 +1,4 @@
 export const AssetDonation = [
-   
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -218,14 +217,14 @@ export const AssetDonation = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "assetRequestList",
@@ -241,14 +240,14 @@ export const AssetDonation = [
         "type": "string"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "requestDateFrom",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "requestDateTo",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "stateMutability": "view",
@@ -292,17 +291,17 @@ export const AssetDonation = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "donationList",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "assetId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "string",
@@ -310,9 +309,9 @@ export const AssetDonation = [
         "type": "string"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "availablityDate",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "string",
@@ -335,19 +334,19 @@ export const AssetDonation = [
         "type": "address"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "donatedDateFrom",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "donatedDateTo",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "requestCount",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "stateMutability": "view",
@@ -850,9 +849,9 @@ export const AssetDonation = [
         "type": "string"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "availablityDate",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "string",
@@ -867,14 +866,14 @@ export const AssetDonation = [
   },
   {
     "inputs": [],
-    "name": "getDonation",
+    "name": "getDonations",
     "outputs": [
       {
         "components": [
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "assetId",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
             "internalType": "string",
@@ -882,9 +881,9 @@ export const AssetDonation = [
             "type": "string"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "availablityDate",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
             "internalType": "string",
@@ -907,19 +906,19 @@ export const AssetDonation = [
             "type": "address"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "donatedDateFrom",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "donatedDateTo",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "requestCount",
-            "type": "uint256"
+            "type": "uint32"
           }
         ],
         "internalType": "struct AssetDonation.Asset[16]",
@@ -938,9 +937,9 @@ export const AssetDonation = [
       {
         "components": [
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "assetId",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
             "internalType": "string",
@@ -948,9 +947,9 @@ export const AssetDonation = [
             "type": "string"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "availablityDate",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
             "internalType": "string",
@@ -973,19 +972,19 @@ export const AssetDonation = [
             "type": "address"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "donatedDateFrom",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "donatedDateTo",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "requestCount",
-            "type": "uint256"
+            "type": "uint32"
           }
         ],
         "internalType": "struct AssetDonation.Asset[16]",
@@ -1000,9 +999,9 @@ export const AssetDonation = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "assetId",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "getDonationRequests",
@@ -1020,14 +1019,14 @@ export const AssetDonation = [
             "type": "string"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "requestDateFrom",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "requestDateTo",
-            "type": "uint256"
+            "type": "uint32"
           }
         ],
         "internalType": "struct AssetDonation.Request[16]",
@@ -1050,9 +1049,9 @@ export const AssetDonation = [
     "name": "mintToken",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "stateMutability": "nonpayable",
@@ -1061,9 +1060,9 @@ export const AssetDonation = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "assetId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "address",
@@ -1104,9 +1103,9 @@ export const AssetDonation = [
         "type": "address"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "assetId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "string",
@@ -1114,14 +1113,14 @@ export const AssetDonation = [
         "type": "string"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "requestDateFrom",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "requestDateTo",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "requestAsset",

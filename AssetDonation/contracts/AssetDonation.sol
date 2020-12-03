@@ -6,9 +6,9 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract AssetDonation is ERC721, AccessControl {
-    uint256 lastAssetId;
-    uint256 lastRequestId;
-    uint256 constant maxNoOfReqsPerAsst = 3;
+    uint32 lastAssetId;
+    uint32 lastRequestId;
+    uint32 constant maxNoOfReqsPerAsst = 3;
 
     mapping(address => bool) public donors;
     mapping(address => bool) public receivers;
@@ -28,31 +28,30 @@ contract AssetDonation is ERC721, AccessControl {
     // }
 
     struct Asset {
-        uint assetId; 
+        uint32 assetId; 
         string assetDescription;
-        uint256 availablityDate;
+        uint32 availablityDate;
         string location;
         Status status;
         address owner;
         address recipient;
-        uint256 donatedDateFrom;
-        uint256 donatedDateTo;
-        //mapping (uint=>Request) requestList;
-        //Request[maxNoOfReqsPerAsst] requestList;
-        uint256 requestCount;
-        //   AssetType assetType;
+        uint32 donatedDateFrom;
+        uint32 donatedDateTo;
+        uint32 requestCount;
+        string imageIPFSHash;
+        //AssetType assetType;
     }
 
-    mapping(uint256 => Asset) public donationList;
+    mapping(uint32 => Asset) public donationList;
 
     struct Request {
         address receiver;
         string requestDescription;
-        uint256 requestDateFrom;
-        uint256 requestDateTo;
+        uint32 requestDateFrom;
+        uint32 requestDateTo;
         //   AssetType assetType;
     }
-    mapping(uint256 => mapping(uint256 => Request)) public assetRequestList;
+    mapping(uint32 => mapping(uint32 => Request)) public assetRequestList;
 
     modifier isDonor(address donorAddress) {
         require(hasRole(DONOR, donorAddress));
@@ -71,12 +70,12 @@ contract AssetDonation is ERC721, AccessControl {
 
     function addAsset(
         string memory assetDescription,
-        uint256 availablityDate,
+        uint32 availablityDate,
         string memory location /*isDonor(msg.sender)*/
     ) public {
         //Request[maxNoOfReqsPerAsst] storage requests;
         //mapping(uint=>Request) memory
-        uint256 assetId = mintToken(msg.sender);
+        uint32 assetId = mintToken(msg.sender);
         donationList[assetId] = Asset({
             assetId:assetId,
             assetDescription: assetDescription,
@@ -92,37 +91,37 @@ contract AssetDonation is ERC721, AccessControl {
     }
 
     function getDonations() public view returns (Asset[16] memory) {
-        uint256 tokenCount = balanceOf(msg.sender);
-        uint256 index = 0;
-        uint256 tokenId;
+        uint32 tokenCount = uint32(balanceOf(msg.sender));
+        uint32 index = 0;
+        uint32 tokenId;
         Asset[16] memory assetList;
         if (tokenCount <= 16) {
             index = tokenCount;
         } else {
             index = 16;
         }
-        for (uint256 i = 0; i < index; i++) {
-            tokenId = tokenOfOwnerByIndex(msg.sender, i);
+        for (uint32 i = 0; i < index; i++) {
+            tokenId = uint32(tokenOfOwnerByIndex(msg.sender, i));
             assetList[i] = donationList[tokenId];
         }
         return assetList;
     }
 
     function getAllDonations() public view returns (Asset[16] memory) {
-        uint256 index = 0;
+        uint32 index = 0;
         Asset[16] memory assetList;
         if (lastAssetId <= 16) {
             index = lastAssetId;
         } else {
             index = 16;
         }
-        for (uint256 i = 0; i < index; i++) {
+        for (uint32 i = 0; i < index; i++) {
             assetList[i] = donationList[i];
         }
         return assetList;
     }
 
-    function getDonationRequests(uint256 assetId)
+    function getDonationRequests(uint32 assetId)
         public
         view
         returns (Request[16] memory)
@@ -130,25 +129,27 @@ contract AssetDonation is ERC721, AccessControl {
         Request[16] memory requestArray;
 
 
-            mapping(uint256 => Request) storage requestMapping
+            mapping(uint32 => Request) storage requestMapping
          = assetRequestList[assetId];
-        for (uint256 i = 0; i < donationList[assetId].requestCount; i++) {
+        for (uint32 i = 0; i < donationList[assetId].requestCount; i++) {
             requestArray[i] = requestMapping[i];
         }
         return requestArray;
     }
 
-    function mintToken(address assetOwner) public returns (uint256) {
+    function mintToken(address assetOwner) public returns (uint32) {
         _safeMint(assetOwner, lastAssetId);
-        return lastAssetId++;
+        uint assetId = lastAssetId;
+        lastAssetId++;
+        return assetId;
     }
 
-    modifier assetIsFree(uint256 assetId) {
+    modifier assetIsFree(uint32 assetId) {
         require(donationList[assetId].recipient == address(0));
         _;
     }
 
-    function donateAsset(uint256 assetId, address recipientAddress)
+    function donateAsset(uint32 assetId, address recipientAddress)
         public
         /*isDonor(msg.sender) isRequester(recipientAddress)*/
         assetIsFree(assetId)
@@ -167,16 +168,15 @@ contract AssetDonation is ERC721, AccessControl {
     }
 
     function requestAsset(
-        address receiver,
-        uint256 assetId,
+        uint32 assetId,
         string memory requestDescription,
-        uint256 requestDateFrom,
-        uint256 requestDateTo
+        uint32 requestDateFrom,
+        uint32 requestDateTo
     ) public {
         Asset storage requestedItem = donationList[assetId];
         //if (requestedItem.requestCount < maxNoOfReqsPerAsst) {
         assetRequestList[assetId][requestedItem.requestCount] = Request({
-            receiver: receiver,
+            msg.sender,
             requestDescription: requestDescription,
             requestDateFrom: requestDateFrom,
             requestDateTo: requestDateTo

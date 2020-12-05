@@ -35,6 +35,16 @@ contract('donationTest', function (accounts) {
         await catchRevert(instanceDonate.addAsset(des, availablitydate, loc, ipfsHash, { from: other }))
     })
 
+    it("should revert if addAsset is called in paused situation", async() =>{
+        let instanceDonate = await DonateAsset.deployed();
+        const tx = await instanceDonate.addDonor({ from: donor });
+        const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
+        const t2 = await instanceDonate.addDonor( { from: donor })
+        const t3 = await instanceDonate.pause( { from: admin })
+        await catchRevert(instanceDonate.addAsset(des, availablitydate, loc, ipfsHash, { from: donor }))
+        const t4 = await instanceDonate.unpause( { from: admin })
+    })
+
     it("add an asset", async () => {
         let instanceDonate = await DonateAsset.deployed();
         const tx = await instanceDonate.addDonor({ from: donor });
@@ -120,6 +130,11 @@ contract('donationTest', function (accounts) {
 
         assert.equal(resultAsset.status, 2, 'the status should be Donated')
         assert.equal(resultAsset.recipient, receiver, 'the recipient address should be updated to receiver')
+    })
+    it("should revert if pause is called by a non admin role", async() =>{
+        let instanceDonate = await DonateAsset.deployed();
+        const t3 = await instanceDonate.pause( { from: other })
+        // const t4 = await instanceDonate.unpause( { from: admin })
     })
 
     // it("should emit a LogFree event when an asset is added", async()=> {

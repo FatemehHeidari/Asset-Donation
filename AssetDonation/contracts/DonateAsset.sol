@@ -3,7 +3,6 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/utils/Pausable.sol";
 import './Administration.sol';
 
 /// @title A Asset donation smart contract
@@ -11,11 +10,11 @@ import './Administration.sol';
 /// @notice This contract facilitates donation of physical assets for specific periods of time between asset owners and receivers
 /// @dev time
 
-contract DonateAsset is ERC721, Administration ,Pausable{
+contract DonateAsset is ERC721, Administration{
     uint32 lastAssetId;
 
 
-    constructor() public ERC721("MyToken", "MTS") Administration() Pausable(){
+    constructor() public ERC721("MyToken", "MTS") Administration(){
         lastAssetId = 0;
     }
 
@@ -71,7 +70,7 @@ contract DonateAsset is ERC721, Administration ,Pausable{
     function addAsset(
         string memory assetDescription,
         uint32 availablityDate,
-        string memory location, /*isDonor(msg.sender)*/
+        string memory location,
         string memory imageIPFSHash
     ) public isDonor(msg.sender) whenNotPaused{
         uint32 assetId = mintToken(msg.sender);

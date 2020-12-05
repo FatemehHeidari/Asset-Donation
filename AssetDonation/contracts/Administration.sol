@@ -1,15 +1,16 @@
 pragma solidity ^0.6.2;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 
 /// @title A Asset donation smart contract
 /// @author Fatemeh Heidari Soureshjani
 /// @notice This contract facilitates donation of physical assets for specific periods of time between asset owners and receivers
 /// @dev time
 
-contract Administration is AccessControl {
+contract Administration is AccessControl ,Pausable{
 
-    constructor() public AccessControl(){
+    constructor() public AccessControl() Pausable(){
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
@@ -50,4 +51,11 @@ contract Administration is AccessControl {
         grantRole(RECEIVER, receiverAddress);
         receivers[receiverAddress] = true;
     }
+
+    function pause() public {
+        _pause();
+    }
+    function unpause() public {
+        _unpause();
+    }    
 }

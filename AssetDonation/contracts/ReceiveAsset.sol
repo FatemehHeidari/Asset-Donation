@@ -13,7 +13,6 @@ contract DonateAsset {
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/utils/Pausable.sol";
 import './Administration.sol';
 
 /// @title A Asset donation smart contract
@@ -36,12 +35,12 @@ struct Asset {
     string imageIPFSHash;
 }
 
-contract ReceiveAsset is Administration, Pausable{
+contract ReceiveAsset is Administration{
 
     DonateAsset DA;
     uint32 lastRequestId;
 
-    constructor(address _DA) public AccessControl() Pausable() {
+    constructor(address _DA) public AccessControl() {
         DA = DonateAsset(_DA);
         lastRequestId = 0;
     }

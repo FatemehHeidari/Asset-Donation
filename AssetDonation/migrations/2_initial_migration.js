@@ -1,5 +1,5 @@
-var AssetDonation = artifacts.require('./AssetDonation.sol');
+var Administration = artifacts.require('./Administration.sol');
 
-module.exports = function(deployer) {
-    deployer.deploy(AssetDonation);
+module.exports = async function (deployer) {
+    deployer.deploy(Administration);
 };

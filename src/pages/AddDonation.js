@@ -5,25 +5,12 @@ import Card from 'react-bootstrap/Card';
 import '../App.css';
 import Web3 from "web3";
 import React, { Component, useState } from "react";
-import { AssetDonation } from "../abi/abi";
-import ipfs from '../ipfs';
+//import { AssetDonation } from "../abi/abi";
+import ipfs from '../utils/ipfs';
 import Form from 'react-bootstrap/Form';
+import donateAssetContract from '../utils/donatecontract.js';
 
-
-const OPTIONS = {
-    defaultBlock: "latest",
-    transactionConfirmationBlocks: 1,
-    transactionBlockTimeout: 5
-}
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
-const contractAddress = "0x4C9AD7141E337Ac67D7556e148D9A671F1280950";//"0x0C7640A95b3748E1fcEEA74dED19D969696d7f18";//"0x70a477883Fff5e6820291C027e000F8665e44287";
-const assetDonationContract = new web3.eth.Contract(AssetDonation, contractAddress);
-
-
-
-//const account = web3.givenProvider.selectedAddress;//accounts[0];
 class AddDonation extends Component {
-
     constructor(props) {
         super(props);
         this.assetDes = React.createRef();
@@ -39,8 +26,6 @@ class AddDonation extends Component {
 
     addAsset = async (t) => {
         t.preventDefault();
-        console.log('contractAddress');
-        console.log(contractAddress);
         this.setState({ buttonDisabled: true });
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
@@ -49,10 +34,10 @@ class AddDonation extends Component {
         console.log(account);
         const des = this.assetDes.current.value;
         const loc = this.assetLocation.current.value;
-        const gasAmount = await assetDonationContract.methods.addAsset(des, 0, loc,this.state.ipfsHash).estimateGas({ from: account });
+        const gasAmount = await donateAssetContract.methods.addAsset(des, 0, loc,this.state.ipfsHash).estimateGas({ from: account });
         console.log('gasAmount');
         console.log(gasAmount);
-        const result = await assetDonationContract.methods.addAsset(des, 0, loc,this.state.ipfsHash).send({
+        const result = await donateAssetContract.methods.addAsset(des, 0, loc,this.state.ipfsHash).send({
             from: account,
             gasAmount,
         });

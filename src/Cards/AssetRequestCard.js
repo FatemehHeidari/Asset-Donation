@@ -11,7 +11,7 @@ class AssetRequestCard extends Component {
         this.state = {
             requestPopup: false
         };
-        this.reqDes = React.createRef(); 
+        this.reqDes = React.createRef();
         this.datFrom = React.createRef();
         this.datTo = React.createRef();
     }
@@ -22,11 +22,23 @@ class AssetRequestCard extends Component {
 
     saveRequest = async () => {
         //this.setState({ requestPopup: true });
-        this.props.RequestDonation({assetId:this.props.asset.assetId,reqDes:this.reqDes.current.value,datFrom:this.datFrom.current.value,datTo:this.datTo.current.value});
-    }    
+        this.props.RequestDonation({ assetId: this.props.asset.assetId, reqDes: this.reqDes.current.value, datFrom: this.datFrom.current.value, datTo: this.datTo.current.value });
+    }
 
     handleClose = () => {
         this.setState({ requestPopup: false });
+    }
+    decodeStatus = (t) => {
+        switch (t) {
+            case 0:
+                return 'Free';
+            case 1:
+                return 'Requested';
+            case 2:
+                return 'Donated';
+            case 3:
+                return 'Inactive';
+        }
     }
     render() {
         return (
@@ -36,15 +48,19 @@ class AssetRequestCard extends Component {
                 <div class="col xs = {3}" key={this.props.asset.assetId}>
 
                     <div class="container" >
-                        <Image src="donate.png" fluid />
                         <Card style={{ flex: 1 }} >
-                            <Card.Img variant="top" src={'https://ipfs.io/ipfs/'+ this.props.asset.imageIPFSHash} alt="" />
+                            <div id="yourContainer">
+                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.asset.imageIPFSHash} alt="" />
+                            </div>
                             <Card.Body>
                                 <Card.Title>Title: {this.props.asset.title}</Card.Title>
                                 <Card.Text>
                                     Description: {this.props.asset.assetDescription}</Card.Text>
                                 <Card.Text>
                                     Location: {this.props.asset.location}</Card.Text>
+                                <Card.Text>
+                                    Status: {this.decodeStatus(this.props.asset.status)}
+                                </Card.Text>
                                 <Button variant="primary" onClick={this.click}>Request Asset</Button>
                             </Card.Body>
                         </Card>

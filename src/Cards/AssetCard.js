@@ -1,30 +1,18 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import Image from 'react-bootstrap/Image';
 import Modal from 'react-bootstrap/Modal';
 import CardDeck from 'react-bootstrap/CardDeck';
 import RequestCard from './RequestCard';
-import Web3 from "web3";
-import { AssetDonation } from "./abi/abi";
-import donate from './donate.png';
+import donateAssetContract from '../utils/donatecontract'
+import receiveAssetContract from '../utils/receivecontract'
+import '../App.css';
 
-const OPTIONS = {
-    defaultBlock: "latest",
-    transactionConfirmationBlocks: 1,
-    transactionBlockTimeout: 5
-  }
-  const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
-  const contractAddress = "0x4C9AD7141E337Ac67D7556e148D9A671F1280950";//"0x0C7640A95b3748E1fcEEA74dED19D969696d7f18";//"0x70a477883Fff5e6820291C027e000F8665e44287";
-  const assetDonationContract = new web3.eth.Contract(AssetDonation, contractAddress);
-  const state = {
-    hello: 0
-  }
 class AssetCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Requests :[],
+            Requests: [],
             requestPopup: false
         };
     }
@@ -33,40 +21,52 @@ class AssetCard extends Component {
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
         let assetId = this.props.asset.assetId;
+        let requestCount = this.props.asset.requestCount;
         console.log('assetId');
         console.log(assetId);
-        const gasAmount = await assetDonationContract.methods.getDonationRequests(assetId).estimateGas({ from: account });
-        const result = await assetDonationContract.methods.getDonationRequests(assetId).call({
-          from: account,
-          gasAmount,
+        const gasAmount = await receiveAssetContract.methods.getDonationRequests(assetId, requestCount).estimateGas({ from: account });
+        const result = await receiveAssetContract.methods.getDonationRequests(assetId, requestCount).call({
+            from: account,
+            gasAmount,
         });
         console.log('result');
         console.log(result);
-        this.setState({ Requests: result ,requestPopup:true});
-      };
-      requestApprove= async(t)=>{
+        this.setState({ Requests: result, requestPopup: true });
+    };
+    requestApprove = async (t) => {
         console.log(t);
         console.log('t');
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
-        const gasAmount = await assetDonationContract.methods.donateAsset(t.assetId,t.receiver).estimateGas({ from: account });
-        const result = await assetDonationContract.methods.donateAsset(t.assetId,t.receiver).send({
+        const gasAmount = await donateAssetContract.methods.donateAsset(t.assetId, t.receiver).estimateGas({ from: account });
+        const result = await donateAssetContract.methods.donateAsset(t.assetId, t.receiver).send({
             from: account,
             gasAmount,
         });
         //this.setState({buttonDisabled : false});
         console.log('result');
         console.log(result);
-    
-      }
 
+    }
+    decodeStatus = (t) => {
+        switch (t) {
+            case 0:
+                return 'Free';
+            case 1:
+                return 'Requested';
+            case 2:
+                return 'Donated';
+            case 3:
+                return 'Inactive';
+        }
+    }
     handleClose = () => {
         this.setState({ requestPopup: false });
     }
     render() {
         let requestCard = this.state.Requests.map(request => {
             return (
-                <RequestCard request={request}assetId = {this.props.asset.assetId} requestApprove={this.requestApprove}/>)
+                <RequestCard request={request} assetId={this.props.asset.assetId} requestApprove={this.requestApprove} />)
         });
         return (
             <div>
@@ -75,12 +75,17 @@ class AssetCard extends Component {
 
                     <div class="container" >
                         <Card style={{ flex: 1 }} >
-                            <Card.Img variant="top" src={'https://ipfs.io/ipfs/'+ this.props.asset.imageIPFSHash} alt="" />
+                            <div id="yourContainer">
+                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.asset.imageIPFSHash} alt="" />
+                            </div>
                             <Card.Body>
                                 <Card.Text>
                                     Description: {this.props.asset.assetDescription}</Card.Text>
                                 <Card.Text>
                                     Location: {this.props.asset.location}</Card.Text>
+                                <Card.Text>
+                                    Status: {this.decodeStatus(this.props.asset.status)}
+                                </Card.Text>
                                 <Button variant="primary" onClick={this.getRequests}>Show Requests</Button>
                             </Card.Body>
                         </Card>

@@ -1,4 +1,4 @@
-export const AssetDonation = [
+export const DonateAsset = [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -52,6 +52,84 @@ export const AssetDonation = [
       }
     ],
     "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "assetId",
+        "type": "uint32"
+      }
+    ],
+    "name": "LogDonated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "assetId",
+        "type": "uint32"
+      }
+    ],
+    "name": "LogFree",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "assetId",
+        "type": "uint32"
+      }
+    ],
+    "name": "LogIBurned",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "assetId",
+        "type": "uint32"
+      }
+    ],
+    "name": "LogInactive",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "assetId",
+        "type": "uint32"
+      }
+    ],
+    "name": "LogRequested",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
     "type": "event"
   },
   {
@@ -155,6 +233,19 @@ export const AssetDonation = [
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
     "inputs": [],
     "name": "DEFAULT_ADMIN_ROLE",
     "outputs": [
@@ -197,6 +288,20 @@ export const AssetDonation = [
     "constant": true
   },
   {
+    "inputs": [],
+    "name": "addDonor",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "addReceiver",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -217,42 +322,28 @@ export const AssetDonation = [
   {
     "inputs": [
       {
-        "internalType": "uint32",
-        "name": "",
-        "type": "uint32"
-      },
-      {
-        "internalType": "uint32",
-        "name": "",
-        "type": "uint32"
+        "internalType": "address",
+        "name": "donorAddress",
+        "type": "address"
       }
     ],
-    "name": "assetRequestList",
-    "outputs": [
+    "name": "approveDonor",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       {
         "internalType": "address",
-        "name": "receiver",
+        "name": "receiverAddress",
         "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "requestDescription",
-        "type": "string"
-      },
-      {
-        "internalType": "uint32",
-        "name": "requestDateFrom",
-        "type": "uint32"
-      },
-      {
-        "internalType": "uint32",
-        "name": "requestDateTo",
-        "type": "uint32"
       }
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "name": "approveReceiver",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "inputs": [
@@ -319,7 +410,7 @@ export const AssetDonation = [
         "type": "string"
       },
       {
-        "internalType": "enum AssetDonation.Status",
+        "internalType": "enum DonateAsset.Status",
         "name": "status",
         "type": "uint8"
       },
@@ -559,6 +650,27 @@ export const AssetDonation = [
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "pause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -828,56 +940,13 @@ export const AssetDonation = [
   },
   {
     "inputs": [],
-    "name": "addDonor",
+    "name": "unpause",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "donorAddress",
-        "type": "address"
-      }
-    ],
-    "name": "approveDonor",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "assetDescription",
-        "type": "string"
-      },
-      {
-        "internalType": "uint32",
-        "name": "availablityDate",
-        "type": "uint32"
-      },
-      {
-        "internalType": "string",
-        "name": "location",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "imageIPFSHash",
-        "type": "string"
-      }
-    ],
-    "name": "addAsset",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getDonations",
-    "outputs": [
       {
         "components": [
           {
@@ -901,7 +970,7 @@ export const AssetDonation = [
             "type": "string"
           },
           {
-            "internalType": "enum AssetDonation.Status",
+            "internalType": "enum DonateAsset.Status",
             "name": "status",
             "type": "uint8"
           },
@@ -936,7 +1005,107 @@ export const AssetDonation = [
             "type": "string"
           }
         ],
-        "internalType": "struct AssetDonation.Asset[16]",
+        "internalType": "struct DonateAsset.Asset",
+        "name": "asset",
+        "type": "tuple"
+      }
+    ],
+    "name": "UpdateAsset",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "assetDescription",
+        "type": "string"
+      },
+      {
+        "internalType": "uint32",
+        "name": "availablityDate",
+        "type": "uint32"
+      },
+      {
+        "internalType": "string",
+        "name": "location",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "imageIPFSHash",
+        "type": "string"
+      }
+    ],
+    "name": "addAsset",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getDonationsByOwner",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint32",
+            "name": "assetId",
+            "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "assetDescription",
+            "type": "string"
+          },
+          {
+            "internalType": "uint32",
+            "name": "availablityDate",
+            "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "location",
+            "type": "string"
+          },
+          {
+            "internalType": "enum DonateAsset.Status",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "recipient",
+            "type": "address"
+          },
+          {
+            "internalType": "uint32",
+            "name": "donatedDateFrom",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "donatedDateTo",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "requestCount",
+            "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "imageIPFSHash",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DonateAsset.Asset[16]",
         "name": "",
         "type": "tuple[16]"
       }
@@ -972,7 +1141,7 @@ export const AssetDonation = [
             "type": "string"
           },
           {
-            "internalType": "enum AssetDonation.Status",
+            "internalType": "enum DonateAsset.Status",
             "name": "status",
             "type": "uint8"
           },
@@ -1007,49 +1176,7 @@ export const AssetDonation = [
             "type": "string"
           }
         ],
-        "internalType": "struct AssetDonation.Asset[16]",
-        "name": "",
-        "type": "tuple[16]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "assetId",
-        "type": "uint32"
-      }
-    ],
-    "name": "getDonationRequests",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "receiver",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "requestDescription",
-            "type": "string"
-          },
-          {
-            "internalType": "uint32",
-            "name": "requestDateFrom",
-            "type": "uint32"
-          },
-          {
-            "internalType": "uint32",
-            "name": "requestDateTo",
-            "type": "uint32"
-          }
-        ],
-        "internalType": "struct AssetDonation.Request[16]",
+        "internalType": "struct DonateAsset.Asset[16]",
         "name": "",
         "type": "tuple[16]"
       }
@@ -1096,24 +1223,81 @@ export const AssetDonation = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "addReceiver",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "receiverAddress",
-        "type": "address"
+        "internalType": "uint32",
+        "name": "assetId",
+        "type": "uint32"
       }
     ],
-    "name": "approveReceiver",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "getDonation",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint32",
+            "name": "assetId",
+            "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "assetDescription",
+            "type": "string"
+          },
+          {
+            "internalType": "uint32",
+            "name": "availablityDate",
+            "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "location",
+            "type": "string"
+          },
+          {
+            "internalType": "enum DonateAsset.Status",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "recipient",
+            "type": "address"
+          },
+          {
+            "internalType": "uint32",
+            "name": "donatedDateFrom",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "donatedDateTo",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "requestCount",
+            "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "imageIPFSHash",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DonateAsset.Asset",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1121,26 +1305,18 @@ export const AssetDonation = [
         "internalType": "uint32",
         "name": "assetId",
         "type": "uint32"
-      },
-      {
-        "internalType": "string",
-        "name": "requestDescription",
-        "type": "string"
-      },
-      {
-        "internalType": "uint32",
-        "name": "requestDateFrom",
-        "type": "uint32"
-      },
-      {
-        "internalType": "uint32",
-        "name": "requestDateTo",
-        "type": "uint32"
       }
     ],
-    "name": "requestAsset",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "getAssetRequestCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   }
-];
+]

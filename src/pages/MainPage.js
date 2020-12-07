@@ -1,32 +1,15 @@
-import { render } from "@testing-library/react";
 import React, { Component } from "react";
 import Image from 'react-bootstrap/Image';
-import history from '../history';
+import history from '../utils/history';
 import '../App.css';
-import Web3 from "web3";
-import { AssetDonation } from "../abi/abi";
+import donate from '../donate.png';
 
-const OPTIONS = {
-  defaultBlock: "latest",
-  transactionConfirmationBlocks: 1,
-  transactionBlockTimeout: 5
-}
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
-const contractAddress = "0x4C9AD7141E337Ac67D7556e148D9A671F1280950";//"0x0C7640A95b3748E1fcEEA74dED19D969696d7f18";//"0x70a477883Fff5e6820291C027e000F8665e44287";
-const assetDonationContract = new web3.eth.Contract(AssetDonation, contractAddress);
-const state = {
-  hello: 0
-}
-const account = web3.givenProvider.selectedAddress;//accounts[0];
 
 class MainPage extends Component {
     constructor(props) {
         super(props);
       }
-    Donate(){
-        history.push('/DonarPage');
-    }
-    Request(){}
+
     render() {
         return (
             <div>
@@ -40,6 +23,7 @@ class MainPage extends Component {
                         <div class=" form-group col-md-6">
                         <button type="button" class="btn btn-outline-primary btn-block" onClick={() => history.push('/DonarPage')}>Enter As a Donor</button>
                         <button type="button" class="btn btn-outline-primary btn-block" onClick={() => history.push('/RequestPage')}>Request Donation</button>
+                        <button type="button" class="btn btn-outline-primary btn-block" onClick={() => history.push('/AdminPage')}>Admin</button>
                         </div>
                         <div class="col-xl-5 col-lg-6">
                             <div class="card shadow mb-4">
@@ -52,7 +36,7 @@ class MainPage extends Component {
                                             <div class="col-12">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <Image src="donate.png" thumbnail />
+                                                        <Image src={donate} thumbnail />
                                                     </div>
                                                 </div>
                                             </div>

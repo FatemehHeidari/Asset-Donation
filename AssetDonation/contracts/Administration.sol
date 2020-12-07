@@ -8,29 +8,47 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 /// @notice This contract facilitates donation of physical assets for specific periods of time between asset owners and receivers
 /// @dev time
 
-contract Administration is AccessControl ,Pausable{
+contract Administration is AccessControl, Pausable {
+    bool noAdmin;
 
-    constructor() public AccessControl() Pausable(){
+    constructor() public AccessControl() Pausable() {
+        noAdmin = true;
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
     bytes32 public constant DONOR = keccak256("DONOR");
     bytes32 public constant RECEIVER = keccak256("RECEIVER");
+    // struct donors{
+    //     bool exists;
+    //     bool approved;
+    //     uint32 donationCount;
+    //     uint32 pageNo;
+    // }
 
     mapping(address => bool) public donors;
     mapping(address => bool) public receivers;
+    modifier isAdmin() {
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender));
+        _;
+    }
 
-    modifier isDonor(address donorAddress) {
-        require(hasRole(DONOR, donorAddress));
-        _;
-    }
-    modifier isReceiver(address receiverAddress) {
-        require(hasRole(RECEIVER, receiverAddress));
-        _;
-    }
+    // modifier isDonor(address donorAddress) {
+    //     if (!noAdmin) {
+    //         require(hasRole(DONOR, donorAddress));
+    //     }
+    //     _;
+    // }
+    // modifier isReceiver(address receiverAddress) {
+    //     if (!noAdmin) {
+    //         require(hasRole(RECEIVER, receiverAddress));
+    //     }
+    //     _;
+    // }
 
     function addDonor() public {
-        donors[msg.sender] = false;
+        if (!donors[msg.sender]) {
+            donors[msg.sender] = false;
+        }
     }
 
     /// @notice Admin approves an address to have the donor role
@@ -42,7 +60,9 @@ contract Administration is AccessControl ,Pausable{
 
     /// @notice Adds an address to list of receivers
     function addReceiver() public {
-        receivers[msg.sender] = false;
+        if (!receivers[msg.sender]) {
+            receivers[msg.sender] = false;
+        }
     }
 
     /// @notice Admin approves an address to have the receiver role
@@ -52,10 +72,11 @@ contract Administration is AccessControl ,Pausable{
         receivers[receiverAddress] = true;
     }
 
-    function pause() public {
+    function pause() public isAdmin{
         _pause();
     }
-    function unpause() public {
+
+    function unpause() public isAdmin{
         _unpause();
-    }    
+    }
 }

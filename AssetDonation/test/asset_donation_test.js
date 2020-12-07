@@ -18,23 +18,13 @@ contract('donationTest', function (accounts) {
     const ipfsHash = "QmdBC2po8FGwh4niygC8i4NfpVXAiPY6Ei2eisNy76ThaW";
 
 
-    beforeEach(async () => {
-        //let instanceR = await ReceiveAsset.deployed(instance.address);
-        //  let instanceDonate = await DonateAsset.deployed();
-        //  const tx = await instanceDonate.addDonor({ from: donor });
-        //  const tx2 = await instanceDonate.approveDonor(donor,{ from: admin });
-        //  let instanceReceive = await ReceiveAsset.deployed(instanceDonate.address);
-        //  const tx1 = await instanceReceive.addReceiver({ from: receiver });
-        //  const tx3 = await instanceReceive.approveReceiver(receiver,{  from: admin });
-    })
-    it("should revert if addAsset is called by a non donor role", async() =>{
-        let instanceDonate = await DonateAsset.deployed();
-        const tx = await instanceDonate.addDonor({ from: donor });
-        const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
-        const t2 = await instanceDonate.addDonor( { from: donor })
-        await catchRevert(instanceDonate.addAsset(des, availablitydate, loc, ipfsHash, { from: other }))
-    })
 
+    it("should revert if pause is called by a non admin role", async() =>{
+
+        let instanceDonate = await DonateAsset.deployed();
+        await catchRevert(instanceDonate.pause({ from: other }))
+    })
+    
     it("should revert if addAsset is called in paused situation", async() =>{
         let instanceDonate = await DonateAsset.deployed();
         const tx = await instanceDonate.addDonor({ from: donor });
@@ -47,8 +37,8 @@ contract('donationTest', function (accounts) {
 
     it("add an asset", async () => {
         let instanceDonate = await DonateAsset.deployed();
-        const tx = await instanceDonate.addDonor({ from: donor });
-        const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
+        //const tx = await instanceDonate.addDonor({ from: donor });
+        //const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
         // let instance = await DonateAsset.deployed();
         const tx2 = await instanceDonate.addAsset(des, availablitydate, loc, ipfsHash, { from: donor })
 
@@ -63,32 +53,31 @@ contract('donationTest', function (accounts) {
         assert.equal(result.imageIPFSHash, ipfsHash, 'the stored ipfs Hash should be equal to ipfsHash')
     })
 
+    it("emit LogFree event when an asset is added", async()=> {
+        let eventEmitted = false
+        let instanceDonate = await DonateAsset.deployed();
+        const tx = await instanceDonate.addAsset(des, availablitydate, loc,ipfsHash,{from: donor})
+
+        if (tx.logs[1].event == "LogFree") {
+            eventEmitted = true
+        }
+
+        assert.equal(eventEmitted, true, 'adding an asset should emit a Free event')
+    })
+
     const requestDescription = 'Request 0 Asset 0';
     const requestDateFrom = 12345678;
     const requestDateTo = 12345789;
-    it("should revert if requestAsset is called by a non RECEIVER role", async () => {
-        //let instance = await DonateAsset.deployed();
-        //let instanceReceive = await ReceiveAsset.deployed(instance.address);
-        let instanceDonate = await DonateAsset.deployed();
-        const tx = await instanceDonate.addDonor({ from: donor });
-        const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
-        let instanceReceive = await ReceiveAsset.deployed(instanceDonate.address);
-        
-        const tx4 = await instanceDonate.addAsset(des, availablitydate, loc, ipfsHash, { from: donor })
-        await catchRevert(instanceReceive.requestAsset(0, requestDescription,
-            requestDateFrom,
-            requestDateTo, { from: other }))
 
-    })
     it("request an asset", async () => {
         //let instance = await DonateAsset.deployed();
         //let instanceReceive = await ReceiveAsset.deployed(instance.address);
         let instanceDonate = await DonateAsset.deployed();
-        const tx = await instanceDonate.addDonor({ from: donor });
-        const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
+        //const tx = await instanceDonate.addDonor({ from: donor });
+        //const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
         let instanceReceive = await ReceiveAsset.deployed(instanceDonate.address);
-         const tx2 = await instanceReceive.addReceiver({ from: receiver });
-         const tx3 = await instanceReceive.approveReceiver(receiver,{  from: admin });
+        //const tx2 = await instanceReceive.addReceiver({ from: receiver });
+        //const tx3 = await instanceReceive.approveReceiver(receiver,{  from: admin });
         const tx4 = await instanceDonate.addAsset(des, availablitydate, loc, ipfsHash, { from: donor })
         const tx5 = await instanceReceive.requestAsset(0, requestDescription,
             requestDateFrom,
@@ -102,11 +91,26 @@ contract('donationTest', function (accounts) {
         assert.equal(result[2].toString(10), requestDateFrom, 'requestDateFrom is not saved properly')
         assert.equal(result[3].toString(10), requestDateTo, 'requestDateTo is not saved properly')
         assert.equal(resultAsset.status, 1, 'the status should be Requested')
-
-
+        assert.equal(resultAsset.requestCount, 1, 'the status should be Requested')
     })
 
-    it("should revert if donateAsset is called by a non DONOR role", async () => {
+    it("request asset emitts LogRequested", async () => {
+        let eventEmitted = false
+        let instanceDonate = await DonateAsset.deployed();
+        let instanceReceive = await ReceiveAsset.deployed(instanceDonate.address);
+        const tx4 = await instanceDonate.addAsset(des, availablitydate, loc, ipfsHash, { from: donor })
+        const tx5 = await instanceReceive.requestAsset(0, requestDescription,
+            requestDateFrom,
+            requestDateTo, { from: receiver })
+            
+            if (tx5.logs[0].event == "LogRequested") {
+                eventEmitted = true
+            }
+    
+            assert.equal(eventEmitted, true, 'request asset should emit a Requested event')            
+    })    
+
+    it("should revert if donateAsset is not called by owner", async () => {
         let instanceDonate = await DonateAsset.deployed();
         const tx = await instanceDonate.addDonor({ from: donor });
         const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
@@ -119,8 +123,8 @@ contract('donationTest', function (accounts) {
 
     it("donate an asset", async () => {
         let instanceDonate = await DonateAsset.deployed();
-        const tx = await instanceDonate.addDonor({ from: donor });
-        const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
+        //const tx = await instanceDonate.addDonor({ from: donor });
+        //const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
         //let instance = await DonateAsset.deployed();
         const tx2 = await instanceDonate.addAsset(des, availablitydate, loc, ipfsHash, { from: donor })
 
@@ -131,22 +135,25 @@ contract('donationTest', function (accounts) {
         assert.equal(resultAsset.status, 2, 'the status should be Donated')
         assert.equal(resultAsset.recipient, receiver, 'the recipient address should be updated to receiver')
     })
-    it("should revert if pause is called by a non admin role", async() =>{
+
+    it("donate asset emitts LogDonated", async () => {
+        let eventEmitted = false
         let instanceDonate = await DonateAsset.deployed();
-        const t3 = await instanceDonate.pause( { from: other })
-        // const t4 = await instanceDonate.unpause( { from: admin })
+        //const tx = await instanceDonate.addDonor({ from: donor });
+        //const tx1 = await instanceDonate.approveDonor(donor,{ from: admin });
+        //let instance = await DonateAsset.deployed();
+        const tx = await instanceDonate.addAsset(des, availablitydate, loc, ipfsHash, { from: donor })
+
+        const tx1 = await instanceDonate.donateAsset(1,receiver, { from: donor })
+        if (tx1.logs[0].event == "LogDonated") {
+            eventEmitted = true
+        }
+
+        assert.equal(eventEmitted, true, 'donate asset should emit a LogDonated event')            
+
     })
 
-    // it("should emit a LogFree event when an asset is added", async()=> {
-    //     let eventEmitted = false
-    //     const tx = await instance.addAsset(des, availablitydat, loc,ipfsHash,{from: donor})
 
-    //     if (tx.logs[0].event == "LogFree") {
-    //         eventEmitted = true
-    //     }
-
-    //     assert.equal(eventEmitted, true, 'adding an asset should emit a Free event')
-    // })
 
     // it("should allow someone to purchase an item and update state accordingly", async() => {
 

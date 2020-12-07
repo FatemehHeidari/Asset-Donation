@@ -7,7 +7,8 @@ import RequestPage from "./pages/RequestPage";
 import DonarPage from "./pages/DonarPage";
 import AddDonation from "./pages/AddDonation";
 import Home from "./pages/MainPage";
-import history from './history';
+import AdminPage from "./pages/AdminPage";
+import history from './utils/history';
 
 export default class Routes extends Component {
     render() {
@@ -18,6 +19,7 @@ export default class Routes extends Component {
                      <Route path="/DonarPage" component={DonarPage} />
                     <Route path="/RequestPage" component={RequestPage} />
                     <Route path="/AddDonation" component={AddDonation} />
+                    <Route path="/AdminPage" component={AdminPage} />
                 </Switch>
             </Router>
         )

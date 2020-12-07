@@ -3,18 +3,17 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import './Administration.sol';
+import "./Administration.sol";
 
 /// @title A Asset donation smart contract
 /// @author Fatemeh Heidari Soureshjani
 /// @notice This contract facilitates donation of physical assets for specific periods of time between asset owners and receivers
 /// @dev time
 
-contract DonateAsset is ERC721, Administration{
+contract DonateAsset is ERC721, Administration {
     uint32 lastAssetId;
 
-
-    constructor() public ERC721("MyToken", "MTS") Administration(){
+    constructor() public ERC721("MyToken", "MTS") Administration() {
         lastAssetId = 0;
     }
 
@@ -36,10 +35,8 @@ contract DonateAsset is ERC721, Administration{
 
     mapping(uint32 => Asset) public donationList;
 
-
-
     modifier assetIsFree(uint32 assetId) {
-        require(donationList[assetId].recipient == address(0));
+        require(donationList[assetId].recipient == address(0) && (donationList[assetId].status == Status.Free || donationList[assetId].status == Status.Requested));
         _;
     }
 
@@ -48,18 +45,23 @@ contract DonateAsset is ERC721, Administration{
         _;
     }
 
-    event LogFree(uint32 assetId);
-    event LogRequested(uint32 assetId);
-    event LogDonated(uint32 assetId);
-    event LogInactive(uint32 assetId);
-    event LogIBurned(uint32 assetId);
-
-    function UpdateAsset(Asset memory asset) public {
-        donationList[asset.assetId].status = asset.status;
-        donationList[asset.assetId].requestCount = asset.requestCount;
+    modifier isAssetOwner(uint assetId){
+        require(ownerOf(assetId) == msg.sender);
+        _; 
     }
 
+    event LogFree(uint32 assetId);
+    
+    event LogDonated(uint32 assetId);
+    // event LogInactive(uint32 assetId);
+    // event LogIBurned(uint32 assetId);
 
+    function UpdateAsset(Asset memory asset) public {
+        if (asset.status > donationList[asset.assetId].status) {
+            donationList[asset.assetId].status = asset.status;
+        }
+        donationList[asset.assetId].requestCount = asset.requestCount;
+    }
 
     /// @notice Adds a new asset to list of donated assets(Should be called by a donor)
     /// @dev other asset struct members should be added
@@ -72,7 +74,8 @@ contract DonateAsset is ERC721, Administration{
         uint32 availablityDate,
         string memory location,
         string memory imageIPFSHash
-    ) public isDonor(msg.sender) whenNotPaused{
+    ) public whenNotPaused {
+        addDonor();
         uint32 assetId = mintToken(msg.sender);
         donationList[assetId] = Asset({
             assetId: assetId,
@@ -94,10 +97,11 @@ contract DonateAsset is ERC721, Administration{
     /// @dev There must be better way than returing always an array of 16
     /// @return Asset returns an array of type asset and length 16 of donations of msg.sender
     function getDonationsByOwner()
-        public
+        public 
         view
-        isDonor(msg.sender)
-        returns (Asset[16] memory)
+        returns (
+            Asset[16] memory
+        )
     {
         uint32 tokenCount = uint32(balanceOf(msg.sender));
         uint32 index = 0;
@@ -136,7 +140,9 @@ contract DonateAsset is ERC721, Administration{
     /// @notice everytime a new token is minted based on current value of lastAssetId for assetOwner address, and then lastAssetId is increased
     /// @param assetOwner the owner of the new asset
     /// @return returns the id of new minted token
-    function mintToken(address assetOwner) public isDonor(msg.sender) whenNotPaused returns (uint32){
+    function mintToken(
+        address assetOwner //isDonor(msg.sender)
+    ) public whenNotPaused returns (uint32) {
         _safeMint(assetOwner, lastAssetId);
         uint32 assetId = lastAssetId;
         lastAssetId++;
@@ -150,21 +156,23 @@ contract DonateAsset is ERC721, Administration{
     function donateAsset(uint32 assetId, address recipientAddress)
         public
         assetExists(assetId)
-        //isDonor(msg.sender)
         //isReceiver(recipientAddress)
         assetIsFree(assetId)
-        isDonor(msg.sender)
+        isAssetOwner(assetId)
+        //isDonor(msg.sender)
         whenNotPaused
     {
         donationList[assetId].recipient = recipientAddress;
         donationList[assetId].status = Status.Donated;
+        emit LogDonated(assetId);
+    }
+
+
+    function getAssetRequestCount(uint32 assetId) public view returns (uint32) {
+        return donationList[assetId].requestCount;
     }
 
     function getDonation(uint32 assetId) public view returns (Asset memory) {
         return donationList[assetId];
-    }
-
-    function getAssetRequestCount(uint32 assetId) public view returns (uint) {
-        return donationList[assetId].requestCount;
     }
 }

@@ -3,55 +3,57 @@ import '../App.css';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import CardDeck from 'react-bootstrap/CardDeck';
-import Web3 from "web3";
 import React, { Component, useState } from "react";
-import { AssetDonation } from "../abi/abi";
-import history from '../history';
-import AssetCard from '../AssetCard';
-//import shortid from 'shortid';
+import history from '../utils/history';
+import AssetCard from '../Cards/AssetCard';
+import donatecontract from '../utils/donatecontract.js'
 
-const OPTIONS = {
-  defaultBlock: "latest",
-  transactionConfirmationBlocks: 1,
-  transactionBlockTimeout: 5
-}
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
-const contractAddress = "0x4C9AD7141E337Ac67D7556e148D9A671F1280950";//"0x0C7640A95b3748E1fcEEA74dED19D969696d7f18";//"0x70a477883Fff5e6820291C027e000F8665e44287";
-const assetDonationContract = new web3.eth.Contract(AssetDonation, contractAddress);
-const state = {
-  hello: 0
-}
+
+
 class DonarPage extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       Assets: [],
-      Requests:[]
+      Requests: []
     };
   }
 
   getDonations = async (t) => {
     t.preventDefault();
+    console.log('donateContract');
+    console.log(donatecontract);
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
-    const gasAmount = await assetDonationContract.methods.getDonations().estimateGas({ from: account });
-    const result = await assetDonationContract.methods.getDonations().call({
+    console.log('account');
+    console.log(account);
+    const gasAmount = await donatecontract.methods.getDonationsByOwner().estimateGas({ from: account });
+    const result = await donatecontract.methods.getDonationsByOwner().call({
       from: account,
       gasAmount,
     });
+    console.log('result');
+    console.log(result);
     this.setState({ Assets: result });
   };
 
 
   render() {
     let assetCards = this.state.Assets.map(asset => {
-      return (<div class="col-xl-5 col-lg-6">
-        <AssetCard asset={asset} />
-      </div>)
+      if (asset.owner != "0x0000000000000000000000000000000000000000") {
+        return (<div class="col-xl-5 col-lg-6">
+          <AssetCard asset={asset} />
+        </div>)
+      }
     });
     return (
       <div>
+        <div class="container">
+          <div class="jumbotron">
+            <h2> Donate!  </h2>
+          </div>
+        </div>
         <Button variant="primary" onClick={this.getDonations} type="button">
           Retrive
           </Button> {'   '}

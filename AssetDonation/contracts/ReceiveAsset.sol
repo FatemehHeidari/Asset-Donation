@@ -40,7 +40,7 @@ contract ReceiveAsset is Administration{
     DonateAsset DA;
     uint32 lastRequestId;
 
-    constructor(address _DA) public AccessControl() {
+    constructor(address _DA) public Administration() {
         DA = DonateAsset(_DA);
         lastRequestId = 0;
     }
@@ -53,7 +53,7 @@ contract ReceiveAsset is Administration{
     }
     mapping(uint32 => mapping(uint32 => Request)) public assetRequestList;
 
-
+    event LogRequested(uint32 assetId);
 
     /// @notice retrieves all request for a specific donation
     /// @dev There must be better way than returing always an array of 16
@@ -61,7 +61,7 @@ contract ReceiveAsset is Administration{
     /// @return Request returns an array of type Request and length 16
     function getDonationRequests(
         uint32 assetId,
-        uint256 requestCount //DA.assetExists(assetId)
+        uint256 requestCount
     ) public view returns (Request[16] memory) {
         Request[16] memory requestArray;
             mapping(uint32 => Request) storage requestMapping
@@ -83,8 +83,9 @@ contract ReceiveAsset is Administration{
         uint32 assetId,
         string memory requestDescription,
         uint32 requestDateFrom,
-        uint32 requestDateTo //assetExists(assetId)
-    ) public isReceiver(msg.sender) whenNotPaused{
+        uint32 requestDateTo
+    ) public
+             whenNotPaused{
         uint32 requestCount = DA.getAssetRequestCount(assetId); ///donationList[assetId];
         //if (requestedItem.requestCount < maxNoOfReqsPerAsst) {
         assetRequestList[assetId][requestCount] = Request({
@@ -104,10 +105,11 @@ contract ReceiveAsset is Administration{
             recipient: address(0),
             donatedDateFrom: 0,
             donatedDateTo: 0,
-            requestCount: 0,
+            requestCount: requestCount,
             imageIPFSHash: ""
         });
         DA.UpdateAsset(asset);
+        emit LogRequested(assetId);
         //donationList[assetId].status = Status.Requested;
         //requestedItem.requestCount++;
     }

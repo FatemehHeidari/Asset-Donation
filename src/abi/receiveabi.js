@@ -15,6 +15,19 @@ export const ReceiveAsset = [
     "inputs": [
       {
         "indexed": false,
+        "internalType": "uint32",
+        "name": "assetId",
+        "type": "uint32"
+      }
+    ],
+    "name": "LogRequested",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "address",
         "name": "account",
         "type": "address"
@@ -227,6 +240,11 @@ export const ReceiveAsset = [
         "internalType": "uint32",
         "name": "requestDateTo",
         "type": "uint32"
+      },
+      {
+        "internalType": "enum ReceiveAsset.RequestStatus",
+        "name": "status",
+        "type": "uint8"
       }
     ],
     "stateMutability": "view",
@@ -245,8 +263,49 @@ export const ReceiveAsset = [
     "outputs": [
       {
         "internalType": "bool",
-        "name": "",
+        "name": "exists",
         "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint32",
+        "name": "donationCount",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "getDonor",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "approved",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint32",
+            "name": "donationCount",
+            "type": "uint32"
+          }
+        ],
+        "internalType": "struct Administration.donor",
+        "name": "",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -350,6 +409,20 @@ export const ReceiveAsset = [
       }
     ],
     "name": "hasRole",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "isAdminUser",
     "outputs": [
       {
         "internalType": "bool",
@@ -481,6 +554,11 @@ export const ReceiveAsset = [
             "internalType": "uint32",
             "name": "requestDateTo",
             "type": "uint32"
+          },
+          {
+            "internalType": "enum ReceiveAsset.RequestStatus",
+            "name": "status",
+            "type": "uint8"
           }
         ],
         "internalType": "struct ReceiveAsset.Request[16]",

@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./Administration.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 
 /// @title A Asset donation smart contract
 /// @author Fatemeh Heidari Soureshjani
@@ -21,6 +22,7 @@ contract DonateAsset is ERC721, Administration {
 
     struct Asset {
         uint32 assetId;
+        string assetTitle;
         string assetDescription;
         uint32 availablityDate;
         string location;
@@ -36,7 +38,11 @@ contract DonateAsset is ERC721, Administration {
     mapping(uint32 => Asset) public donationList;
 
     modifier assetIsFree(uint32 assetId) {
-        require(donationList[assetId].recipient == address(0) && (donationList[assetId].status == Status.Free || donationList[assetId].status == Status.Requested));
+        require(
+            donationList[assetId].recipient == address(0) &&
+                (donationList[assetId].status == Status.Free ||
+                    donationList[assetId].status == Status.Requested)
+        );
         _;
     }
 
@@ -45,14 +51,15 @@ contract DonateAsset is ERC721, Administration {
         _;
     }
 
-    modifier isAssetOwner(uint assetId){
+    modifier isAssetOwner(uint256 assetId) {
         require(ownerOf(assetId) == msg.sender);
-        _; 
+        _;
     }
 
     event LogFree(uint32 assetId);
-    
+
     event LogDonated(uint32 assetId);
+
     // event LogInactive(uint32 assetId);
     // event LogIBurned(uint32 assetId);
 
@@ -70,6 +77,7 @@ contract DonateAsset is ERC721, Administration {
     /// @param location the location of the donated asset
     /// @param imageIPFSHash IPFS hash of the asset image uploaded by owner and saved to IPFS
     function addAsset(
+        string memory assetTitle,
         string memory assetDescription,
         uint32 availablityDate,
         string memory location,
@@ -79,6 +87,7 @@ contract DonateAsset is ERC721, Administration {
         uint32 assetId = mintToken(msg.sender);
         donationList[assetId] = Asset({
             assetId: assetId,
+            assetTitle: assetTitle,
             assetDescription: assetDescription,
             availablityDate: availablityDate,
             location: location,
@@ -96,27 +105,33 @@ contract DonateAsset is ERC721, Administration {
     /// @notice Returns all donations of an donor(it shoud be called by a donor)
     /// @dev There must be better way than returing always an array of 16
     /// @return Asset returns an array of type asset and length 16 of donations of msg.sender
-    function getDonationsByOwner()
-        public 
+    function getDonationsByOwner(uint32 pageNo)
+        public
         view
-        returns (
-            Asset[16] memory
-        )
+        returns (Asset[8] memory)
     {
-        uint32 tokenCount = uint32(balanceOf(msg.sender));
-        uint32 index = 0;
+        uint tokenCount = uint32(balanceOf(msg.sender)); //donors[msg.sender].donationCount;
+        //uint32 pageNo = donors[msg.sender].pageNo;
+        uint nextStart = SafeMath.mul(uint256(pageNo) , 8);
+        uint rem = SafeMath.sub( tokenCount , nextStart);
+        uint index = 0;
         uint32 tokenId;
-        Asset[16] memory assetList;
-        if (tokenCount <= 16) {
-            index = tokenCount;
+        Asset[8] memory assetList;
+        if (rem < 0) {
+            return assetList;
         } else {
-            index = 16;
+            if ((rem) < 8) {
+                index = rem;
+            } else {
+                index = 8;
+            }
+            uint loopEnd = SafeMath.add( nextStart , index);
+            for (uint i = nextStart; i < loopEnd; SafeMath.add( i , 1)) {
+                tokenId = uint32(tokenOfOwnerByIndex(msg.sender, i));
+                assetList[SafeMath.sub(i , nextStart)] = donationList[tokenId];
+            }
+            return assetList;
         }
-        for (uint32 i = 0; i < index; i++) {
-            tokenId = uint32(tokenOfOwnerByIndex(msg.sender, i));
-            assetList[i] = donationList[tokenId];
-        }
-        return assetList;
     }
 
     /// @notice returns all donations
@@ -130,7 +145,7 @@ contract DonateAsset is ERC721, Administration {
         } else {
             index = 16;
         }
-        for (uint32 i = 0; i < index; i++) {
+        for (uint32 i = 0; i < index; SafeMath.add(i,1)) {
             assetList[i] = donationList[i];
         }
         return assetList;
@@ -145,12 +160,13 @@ contract DonateAsset is ERC721, Administration {
     ) public whenNotPaused returns (uint32) {
         _safeMint(assetOwner, lastAssetId);
         uint32 assetId = lastAssetId;
-        lastAssetId++;
+        SafeMath.add(lastAssetId,1);
         return assetId;
     }
 
     /// @notice a donor can approve a specific request and this function assigns the recipient of this asset to the recipientAddress
     /// @notice caller should be a donor and recipient should be a receiver
+    /// @dev change related request's status to approved
     /// @param assetId unique id of asset to be donated
     /// @param recipientAddress donation receiver
     function donateAsset(uint32 assetId, address recipientAddress)
@@ -166,7 +182,6 @@ contract DonateAsset is ERC721, Administration {
         donationList[assetId].status = Status.Donated;
         emit LogDonated(assetId);
     }
-
 
     function getAssetRequestCount(uint32 assetId) public view returns (uint32) {
         return donationList[assetId].requestCount;

@@ -32,12 +32,13 @@ class AddDonation extends Component {
         //const account = await web3.givenProvider.selectedAddress;//accounts[0];
         console.log('selectedAddress');
         console.log(account);
+        const tit = this.assetTitle.current.value;
         const des = this.assetDes.current.value;
         const loc = this.assetLocation.current.value;
-        const gasAmount = await donateAssetContract.methods.addAsset(des, 0, loc,this.state.ipfsHash).estimateGas({ from: account });
+        const gasAmount = await donateAssetContract.methods.addAsset(tit,des, 0, loc,this.state.ipfsHash).estimateGas({ from: account });
         console.log('gasAmount');
         console.log(gasAmount);
-        const result = await donateAssetContract.methods.addAsset(des, 0, loc,this.state.ipfsHash).send({
+        const result = await donateAssetContract.methods.addAsset(tit,des, 0, loc,this.state.ipfsHash).send({
             from: account,
             gasAmount,
         });
@@ -107,7 +108,7 @@ class AddDonation extends Component {
                                                         <InputGroup.Text id="AssetTitle">Asset Title</InputGroup.Text>
                                                     </InputGroup.Prepend>
                                                     <FormControl
-                                                        ref={this.assettitle}
+                                                        ref={this.assetTitle}
                                                         placeholder="AssetTitle"
                                                         aria-label="AssetTitle"
                                                         aria-describedby="AssetTitle"

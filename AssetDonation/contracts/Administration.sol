@@ -1,7 +1,9 @@
 pragma solidity ^0.6.2;
+pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 
 /// @title A Asset donation smart contract
 /// @author Fatemeh Heidari Soureshjani
@@ -9,23 +11,23 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 /// @dev time
 
 contract Administration is AccessControl, Pausable {
-    bool noAdmin;
+    //bool noAdmin;
 
     constructor() public AccessControl() Pausable() {
-        noAdmin = true;
+        //noAdmin = true;
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
     bytes32 public constant DONOR = keccak256("DONOR");
     bytes32 public constant RECEIVER = keccak256("RECEIVER");
-    // struct donors{
-    //     bool exists;
-    //     bool approved;
-    //     uint32 donationCount;
-    //     uint32 pageNo;
-    // }
+    struct donor{
+        bool exists;
+        bool approved;
+        uint32 donationCount;
+        //uint32 pageNo;
+    }
 
-    mapping(address => bool) public donors;
+    mapping(address => donor) public donors;
     mapping(address => bool) public receivers;
     modifier isAdmin() {
         require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender));
@@ -46,16 +48,22 @@ contract Administration is AccessControl, Pausable {
     // }
 
     function addDonor() public {
-        if (!donors[msg.sender]) {
-            donors[msg.sender] = false;
+        if (!donors[msg.sender].exists) {
+            donors[msg.sender] = donor({exists:true,approved:false,donationCount:1});
+        }
+        else{
+            donors[msg.sender].donationCount = uint32(SafeMath.add(uint256(donors[msg.sender].donationCount), 1));
         }
     }
+    function getDonor() public view returns(donor memory){
+        return donors[msg.sender];
+    }    
 
     /// @notice Admin approves an address to have the donor role
     /// @param donorAddress The address of donor to be approved
     function approveDonor(address donorAddress) public {
         grantRole(DONOR, donorAddress);
-        donors[donorAddress] = true;
+        donors[donorAddress].approved = true;
     }
 
     /// @notice Adds an address to list of receivers
@@ -74,6 +82,14 @@ contract Administration is AccessControl, Pausable {
 
     function pause() public isAdmin{
         _pause();
+    }
+
+    // function getAdmin() public returns(address){
+    //     return getRoleAdmin(DEFAULT_ADMIN_ROLE);
+    // }
+
+    function isAdminUser() public view isAdmin returns(bool) {
+        return true;
     }
 
     function unpause() public isAdmin{

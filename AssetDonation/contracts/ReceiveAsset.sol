@@ -13,7 +13,8 @@ contract DonateAsset {
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import './Administration.sol';
+import "./Administration.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 
 /// @title A Asset donation smart contract
 /// @author Fatemeh Heidari Soureshjani
@@ -35,8 +36,7 @@ struct Asset {
     string imageIPFSHash;
 }
 
-contract ReceiveAsset is Administration{
-
+contract ReceiveAsset is Administration {
     DonateAsset DA;
     uint32 lastRequestId;
 
@@ -45,11 +45,14 @@ contract ReceiveAsset is Administration{
         lastRequestId = 0;
     }
 
+    enum RequestStatus {Open, Approved, Rejected}
+
     struct Request {
         address receiver;
         string requestDescription;
         uint32 requestDateFrom;
         uint32 requestDateTo;
+        RequestStatus status;
     }
     mapping(uint32 => mapping(uint32 => Request)) public assetRequestList;
 
@@ -59,14 +62,16 @@ contract ReceiveAsset is Administration{
     /// @dev There must be better way than returing always an array of 16
     /// @param assetId the unique asset id of donation
     /// @return Request returns an array of type Request and length 16
-    function getDonationRequests(
-        uint32 assetId,
-        uint256 requestCount
-    ) public view returns (Request[16] memory) {
+    function getDonationRequests(uint32 assetId, uint256 requestCount)
+        public
+        view
+        returns (Request[16] memory)
+    {
         Request[16] memory requestArray;
+
             mapping(uint32 => Request) storage requestMapping
          = assetRequestList[assetId];
-        for (uint32 i = 0; i < requestCount; i++) {
+        for (uint32 i = 0; i < requestCount; SafeMath.add(i, 1)) {
             requestArray[i] = requestMapping[i];
         }
         return requestArray;
@@ -84,17 +89,17 @@ contract ReceiveAsset is Administration{
         string memory requestDescription,
         uint32 requestDateFrom,
         uint32 requestDateTo
-    ) public
-             whenNotPaused{
+    ) public whenNotPaused {
         uint32 requestCount = DA.getAssetRequestCount(assetId); ///donationList[assetId];
         //if (requestedItem.requestCount < maxNoOfReqsPerAsst) {
         assetRequestList[assetId][requestCount] = Request({
             receiver: msg.sender,
             requestDescription: requestDescription,
             requestDateFrom: requestDateFrom,
-            requestDateTo: requestDateTo
+            requestDateTo: requestDateTo,
+            status: RequestStatus.Open
         });
-        requestCount++;
+        SafeMath.add( requestCount,1);
         Asset memory asset = Asset({
             assetId: assetId,
             assetDescription: "",
@@ -110,8 +115,6 @@ contract ReceiveAsset is Administration{
         });
         DA.UpdateAsset(asset);
         emit LogRequested(assetId);
-        //donationList[assetId].status = Status.Requested;
-        //requestedItem.requestCount++;
     }
 
     function getRequest(uint32 assetId, uint32 requestId)
@@ -131,4 +134,8 @@ contract ReceiveAsset is Administration{
         requestDateTo = request.requestDateTo;
         return (receiver, requestDescription, requestDateFrom, requestDateTo);
     }
+
+    // function approveRequest(uint32 assetId, address recipientAddress){
+
+    // }
 }

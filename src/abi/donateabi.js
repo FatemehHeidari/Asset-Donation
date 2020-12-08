@@ -85,45 +85,6 @@ export const DonateAsset = [
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint32",
-        "name": "assetId",
-        "type": "uint32"
-      }
-    ],
-    "name": "LogIBurned",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint32",
-        "name": "assetId",
-        "type": "uint32"
-      }
-    ],
-    "name": "LogInactive",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint32",
-        "name": "assetId",
-        "type": "uint32"
-      }
-    ],
-    "name": "LogRequested",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
         "internalType": "address",
         "name": "account",
         "type": "address"
@@ -396,6 +357,11 @@ export const DonateAsset = [
       },
       {
         "internalType": "string",
+        "name": "assetTitle",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
         "name": "assetDescription",
         "type": "string"
       },
@@ -461,8 +427,18 @@ export const DonateAsset = [
     "outputs": [
       {
         "internalType": "bool",
-        "name": "",
+        "name": "exists",
         "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint32",
+        "name": "donationCount",
+        "type": "uint32"
       }
     ],
     "stateMutability": "view",
@@ -483,6 +459,37 @@ export const DonateAsset = [
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "getDonor",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "approved",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint32",
+            "name": "donationCount",
+            "type": "uint32"
+          }
+        ],
+        "internalType": "struct Administration.donor",
+        "name": "",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -586,6 +593,20 @@ export const DonateAsset = [
       }
     ],
     "name": "hasRole",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "isAdminUser",
     "outputs": [
       {
         "internalType": "bool",
@@ -956,6 +977,11 @@ export const DonateAsset = [
           },
           {
             "internalType": "string",
+            "name": "assetTitle",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
             "name": "assetDescription",
             "type": "string"
           },
@@ -1019,6 +1045,11 @@ export const DonateAsset = [
     "inputs": [
       {
         "internalType": "string",
+        "name": "assetTitle",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
         "name": "assetDescription",
         "type": "string"
       },
@@ -1044,7 +1075,13 @@ export const DonateAsset = [
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint32",
+        "name": "pageNo",
+        "type": "uint32"
+      }
+    ],
     "name": "getDonationsByOwner",
     "outputs": [
       {
@@ -1053,6 +1090,11 @@ export const DonateAsset = [
             "internalType": "uint32",
             "name": "assetId",
             "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "assetTitle",
+            "type": "string"
           },
           {
             "internalType": "string",
@@ -1105,9 +1147,9 @@ export const DonateAsset = [
             "type": "string"
           }
         ],
-        "internalType": "struct DonateAsset.Asset[16]",
+        "internalType": "struct DonateAsset.Asset[8]",
         "name": "",
-        "type": "tuple[16]"
+        "type": "tuple[8]"
       }
     ],
     "stateMutability": "view",
@@ -1124,6 +1166,11 @@ export const DonateAsset = [
             "internalType": "uint32",
             "name": "assetId",
             "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "assetTitle",
+            "type": "string"
           },
           {
             "internalType": "string",
@@ -1230,6 +1277,26 @@ export const DonateAsset = [
         "type": "uint32"
       }
     ],
+    "name": "getAssetRequestCount",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint32",
+        "name": "assetId",
+        "type": "uint32"
+      }
+    ],
     "name": "getDonation",
     "outputs": [
       {
@@ -1238,6 +1305,11 @@ export const DonateAsset = [
             "internalType": "uint32",
             "name": "assetId",
             "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "assetTitle",
+            "type": "string"
           },
           {
             "internalType": "string",
@@ -1293,26 +1365,6 @@ export const DonateAsset = [
         "internalType": "struct DonateAsset.Asset",
         "name": "",
         "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "assetId",
-        "type": "uint32"
-      }
-    ],
-    "name": "getAssetRequestCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",

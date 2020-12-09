@@ -50,6 +50,8 @@ class DonarPage extends Component {
     //console.log('account');
     //console.log(account);
     const gasAmount = await donatecontract.methods.getDonationsByOwner(0).estimateGas({ from: account });
+    console.log('gasAmount');
+    console.log(gasAmount);    
     const result = await donatecontract.methods.getDonationsByOwner(0).call({
       from: account,
       gasAmount,

@@ -1,6 +1,6 @@
 
 let BN = web3.utils.BN
-let Administration = artifacts.require('DonateAsset')
+let Administration = artifacts.require('Administration')
 let catchRevert = require("./exceptionsHelpers.js").catchRevert
 
 contract('Administration', function (accounts) {

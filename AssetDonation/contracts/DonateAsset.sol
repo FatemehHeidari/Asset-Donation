@@ -1,9 +1,13 @@
 pragma solidity ^0.6.2;
 pragma experimental ABIEncoderV2;
 
+contract Administration {
+    function systemPaused() public returns(bool){}
+    function addDonor() public {}
+}
+
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "./Administration.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 
 /// @title A Asset donation smart contract
@@ -11,10 +15,13 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 /// @notice This contract facilitates donation of physical assets for specific periods of time between asset owners and receivers
 /// @dev time
 
-contract DonateAsset is ERC721, Administration {
+contract DonateAsset is ERC721 {
+    Administration ADM;
+
     uint32 lastAssetId;
 
-    constructor() public ERC721("MyToken", "MTS") Administration() {
+    constructor(address _adm) public ERC721("MyToken", "MTS") {
+        ADM = Administration(_adm);
         lastAssetId = 0;
     }
 
@@ -56,6 +63,11 @@ contract DonateAsset is ERC721, Administration {
         _;
     }
 
+    modifier whenNotPaused(){
+        require(!ADM.systemPaused());
+        _;
+    }
+
     event LogFree(uint32 assetId);
 
     event LogDonated(uint32 assetId);
@@ -83,7 +95,7 @@ contract DonateAsset is ERC721, Administration {
         string memory location,
         string memory imageIPFSHash
     ) public whenNotPaused {
-        addDonor();
+        ADM.addDonor();
         uint32 assetId = mintToken(msg.sender);
         donationList[assetId] = Asset({
             assetId: assetId,
@@ -126,7 +138,7 @@ contract DonateAsset is ERC721, Administration {
                 index = 8;
             }
             uint loopEnd = SafeMath.add( nextStart , index);
-            for (uint i = nextStart; i < loopEnd; SafeMath.add( i , 1)) {
+            for (uint i = nextStart; i < loopEnd; i++) {
                 tokenId = uint32(tokenOfOwnerByIndex(msg.sender, i));
                 assetList[SafeMath.sub(i , nextStart)] = donationList[tokenId];
             }
@@ -145,7 +157,7 @@ contract DonateAsset is ERC721, Administration {
         } else {
             index = 16;
         }
-        for (uint32 i = 0; i < index; SafeMath.add(i,1)) {
+        for (uint32 i = 0; i < index; i++) {
             assetList[i] = donationList[i];
         }
         return assetList;
@@ -160,7 +172,7 @@ contract DonateAsset is ERC721, Administration {
     ) public whenNotPaused returns (uint32) {
         _safeMint(assetOwner, lastAssetId);
         uint32 assetId = lastAssetId;
-        SafeMath.add(lastAssetId,1);
+        lastAssetId = uint32(SafeMath.add(uint256(lastAssetId),1));
         return assetId;
     }
 

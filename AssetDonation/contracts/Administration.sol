@@ -20,7 +20,7 @@ contract Administration is AccessControl, Pausable {
 
     bytes32 public constant DONOR = keccak256("DONOR");
     bytes32 public constant RECEIVER = keccak256("RECEIVER");
-    struct donor{
+    struct donor {
         bool exists;
         bool approved;
         uint32 donationCount;
@@ -49,15 +49,21 @@ contract Administration is AccessControl, Pausable {
 
     function addDonor() public {
         if (!donors[msg.sender].exists) {
-            donors[msg.sender] = donor({exists:true,approved:false,donationCount:1});
-        }
-        else{
-            donors[msg.sender].donationCount = uint32(SafeMath.add(uint256(donors[msg.sender].donationCount), 1));
+            donors[msg.sender] = donor({
+                exists: true,
+                approved: false,
+                donationCount: 1
+            });
+        } else {
+            donors[msg.sender].donationCount = uint32(
+                SafeMath.add(uint256(donors[msg.sender].donationCount), 1)
+            );
         }
     }
-    function getDonor() public view returns(donor memory){
+
+    function getDonor() public view returns (donor memory) {
         return donors[msg.sender];
-    }    
+    }
 
     /// @notice Admin approves an address to have the donor role
     /// @param donorAddress The address of donor to be approved
@@ -80,7 +86,7 @@ contract Administration is AccessControl, Pausable {
         receivers[receiverAddress] = true;
     }
 
-    function pause() public isAdmin{
+    function pause() public isAdmin {
         _pause();
     }
 
@@ -88,11 +94,16 @@ contract Administration is AccessControl, Pausable {
     //     return getRoleAdmin(DEFAULT_ADMIN_ROLE);
     // }
 
-    function isAdminUser() public view isAdmin returns(bool) {
-        return true;
+    function unpause() public isAdmin {
+        _unpause();
     }
 
-    function unpause() public isAdmin{
-        _unpause();
+    function systemPaused() public view returns (bool) {
+        bool paused = paused();
+        return paused;
+    }
+
+    function isAdminUser() public view isAdmin returns (bool) {
+        return true;
     }
 }

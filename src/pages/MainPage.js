@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 import history from '../utils/history';
 import '../App.css';
 import donate from '../donate.png';
@@ -11,32 +12,34 @@ const OPTIONS = {
     defaultBlock: "latest",
     transactionConfirmationBlocks: 1,
     transactionBlockTimeout: 5
-  }
+}
 const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
 
 class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          AdminUser : false
+            AdminUser: false
         };
         this.setAdmin();
-      }
-      
-      setAdmin = async () => {
+    }
+
+    setAdmin = async () => {
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
         const gasAmount = await donatecontract.methods.isAdminUser().estimateGas({ from: account });
         const result = await donatecontract.methods.isAdminUser().call({
-          from: account,
-          gasAmount,
+            from: account,
+            gasAmount,
         });
         console.log('result');
         console.log(result);
 
         this.setState({ AdminUser: result });
-      }
-
+    }
+    getState = async () => {
+        return this.state.AdminUser;
+    }
     //   getAdmin = async () => {
     //     const accounts = await window.ethereum.enable();
     //     const account = accounts[0];
@@ -50,7 +53,7 @@ class MainPage extends Component {
 
     //     this.setState({ AdminUser: result });
     //   }
-    
+
     render() {
         return (
             <div>
@@ -60,15 +63,25 @@ class MainPage extends Component {
                     </div>
                 </div>
                 <div class="container">
-                    <div class="form-row">
-                        <div class=" form-group col-md-6">
-                        <Button  variant="primary" onClick={() => history.push('/DonarPage')}>Enter As a Donor</Button>
-                        <br/>
-                        <Button  variant="primary" onClick={() => history.push('/RequestPage')}>Request Donation</Button>
-                        <br/>
-                        <Button  variant="primary" active={false} class="btn btn-outline-primary btn-block" onClick={() => history.push('/AdminPage')}>Admin</Button>
-                        </div>
-                        <div class="col-xl-5 col-lg-6">
+                    <div class="row top-buffer">
+                        <Col xs={6}>
+                            <div class="row top-buffer">
+                                <div class="col-xl-6">
+                                    <Button variant="primary" onClick={() => history.push('/DonarPage')}>Enter As a Donor</Button>
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <div class="col-xl-6">
+                                    <Button variant="primary" onClick={() => history.push('/RequestPage')}>Request Donation</Button>
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <div class="col-xl-6">
+                                    {this.getState && <Button variant="primary" active={false} class="btn btn-outline-primary btn-block" onClick={() => history.push('/AdminPage')}>Admin</Button>}
+                                </div>
+                            </div>
+                        </Col>
+                        <Col xs={6}>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                 </div>
@@ -87,8 +100,10 @@ class MainPage extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Col>
+
                     </div>
+
                 </div>
             </div>
         )

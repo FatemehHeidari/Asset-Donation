@@ -1,6 +1,12 @@
 pragma solidity ^0.6.2;
 pragma experimental ABIEncoderV2;
 
+contract Administration {
+    function systemPaused() public returns (bool) {}
+
+    function addDonor() public {}
+}
+
 contract DonateAsset {
     function getAssetRequestCount(uint32 assetId)
         public
@@ -13,7 +19,6 @@ contract DonateAsset {
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "./Administration.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 
 /// @title A Asset donation smart contract
@@ -24,6 +29,7 @@ enum Status {Free, Requested, Donated, Inactive, Burned}
 
 struct Asset {
     uint32 assetId;
+    string assetTitle;
     string assetDescription;
     uint32 availablityDate;
     string location;
@@ -36,12 +42,14 @@ struct Asset {
     string imageIPFSHash;
 }
 
-contract ReceiveAsset is Administration {
+contract ReceiveAsset {
+    Administration ADM;
     DonateAsset DA;
     uint32 lastRequestId;
 
-    constructor(address _DA) public Administration() {
-        DA = DonateAsset(_DA);
+    constructor(address _da, address _adm) public {
+        ADM = Administration(_adm);
+        DA = DonateAsset(_da);
         lastRequestId = 0;
     }
 
@@ -55,7 +63,10 @@ contract ReceiveAsset is Administration {
         RequestStatus status;
     }
     mapping(uint32 => mapping(uint32 => Request)) public assetRequestList;
-
+    modifier whenNotPaused() {
+        require(!ADM.systemPaused());
+        _;
+    }
     event LogRequested(uint32 assetId);
 
     /// @notice retrieves all request for a specific donation
@@ -69,14 +80,14 @@ contract ReceiveAsset is Administration {
     {
         Request[16] memory requestArray;
 
+
             mapping(uint32 => Request) storage requestMapping
          = assetRequestList[assetId];
-        for (uint32 i = 0; i < requestCount; SafeMath.add(i, 1)) {
+        for (uint32 i = 0; i < requestCount; i++) {
             requestArray[i] = requestMapping[i];
         }
         return requestArray;
     }
-
     /// @notice A receiver can register a request for a specific donation previousely added
     /// @notice to list of donation by a donor
     /// @dev date conflicts can be checked
@@ -99,9 +110,11 @@ contract ReceiveAsset is Administration {
             requestDateTo: requestDateTo,
             status: RequestStatus.Open
         });
-        SafeMath.add( requestCount,1);
+        emit LogRequested(assetId);
+        requestCount++; //= uint32(SafeMath.add(uint256(requestCount), 1));
         Asset memory asset = Asset({
             assetId: assetId,
+            assetTitle:"",
             assetDescription: "",
             availablityDate: 0,
             location: "",
@@ -114,7 +127,6 @@ contract ReceiveAsset is Administration {
             imageIPFSHash: ""
         });
         DA.UpdateAsset(asset);
-        emit LogRequested(assetId);
     }
 
     function getRequest(uint32 assetId, uint32 requestId)

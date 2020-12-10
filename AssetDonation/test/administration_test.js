@@ -12,7 +12,7 @@ contract('Administration', function (accounts) {
     it("should revert if approveDonor is called by a non admin role", async() =>{
 
         let instance = await Administration.deployed();
-        const tx = await instance.addDonor( { from: donor })
+        const tx = await instance.addDonor( donor)
         await catchRevert(instance.approveDonor(donor, { from: other }))
     })
     it("should pause system", async() =>{
@@ -27,4 +27,10 @@ contract('Administration', function (accounts) {
         let instance = await Administration.deployed();
         await catchRevert(instance.pause({ from: other }))
     })
+    it("check isAdminUser", async() =>{
+
+        let instance = await Administration.deployed();
+        const result = await instance.isAdminUser({from:other});
+        assert.equal(result, false, 'paused properly')
+    })    
 })

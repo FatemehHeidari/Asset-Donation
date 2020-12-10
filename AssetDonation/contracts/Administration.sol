@@ -47,17 +47,17 @@ contract Administration is AccessControl, Pausable {
     //     _;
     // }
 
-    function addDonor() public {
-        if (!donors[msg.sender].exists) {
-            donors[msg.sender] = donor({
+    function addDonor(address donorAddress) public {
+        if (!donors[donorAddress].exists) {
+            donors[donorAddress] = donor({
                 exists: true,
                 approved: false,
                 donationCount: 1
             });
         } else {
-            donors[msg.sender].donationCount = uint32(
-                SafeMath.add(uint256(donors[msg.sender].donationCount), 1)
-            );
+            donors[donorAddress].donationCount =
+                donors[donorAddress].donationCount +
+                1; //20;//uint32(SafeMath.add(uint256(donors[msg.sender].donationCount), 1));
         }
     }
 
@@ -103,7 +103,8 @@ contract Administration is AccessControl, Pausable {
         return paused;
     }
 
-    function isAdminUser() public view isAdmin returns (bool) {
-        return true;
+    function isAdminUser() public view returns (bool) {
+        if (hasRole(DEFAULT_ADMIN_ROLE, msg.sender)) return true;
+        else return false;
     }
 }

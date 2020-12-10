@@ -8122,8 +8122,8 @@
         }
       },
       "links": {},
-      "address": "0x626569a1dA7C5eD97Fd4269d3452Ce3bFD544d51",
-      "transactionHash": "0x1f9bc58c12e8ab15ce08c203bec4452c2960f802750ae093d4fcfbf08f622358"
+      "address": "0x31275158414772C6517083a636bc5eCD3221D27e",
+      "transactionHash": "0xdff4a025047875ee94b552614136b945656c69f74afd40a8ca0d97a64eae8090"
     },
     "1607104392524": {
       "events": {
@@ -10868,10 +10868,190 @@
       "links": {},
       "address": "0x0c5755CB34201c8A03c4a864754CB7E10540a429",
       "transactionHash": "0xbfd82837e2afd1f066b92c1e28fb72ffc46a9386c50e40100f93507fea64c1c2"
+    },
+    "1607534983726": {
+      "events": {
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x9219F2a45A9171bfcf3d2fa9281Dba0E7a2844f3",
+      "transactionHash": "0xbd495f78b86a831fb0c60fb86d61b4e75b49a492d9f2997264993bfb2719b51a"
+    },
+    "1607536105293": {
+      "events": {
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xA278cae0c38ADF760a953C8B5a650DB8b84BD529",
+      "transactionHash": "0x711c1541713a1e2c48adf35739ce00367ec0140b7a1e83052e660e13aff5484a"
+    },
+    "1607536614432": {
+      "events": {
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xE68ce8f604dfE2be2Bf145b8de3B60A0a6d042B7",
+      "transactionHash": "0x3017cd2edad039144acba56d343b4bc59ba5642c982156bb592eace8a03f7400"
+    },
+    "1607536877061": {
+      "events": {
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xdDD0E3d30e60C73709B47874F6F121974cC445F3",
+      "transactionHash": "0x03ae14122b3d15b577ba5752014f8550a1565b32b69da9722167e992e9b5e41a"
+    },
+    "1607537551726": {
+      "events": {
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xe296b8175a07a6EdF8aAa9A3f4360A9d9105DDB4",
+      "transactionHash": "0xb3d07d3f1015b67ed6bc88057108c95c70aca8e9cd335d2d6be17d11e15921ef"
+    },
+    "1607541496286": {
+      "events": {
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xCa041c2E07CFdf9116E0e6BC3ef386cEe9f9f4D0",
+      "transactionHash": "0x332882669c27b109cb7e8b2101e2486a0ef4f00495c6061510ef9e5eb5ae4b14"
+    },
+    "1607542007868": {
+      "events": {
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xBA22455347B2f78ca395a88BF12a00bd7A7851a5",
+      "transactionHash": "0x926cbeb5d4d92e831187102928f06923afedf161095da5b36ddc841c6a2c388e"
+    },
+    "1607565785289": {
+      "events": {
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xf15B069210017cDD2Db13232fEb987f2824C0eC9",
+      "transactionHash": "0xab476130bb55a54452d997442bdea8bf224766bc2d5e787bd5b49b38cc810d57"
+    },
+    "1607565894816": {
+      "events": {
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xf5121e0974737d1bcB6DD5FD6a24e2690314F2fA",
+      "transactionHash": "0xe0322297ef75d4f3f022843d449eac889d4502cc564a1c565a8c6121456613a4"
     }
   },
   "schemaVersion": "3.3.1",
-  "updatedAt": "2020-12-09T15:39:40.981Z",
+  "updatedAt": "2020-12-10T02:05:16.893Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {

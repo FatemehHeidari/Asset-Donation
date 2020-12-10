@@ -66,7 +66,7 @@ class AssetRequestCard extends Component {
                         </Card>
                         <Modal show={this.state.requestPopup} onHide={this.handleClose}>
                             <Modal.Header closeButton>
-                                <Modal.Title>Modal heading</Modal.Title>
+                                <Modal.Title>Add Requset</Modal.Title>
                             </Modal.Header>
                             <Modal.Body><div class="card shadow mb-4">
                                 <div class="card-header py-3">

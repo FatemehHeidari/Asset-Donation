@@ -22,8 +22,6 @@ contract('donationTest', function (accounts) {
     it("should revert if addAsset is called in paused situation", async() =>{
         let adminInstance = await Administration.deployed();
         let instanceDonate = await DonateAsset.deployed(adminInstance.address);
-        const tx = await adminInstance.addDonor({ from: donor });
-        const tx1 = await adminInstance.approveDonor(donor,{ from: admin });
         const t3 = await adminInstance.pause( { from: admin })
         await catchRevert(instanceDonate.addAsset(title,des, availablitydate, loc, ipfsHash, { from: donor }))
         const t4 = await adminInstance.unpause( { from: admin })
@@ -43,6 +41,15 @@ contract('donationTest', function (accounts) {
         assert.equal(result.owner, donor, 'the owner of asset should be equal to donor')
         assert.equal(result.recipient, emptyAddress, 'the receiver address should be empty')
         assert.equal(result.imageIPFSHash, ipfsHash, 'the stored ipfs Hash should be equal to ipfsHash')
+    })
+
+
+    it("add asset updates donationCount in donor", async () => {
+        let adminInstance = await Administration.deployed();
+        let instanceDonate = await DonateAsset.deployed(adminInstance.address);
+        const result = await adminInstance.getDonor.call({from: donor});
+        assert.equal(result.exists, true, 'donation count is not increased appropriately')
+        assert.equal(result.donationCount.toString(10), 1, 'donation count is not increased appropriately');
     })
 
     it("emit LogFree event when an asset is added", async()=> {
@@ -110,7 +117,7 @@ contract('donationTest', function (accounts) {
 
     it("donate an asset", async () => {
         let adminInstance = await Administration.deployed();
-        let instanceDonate = await DonateAsset.deployed(adminInstance.address);        //const tx = await instanceDonate.addDonor({ from: donor });
+        let instanceDonate = await DonateAsset.deployed(adminInstance.address); 
         const tx2 = await instanceDonate.addAsset(title,des, availablitydate, loc, ipfsHash, { from: donor })
 
         const tx3 = await instanceDonate.donateAsset(5,receiver, { from: donor })
@@ -135,4 +142,6 @@ contract('donationTest', function (accounts) {
         assert.equal(eventEmitted, true, 'donate asset should emit a LogDonated event')            
 
     })
+
+
 })

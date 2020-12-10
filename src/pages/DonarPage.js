@@ -7,6 +7,7 @@ import React, { Component, useState } from "react";
 import history from '../utils/history';
 import AssetCard from '../Cards/AssetCard';
 import donatecontract from '../utils/donatecontract.js'
+import admincontract from '../utils/admincontract.js'
 import Pagination from 'react-bootstrap/Pagination'
 
 
@@ -21,23 +22,28 @@ class DonarPage extends Component {
       donor: {},
       NextPageVisible: false,
       nextPageNo: 0,
-      pageCount: 0
+      pageCount: 0,
+      querized:false
     };
     this.getDonor();
   }
+  
   getDonor = async () => {
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
-    const gasAmount = await donatecontract.methods.getDonor().estimateGas({ from: account });
-    const result = await donatecontract.methods.getDonor().call({
+    console.log(account);
+    console.log(account);
+    const gasAmount = await admincontract.methods.getDonor().estimateGas({ from: account });
+    const result = await admincontract.methods.getDonor().call({
       from: account,
       gasAmount,
     });
-    console.log('result');
+    console.log('getDonor');
     console.log(result);
     console.log('(this.state.donor.donationCount/8)');
-    console.log(Math.round(result.donationCount / 8));
-    this.setState({ pageCount: Math.round(result.donationCount / 8) + 1 });
+    console.log(Math.floor(result.donationCount / 8));
+    this.setState({ pageCount: Math.floor(result.donationCount / 8) + 1 });
+
   }
 
   getDonations = async (t) => {
@@ -59,6 +65,9 @@ class DonarPage extends Component {
     console.log('result');
     console.log(result);
     this.setState({ Assets: result, NextPageVisible: true });
+    if(this.state.pageCount > 1){
+      this.setState({querized:true});
+    }
   };
 
   getNextDonations = async (t) => {
@@ -78,6 +87,9 @@ class DonarPage extends Component {
     console.log('result');
     console.log(result);
     this.setState({ Assets: result, NextPageVisible: true });
+    if(this.state.pageCount > 1){
+      this.setState({querized:true});
+    }
   };
 
   getPrevDonations = async (t) => {
@@ -98,10 +110,41 @@ class DonarPage extends Component {
       console.log('result');
       console.log(result);
       this.setState({ Assets: result, NextPageVisible: true });
+      if(this.state.pageCount > 1){
+        this.setState({querized:true});
+      }
     }
   };
-
-
+  getDonationsByPageNo = async (t) => {
+    this.setState({ nextPageNo: 0 });
+    //console.log('donateContract');
+    //console.log(donatecontract);
+    const accounts = await window.ethereum.enable();
+    const account = accounts[0];
+    //console.log('account');
+    //console.log(account);
+    const gasAmount = await donatecontract.methods.getDonationsByOwner(t).estimateGas({ from: account });
+    console.log('gasAmount');
+    console.log(gasAmount);    
+    const result = await donatecontract.methods.getDonationsByOwner(t).call({
+      from: account,
+      gasAmount,
+    });
+    console.log('result');
+    console.log(result);
+    this.setState({ Assets: result, NextPageVisible: true });
+    if(this.state.pageCount > 1){
+      this.setState({querized:true});
+    }
+  };
+  changePage = async (e) => {
+    console.log('pagination');
+    const clickValue = e.target.offsetParent.getAttribute('data-page')
+    ? e.target.offsetParent.getAttribute('data-page')
+    : e.target.getAttribute('data-page');
+  console.log( clickValue );
+  this.getDonationsByPageNo(clickValue-1);
+  }
   render() {
     let assetCards = this.state.Assets.map(asset => {
       if (asset.owner != "0x0000000000000000000000000000000000000000") {
@@ -114,7 +157,7 @@ class DonarPage extends Component {
     let items = [];
     for (let number = 1; number <= this.state.pageCount; number++) {
       items.push(
-        <Pagination.Item key={number} active={number === active}>
+        <Pagination.Item key={number} data-page={number} active={number === active} onChange={this.changePage}>
           {number}
         </Pagination.Item>,
       );
@@ -133,15 +176,13 @@ class DonarPage extends Component {
           Add New Donation
         </Button>
         <div class="form-row">
-
           <CardDeck tyle={{ display: 'flex', flexDirection: 'row' }}>
             {assetCards}
           </CardDeck >
-
         </div>
         <br />
         <div class="form-row">
-          <Pagination size="sm">{items}</Pagination>
+        {this.state.querized && <Pagination size="sm"  onClick={this.changePage}>{items}</Pagination>}
         </div>
         <br />
         {/* <Button variant="primary" onClick={this.getPrevDonations} type="button" visible={false}>

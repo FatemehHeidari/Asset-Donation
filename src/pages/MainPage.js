@@ -6,6 +6,7 @@ import history from '../utils/history';
 import '../App.css';
 import donate from '../donate.png';
 import donatecontract from '../utils/donatecontract.js'
+import admincontract from '../utils/admincontract.js'
 import Web3 from "web3";
 
 const OPTIONS = {
@@ -27,8 +28,8 @@ class MainPage extends Component {
     setAdmin = async () => {
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
-        const gasAmount = await donatecontract.methods.isAdminUser().estimateGas({ from: account });
-        const result = await donatecontract.methods.isAdminUser().call({
+        const gasAmount = await admincontract.methods.isAdminUser().estimateGas({ from: account });
+        const result = await admincontract.methods.isAdminUser().call({
             from: account,
             gasAmount,
         });

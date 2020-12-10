@@ -3,7 +3,7 @@ import '../App.css';
 import Button from 'react-bootstrap/Button';
 import CardDeck from 'react-bootstrap/CardDeck';
 import React, { Component, useState } from "react";
-import AssetCard from '../Cards/AssetRequestCard';
+import AssetRequestCard from '../Cards/AssetRequestCard';
 import receiveAssetContract from '../utils/receivecontract.js';
 import donateAssetContract from '../utils/donatecontract.js';
 
@@ -65,7 +65,7 @@ class RequestPage extends Component {
         let assetCards = this.state.Assets.map(asset => {
             if (asset.owner != "0x0000000000000000000000000000000000000000") {
                 return (
-                    <AssetCard asset={asset} RequestDonation={this.RequestDonation} />)
+                    <AssetRequestCard asset={asset} RequestDonation={this.RequestDonation} />)
             }
         });
         return (

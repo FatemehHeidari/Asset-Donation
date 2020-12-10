@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 
 contract Administration {
     function systemPaused() public returns(bool){}
-    function addDonor() public {}
+    function addDonor(address donorAddress) public {}
 }
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -95,7 +95,7 @@ contract DonateAsset is ERC721 {
         string memory location,
         string memory imageIPFSHash
     ) public whenNotPaused {
-        ADM.addDonor();
+        ADM.addDonor(msg.sender);
         uint32 assetId = mintToken(msg.sender);
         donationList[assetId] = Asset({
             assetId: assetId,
@@ -117,15 +117,15 @@ contract DonateAsset is ERC721 {
     /// @notice Returns all donations of an donor(it shoud be called by a donor)
     /// @dev There must be better way than returing always an array of 16
     /// @return Asset returns an array of type asset and length 16 of donations of msg.sender
-    function getDonationsByOwner(uint32 pageNo)
+    function getDonationsByOwner(uint pageNo)
         public
         view
         returns (Asset[8] memory)
     {
-        uint tokenCount = uint32(balanceOf(msg.sender)); //donors[msg.sender].donationCount;
+        uint tokenCount = uint(balanceOf(msg.sender)); //donors[msg.sender].donationCount;
         //uint32 pageNo = donors[msg.sender].pageNo;
-        uint nextStart = SafeMath.mul(uint256(pageNo) , 8);
-        uint rem = SafeMath.sub( tokenCount , nextStart);
+        uint nextStart = SafeMath.mul(pageNo , 8);//0
+        uint rem = SafeMath.sub( tokenCount , nextStart);//1
         uint index = 0;
         uint32 tokenId;
         Asset[8] memory assetList;
@@ -133,11 +133,11 @@ contract DonateAsset is ERC721 {
             return assetList;
         } else {
             if ((rem) < 8) {
-                index = rem;
+                index = rem;//1
             } else {
                 index = 8;
             }
-            uint loopEnd = SafeMath.add( nextStart , index);
+            uint loopEnd = SafeMath.add( nextStart , index);//9
             for (uint i = nextStart; i < loopEnd; i++) {
                 tokenId = uint32(tokenOfOwnerByIndex(msg.sender, i));
                 assetList[SafeMath.sub(i , nextStart)] = donationList[tokenId];

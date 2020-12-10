@@ -7,7 +7,7 @@ import '../App.css';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
-import donateAssetContract from '../utils/donatecontract.js';
+import adminContract from '../utils/admincontract.js';
 
 
 class DonarPage extends Component {
@@ -24,8 +24,8 @@ class DonarPage extends Component {
         //t.preventDefault();
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
-        const gasAmount = await donateAssetContract.methods.paused().estimateGas({ from: account });
-        const result = await donateAssetContract.methods.paused().call({
+        const gasAmount = await adminContract.methods.paused().estimateGas({ from: account });
+        const result = await adminContract.methods.paused().call({
             from: account,
             gasAmount,
         });
@@ -45,8 +45,8 @@ class DonarPage extends Component {
         t.preventDefault();
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
-        const gasAmount = await donateAssetContract.methods.pause().estimateGas({ from: account });
-        const result = await donateAssetContract.methods.pause().send({
+        const gasAmount = await adminContract.methods.pause().estimateGas({ from: account });
+        const result = await adminContract.methods.pause().send({
             from: account,
             gasAmount,
         });
@@ -59,8 +59,8 @@ class DonarPage extends Component {
         t.preventDefault();
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
-        const gasAmount = await donateAssetContract.methods.unpause().estimateGas({ from: account });
-        const result = await donateAssetContract.methods.unpause().send({
+        const gasAmount = await adminContract.methods.unpause().estimateGas({ from: account });
+        const result = await adminContract.methods.unpause().send({
             from: account,
             gasAmount,
         });

@@ -65,14 +65,15 @@ class AssetCard extends Component {
     }
     render() {
         let requestCard = this.state.Requests.map(request => {
-            return (
-                <RequestCard request={request} assetId={this.props.asset.assetId} requestApprove={this.requestApprove} />)
+            if (request.receiver != "0x0000000000000000000000000000000000000000") {
+                return (
+                    <RequestCard request={request} assetId={this.props.asset.assetId} requestApprove={this.requestApprove} />)
+            }
         });
         return (
             <div>
                 <br></br>
                 <div class="col xs = {3}" key={this.props.asset.assetId}>
-
                     <div class="container" >
                         <Card style={{ flex: 1 }} >
                             <div id="yourContainer">
@@ -104,7 +105,8 @@ class AssetCard extends Component {
                             </div>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button variant="secondary" onClick={this.handleClose} disabled={this.state.buttonDisabled}>
+                                <Button variant="secondary" onClick={this.handleClose} disabled={false}>
+                                    Close
                                 </Button>
                             </Modal.Footer>
                         </Modal>

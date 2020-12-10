@@ -38,6 +38,8 @@ class AssetCard extends Component {
         console.log('t');
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
+        console.log('account');
+        console.log(account);
         const gasAmount = await donateAssetContract.methods.donateAsset(t.assetId, t.receiver).estimateGas({ from: account });
         const result = await donateAssetContract.methods.donateAsset(t.assetId, t.receiver).send({
             from: account,

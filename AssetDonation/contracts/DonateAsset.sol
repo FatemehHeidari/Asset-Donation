@@ -9,6 +9,7 @@ contract Administration {
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/SafeCast.sol";
 
 /// @title A Asset donation smart contract
 /// @author Fatemeh Heidari Soureshjani
@@ -49,7 +50,7 @@ contract DonateAsset is ERC721 {
             donationList[assetId].recipient == address(0) &&
                 (donationList[assetId].status == Status.Free ||
                     donationList[assetId].status == Status.Requested)
-        );
+        ,"Asset is not Free.");
         _;
     }
 
@@ -59,12 +60,12 @@ contract DonateAsset is ERC721 {
     }
 
     modifier isAssetOwner(uint256 assetId) {
-        require(ownerOf(assetId) == msg.sender);
+        require(ownerOf(assetId) == msg.sender,"Sender nis ot asset owner.");
         _;
     }
 
     modifier whenNotPaused(){
-        require(!ADM.systemPaused());
+        require(!ADM.systemPaused(),"System is in emergency stop.");
         _;
     }
 
@@ -172,7 +173,7 @@ contract DonateAsset is ERC721 {
     ) public whenNotPaused returns (uint32) {
         _safeMint(assetOwner, lastAssetId);
         uint32 assetId = lastAssetId;
-        lastAssetId = uint32(SafeMath.add(uint256(lastAssetId),1));
+        lastAssetId = SafeCast.toUint32(SafeMath.add(uint256(lastAssetId),1));
         return assetId;
     }
 

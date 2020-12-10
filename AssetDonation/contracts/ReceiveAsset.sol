@@ -20,6 +20,7 @@ contract DonateAsset {
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/SafeCast.sol";
 
 /// @title A Asset donation smart contract
 /// @author Fatemeh Heidari Soureshjani
@@ -64,7 +65,7 @@ contract ReceiveAsset {
     }
     mapping(uint32 => mapping(uint32 => Request)) public assetRequestList;
     modifier whenNotPaused() {
-        require(!ADM.systemPaused());
+        require(!ADM.systemPaused(),"System is in emergency stop.");
         _;
     }
     event LogRequested(uint32 assetId);
@@ -111,7 +112,7 @@ contract ReceiveAsset {
             status: RequestStatus.Open
         });
         emit LogRequested(assetId);
-        requestCount++; //= uint32(SafeMath.add(uint256(requestCount), 1));
+        requestCount = SafeCast.toUint32(SafeMath.add(uint256(requestCount), 1));
         Asset memory asset = Asset({
             assetId: assetId,
             assetTitle:"",

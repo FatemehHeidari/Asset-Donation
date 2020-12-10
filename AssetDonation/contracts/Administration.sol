@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/SafeCast.sol";
 
 /// @title A Asset donation smart contract
 /// @author Fatemeh Heidari Soureshjani
@@ -30,7 +31,7 @@ contract Administration is AccessControl, Pausable {
     mapping(address => donor) public donors;
     mapping(address => bool) public receivers;
     modifier isAdmin() {
-        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender));
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender),"Sender is not ADMIN.");
         _;
     }
 
@@ -48,16 +49,15 @@ contract Administration is AccessControl, Pausable {
     // }
 
     function addDonor(address donorAddress) public {
-        if (!donors[donorAddress].exists) {
+        donor storage d = donors[donorAddress];
+        if (!d.exists) {
             donors[donorAddress] = donor({
                 exists: true,
                 approved: false,
                 donationCount: 1
             });
         } else {
-            donors[donorAddress].donationCount =
-                donors[donorAddress].donationCount +
-                1; //20;//uint32(SafeMath.add(uint256(donors[msg.sender].donationCount), 1));
+            d.donationCount = SafeCast.toUint32(SafeMath.add(uint256(donors[donorAddress].donationCount), 1));
         }
     }
 

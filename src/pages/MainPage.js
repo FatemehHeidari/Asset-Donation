@@ -78,7 +78,7 @@ class MainPage extends Component {
                             </div>
                             <div class="row top-buffer">
                                 <div class="col-xl-6">
-                                    {this.getState && <Button variant="primary" active={false} class="btn btn-outline-primary btn-block" onClick={() => history.push('/AdminPage')}>Admin</Button>}
+                                    {this.state.AdminUser && <Button variant="primary" active={false} class="btn btn-outline-primary btn-block" onClick={() => history.push('/AdminPage')}>Admin</Button>}
                                 </div>
                             </div>
                         </Col>

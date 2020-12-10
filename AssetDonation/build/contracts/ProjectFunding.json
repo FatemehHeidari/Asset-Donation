@@ -1,0 +1,106 @@
+{
+  "contractName": "ProjectFunding",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol\":\"ProjectFunding\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol\":{\"keccak256\":\"0x6a035973c9e1017b25579f99c7ed2fbebc7dcfb905540ea9056df949f10ced78\",\"urls\":[\"bzz-raw://5e97ca7d019db0c60d69877637f9980974c9e6a2fe1cd6d91186501a7bea2cdc\",\"dweb:/ipfs/QmQMw2JvbxCbhwxfjk5iPoiQDpWZGDwZRpSmgWvRCY3aJx\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220704d9b73f087a0208e2a731f32c05c38e9515e5d0201d8600ffda046c6b92ade64736f6c63430006020033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220704d9b73f087a0208e2a731f32c05c38e9515e5d0201d8600ffda046c6b92ade64736f6c63430006020033",
+  "sourceMap": "24:27:3:-:0;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;24:27:3;;;;;;;",
+  "deployedSourceMap": "24:27:3:-:0;;;;;",
+  "source": "pragma solidity ^0.6.2;\ncontract ProjectFunding{\n\n}",
+  "sourcePath": "/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol",
+  "ast": {
+    "absolutePath": "/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol",
+    "exportedSymbols": {
+      "ProjectFunding": [
+        784
+      ]
+    },
+    "id": 785,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 783,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:3"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 784,
+        "linearizedBaseContracts": [
+          784
+        ],
+        "name": "ProjectFunding",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 785,
+        "src": "24:27:3"
+      }
+    ],
+    "src": "0:51:3"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol",
+    "exportedSymbols": {
+      "ProjectFunding": [
+        784
+      ]
+    },
+    "id": 785,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 783,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:3"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 784,
+        "linearizedBaseContracts": [
+          784
+        ],
+        "name": "ProjectFunding",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 785,
+        "src": "24:27:3"
+      }
+    ],
+    "src": "0:51:3"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.2+commit.bacdbe57.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.1",
+  "updatedAt": "2020-12-10T22:08:16.300Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

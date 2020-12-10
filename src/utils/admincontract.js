@@ -8,7 +8,7 @@ const OPTIONS = {
 }
 const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
 
-const admincontractAddress = "0xaf3A6B6D7499d70884F4a94478AB20C34d6cF0b3";
+const admincontractAddress = "0x7955a5A007826070E32533C5aeb0CA0Ec35d4Ebe";
 const admincontract = new web3.eth.Contract(Administration, admincontractAddress);
 
 export default admincontract;

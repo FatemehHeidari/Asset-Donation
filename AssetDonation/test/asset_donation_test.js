@@ -47,9 +47,10 @@ contract('donationTest', function (accounts) {
     it("add asset updates donationCount in donor", async () => {
         let adminInstance = await Administration.deployed();
         let instanceDonate = await DonateAsset.deployed(adminInstance.address);
+        const tx = await instanceDonate.addAsset(title,des, availablitydate, loc, ipfsHash, { from: donor })
         const result = await adminInstance.getDonor.call({from: donor});
         assert.equal(result.exists, true, 'donation count is not increased appropriately')
-        assert.equal(result.donationCount.toString(10), 1, 'donation count is not increased appropriately');
+        assert.equal(result.donationCount.toString(10), 2, 'donation count is not increased appropriately');
     })
 
     it("emit LogFree event when an asset is added", async()=> {

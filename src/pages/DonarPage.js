@@ -176,7 +176,7 @@ class DonarPage extends Component {
         </div>
         <div class="form-row">
           <div class="col xs = {12}">
-            <h7> Asddress:{this.state.selectedAccoutnt}  </h7>
+            <h7>  MM Account: {this.state.selectedAccoutnt}  </h7>
           </div>
         </div>
         <Button variant="secondary" onClick={this.getDonations} type="button">

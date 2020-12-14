@@ -66,7 +66,7 @@ class MainPage extends Component {
                 <div class="jumbotron">
                     <h2> Asset Donation  </h2>
                 </div>
-                <h7> Asddress:{this.state.selectedAccoutnt}  </h7>
+                <h7>  MM Account: {this.state.selectedAccoutnt}  </h7>
                 <div class="container">
                     <div class="row top-buffer">
                         <Col xs={6}>

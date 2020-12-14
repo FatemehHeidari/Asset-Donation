@@ -9,6 +9,31 @@ export const ProjectFactory = [
     "inputs": [
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "LogTransfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "x",
         "type": "uint256"
@@ -96,7 +121,48 @@ export const ProjectFactory = [
             "type": "string"
           },
           {
-            "internalType": "address",
+            "internalType": "address payable",
+            "name": "projectOwner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint32",
+            "name": "projectKickOffMinBalance",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "projectKickOffTime",
+            "type": "uint32"
+          }
+        ],
+        "internalType": "struct Project[8]",
+        "name": "",
+        "type": "tuple[8]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "getAllProjects",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "projectTitle",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "projectDescription",
+            "type": "string"
+          },
+          {
+            "internalType": "address payable",
             "name": "projectOwner",
             "type": "address"
           },
@@ -141,7 +207,7 @@ export const ProjectFactory = [
         "type": "string"
       },
       {
-        "internalType": "address",
+        "internalType": "address payable",
         "name": "",
         "type": "address"
       },
@@ -181,7 +247,7 @@ export const ProjectFactory = [
         "type": "string"
       },
       {
-        "internalType": "address",
+        "internalType": "address payable",
         "name": "",
         "type": "address"
       },
@@ -209,6 +275,20 @@ export const ProjectFactory = [
       }
     ],
     "name": "donateToProject",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "projectAddress",
+        "type": "address"
+      }
+    ],
+    "name": "claimDonaition",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function",
@@ -257,15 +337,15 @@ export const ProjectFactory = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "projectId",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "getProjectAddress",
     "outputs": [
       {
-        "internalType": "address",
+        "internalType": "address payable",
         "name": "",
         "type": "address"
       }
@@ -277,15 +357,15 @@ export const ProjectFactory = [
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "projectId",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "getProjectAddress",
     "outputs": [
       {
-        "internalType": "address payable",
+        "internalType": "address",
         "name": "",
         "type": "address"
       }

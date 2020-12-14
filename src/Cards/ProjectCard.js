@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import CardDeck from 'react-bootstrap/CardDeck';
 import ProjectRequestAsset from './ProjectRequestAsset';
 import donateAssetContract from '../utils/donatecontract.js';
+import projectfactorycontract from '../utils/projectfactorycontract.js';
 class ProjectCard extends Component {
     constructor(props) {
         super(props);
@@ -33,6 +34,22 @@ class ProjectCard extends Component {
         //this.state.Assets = result;
         console.log('result');
         console.log(result);
+    };
+
+    claimDonaition = async (t) => {
+        t.preventDefault();
+        const accounts = await window.ethereum.enable();
+        const account = accounts[0];
+        //const account = await web3.givenProvider.selectedAddress;//accounts[0];
+        console.log('selectrdAddress');
+        console.log(account);
+        const gasAmount = await projectfactorycontract.methods.claimDonaition(this.props.project.address).estimateGas({ from: account });
+        console.log('gasAmount');
+        console.log(gasAmount);
+        const result = await projectfactorycontract.methods.claimDonaition(this.props.project.address).send({
+            from: account,
+            gasAmount,
+        });
     };
     handleClose = () => {
         this.setState({ assetPopup: false });
@@ -62,7 +79,8 @@ class ProjectCard extends Component {
                         <Card.Text>
                             Donatios collected: {this.props.project.donated}</Card.Text>
 
-                        <Button variant="outline-dark" onClick={this.getDonations}>Request Asset</Button>
+                        <Button variant="outline-dark" onClick={this.getDonations}>Request Asset</Button> {'  '}
+                        <Button variant="warning" onClick={this.claimDonaition}>Claim Donations</Button>
                     </Card.Body>
                 </Card>
                 <Modal show={this.state.assetPopup} onHide={this.handleClose}>

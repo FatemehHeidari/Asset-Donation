@@ -104,7 +104,7 @@ class AddDonation extends Component {
             </div>
             <div class="form-row">
                 <div class="col xs = {12}">
-                    <h7> Asddress:{this.state.selectedAccoutnt}  </h7>
+                    <h7> MM Account: {this.state.selectedAccoutnt}  </h7>
                 </div>
             </div>
             <div class="container">
@@ -157,8 +157,8 @@ class AddDonation extends Component {
                                                 <Form>
                                                     <Form.File
                                                         id="custom-file-translate-html"
-                                                        label="Voeg je document toe"
-                                                        data-browse="Bestand kiezen"
+                                                        label="Add Asset Image"
+                                                        data-browse="Choose File"
                                                         custom
                                                         onChange={this.fileUploaded}
                                                         ref={this.fileadress}

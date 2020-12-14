@@ -53,3 +53,7 @@
 }
 
 .top-buffer { margin-top:10px; }
+
+.card-header a {
+  color: red;
+}

@@ -19,7 +19,7 @@ struct Asset {
 }
 
 contract ProjectFunding {
-    address owner;
+    address payable owner;
     Asset[] donatedAssets;
     uint32 balance;
     Project public project;
@@ -27,13 +27,13 @@ contract ProjectFunding {
     struct Project {
         string projectTitle;
         string projectDescription;
-        address projectOwner;
+        address payable projectOwner;
         uint32 projectKickOffMinBalance;
         uint32 projectKickOffTime;
     }
 
     constructor(
-        address _owner,
+        address payable _owner,
         uint32 initialBalance,
         string memory _projectDescription,
         string memory _projectTitle,
@@ -48,7 +48,10 @@ contract ProjectFunding {
         project.projectKickOffTime = _projectKickOffTime;
         project.projectKickOffMinBalance = _projectKickOffMinBalance;
     }
-
+    modifier onlyOwner(address ad) {
+        require(ad == project.projectOwner, "Only Owner.");
+        _;
+    }
     // function getProject() public view returns (Project memory) {
     //     return project;
     // }
@@ -59,7 +62,7 @@ contract ProjectFunding {
         returns (
             string memory,
             string memory,
-            address,
+            address payable,
             uint32,
             uint32
         )
@@ -73,5 +76,10 @@ contract ProjectFunding {
         );
     }
 
+    function claimDonation(address claimAddress) public payable onlyOwner(claimAddress) {
+        project.projectOwner.transfer(address(this).balance);
+    }
+
     fallback() external payable {}
+    receive() external payable{}
 }

@@ -38,9 +38,9 @@ class DonateToProject extends Component {
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
 
-        const gasAmount = await projectfactorycontract.methods.getProjects().estimateGas({ from: account });
+        const gasAmount = await projectfactorycontract.methods.getAllProjects().estimateGas({ from: account });
 
-        const result = await projectfactorycontract.methods.getProjects().call({
+        const result = await projectfactorycontract.methods.getAllProjects().call({
             from: account,
             gasAmount,
         });
@@ -104,7 +104,7 @@ class DonateToProject extends Component {
                 </div>
                 <div class="form-row">
                     <div class="col xs = {12}">
-                        <h7> Asddress:{this.state.selectedAccoutnt}  </h7>
+                        <h7>  MM Account: {this.state.selectedAccoutnt}  </h7>
                     </div>
                 </div>
                 <div>

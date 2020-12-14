@@ -17114,6 +17114,63 @@
           ],
           "name": "LogRequest",
           "type": "event"
+        },
+        "0x9b199bcd51684ef95519ee4895af7fe523c9eec7810503ebd87544d1d8c97f3f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "requestDescription",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateFrom",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestStatus",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestType",
+                  "name": "requestType",
+                  "type": "uint8"
+                }
+              ],
+              "indexed": false,
+              "internalType": "struct ReceiveAsset.Request",
+              "name": "r",
+              "type": "tuple"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "reCount",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequest",
+          "type": "event"
         }
       },
       "links": {},
@@ -20715,7 +20772,7 @@
     }
   },
   "schemaVersion": "3.3.1",
-  "updatedAt": "2020-12-14T00:50:19.999Z",
+  "updatedAt": "2020-12-14T16:45:51.431Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {

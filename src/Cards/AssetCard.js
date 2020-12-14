@@ -4,15 +4,27 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import CardDeck from 'react-bootstrap/CardDeck';
 import RequestCard from './RequestCard';
+import ProjectRequestCard from './ProjectRequestCard';
 import donateAssetContract from '../utils/donatecontract'
 import receiveAssetContract from '../utils/receivecontract'
+import projectfactorycontract from '../utils/projectfactorycontract.js'
 import '../App.css';
+import Web3 from "web3";
+
+const OPTIONS = {
+  defaultBlock: "latest",
+  transactionConfirmationBlocks: 1,
+  transactionBlockTimeout: 5
+}
+const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
+
 
 class AssetCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             Requests: [],
+            project:[],
             requestPopup: false
         };
     }
@@ -22,32 +34,70 @@ class AssetCard extends Component {
         const account = accounts[0];
         let assetId = this.props.asset.assetId;
         let requestCount = this.props.asset.requestCount;
-        console.log('assetId');
-        console.log(assetId);
+ 
         const gasAmount = await receiveAssetContract.methods.getDonationRequests(assetId, requestCount).estimateGas({ from: account });
         const result = await receiveAssetContract.methods.getDonationRequests(assetId, requestCount).call({
             from: account,
             gasAmount,
         });
+        for (let i = 0; i < result.length; i++) {
+            if (result[i].receiver != "0x0000000000000000000000000000000000000000" && result[i].requestType == 1) {
+                let x = await this.getProject(result[i].receiver);
+                result[i].project = this.state.project;
+            }
+        }
         console.log('result');
         console.log(result);
+
         this.setState({ Requests: result, requestPopup: true });
     };
-    requestApprove = async (t) => {
-        console.log(t);
-        console.log('t');
+
+    getProject = async (t) => {
+        //t.preventDefault();
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
-        console.log('account');
-        console.log(account);
+
+        const gasAmount = await projectfactorycontract.methods.getProjectByAddress(t).estimateGas({ from: account });
+
+        const result = await projectfactorycontract.methods.getProjectByAddress(t).call({
+            from: account,
+            gasAmount,
+        });
+        let projResult = {ProjectTitle:result[0],ProjectDescription:result[1]};
+        projResult.donated = await this.getProjectBalance(t);
+        this.setState({project:projResult});
+        return projResult;
+
+    };
+
+    getProjectBalance = async (t) => {
+        //t.preventDefault();
+        const accounts = await window.ethereum.enable();
+        const account = accounts[0];
+        const gasAmount = await projectfactorycontract.methods.getProjectBalanceByAddress(t).estimateGas({ from: account });
+
+        const result = await projectfactorycontract.methods.getProjectBalanceByAddress(t).call({
+            from: account,
+            gasAmount,
+        });
+        //console.log('result');
+        const etherValue = web3.utils.fromWei(result.toString(10), 'ether');
+        //console.log(etherValue);
+        return etherValue;
+    };
+
+    requestApprove = async (t) => {
+
+        const accounts = await window.ethereum.enable();
+        const account = accounts[0];
+
         const gasAmount = await donateAssetContract.methods.donateAsset(t.assetId, t.receiver).estimateGas({ from: account });
         const result = await donateAssetContract.methods.donateAsset(t.assetId, t.receiver).send({
             from: account,
             gasAmount,
         });
         //this.setState({buttonDisabled : false});
-        console.log('result');
-        console.log(result);
+
 
     }
     decodeStatus = (t) => {
@@ -68,8 +118,14 @@ class AssetCard extends Component {
     render() {
         let requestCard = this.state.Requests.map(request => {
             if (request.receiver != "0x0000000000000000000000000000000000000000") {
-                return (
-                    <RequestCard request={request} assetId={this.props.asset.assetId} requestApprove={this.requestApprove} />)
+                if (request.requestType == 0) {
+                    return (
+                        <RequestCard request={request} assetId={this.props.asset.assetId} requestApprove={this.requestApprove} readOnly = {false}/>)
+                }
+                else if (request.requestType == 1) {
+                    return (
+                        <ProjectRequestCard request={request} assetId={this.props.asset.assetId} requestApprove={this.requestApprove} readOnly = {false}/>)
+                }
             }
         });
         return (
@@ -89,7 +145,7 @@ class AssetCard extends Component {
                                 <Card.Text>
                                     Status: {this.decodeStatus(this.props.asset.status)}
                                 </Card.Text>
-                                <Button variant="primary" onClick={this.getRequests}>Show Requests</Button>
+                                <Button variant="secondary" onClick={this.getRequests}>Show Requests</Button>
                             </Card.Body>
                         </Card>
                         <Modal show={this.state.requestPopup} onHide={this.handleClose}>

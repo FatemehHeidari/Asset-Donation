@@ -1,25 +1,138 @@
 {
   "contractName": "ProjectFunding",
-  "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol\":\"ProjectFunding\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol\":{\"keccak256\":\"0x6a035973c9e1017b25579f99c7ed2fbebc7dcfb905540ea9056df949f10ced78\",\"urls\":[\"bzz-raw://5e97ca7d019db0c60d69877637f9980974c9e6a2fe1cd6d91186501a7bea2cdc\",\"dweb:/ipfs/QmQMw2JvbxCbhwxfjk5iPoiQDpWZGDwZRpSmgWvRCY3aJx\"]}},\"version\":1}",
-  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220704d9b73f087a0208e2a731f32c05c38e9515e5d0201d8600ffda046c6b92ade64736f6c63430006020033",
-  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220704d9b73f087a0208e2a731f32c05c38e9515e5d0201d8600ffda046c6b92ade64736f6c63430006020033",
-  "sourceMap": "24:27:3:-:0;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;24:27:3;;;;;;;",
-  "deployedSourceMap": "24:27:3:-:0;;;;;",
-  "source": "pragma solidity ^0.6.2;\ncontract ProjectFunding{\n\n}",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint32",
+          "name": "initialBalance",
+          "type": "uint32"
+        },
+        {
+          "internalType": "string",
+          "name": "_projectDescription",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_projectTitle",
+          "type": "string"
+        },
+        {
+          "internalType": "uint32",
+          "name": "_projectKickOffTime",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint32",
+          "name": "_projectKickOffMinBalance",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "inputs": [],
+      "name": "project",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "projectTitle",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "projectDescription",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "projectOwner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint32",
+          "name": "projectKickOffMinBalance",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint32",
+          "name": "projectKickOffTime",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getProject",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint32",
+          "name": "",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint32",
+          "name": "",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"initialBalance\",\"type\":\"uint32\"},{\"internalType\":\"string\",\"name\":\"_projectDescription\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_projectTitle\",\"type\":\"string\"},{\"internalType\":\"uint32\",\"name\":\"_projectKickOffTime\",\"type\":\"uint32\"},{\"internalType\":\"uint32\",\"name\":\"_projectKickOffMinBalance\",\"type\":\"uint32\"}],\"stateMutability\":\"payable\",\"type\":\"constructor\"},{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"getProject\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"project\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"projectTitle\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"projectDescription\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"projectOwner\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"projectKickOffMinBalance\",\"type\":\"uint32\"},{\"internalType\":\"uint32\",\"name\":\"projectKickOffTime\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol\":\"ProjectFunding\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol\":{\"keccak256\":\"0xaef9165260c158377b07724c7668f28cc56e07c49459d65cf9d79386bf49769b\",\"urls\":[\"bzz-raw://7820bc1480f1d9ef4240f1503c55d277c30c3342834800077f98009d56373ec8\",\"dweb:/ipfs/QmRgMsV7X3nK2QcBH37VW1mKUayMWnqQCtfYKYWLfDKa9H\"]}},\"version\":1}",
+  "bytecode": "0x60806040526040516106ee3803806106ee8339810160408190526100229161022d565b600080546001600160a01b0319166001600160a01b0388161790556002805463ffffffff191663ffffffff871617905583516100659060049060208701906100d8565b50600580546001600160a01b0319166001600160a01b03881617905582516100949060039060208601906100d8565b506005805463ffffffff928316600160a01b0263ffffffff60a01b1994909316600160c01b0263ffffffff60c01b199091161792909216179055506102df92505050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061011957805160ff1916838001178555610146565b82800160010185558215610146579182015b8281111561014657825182559160200191906001019061012b565b50610152929150610156565b5090565b61017091905b80821115610152576000815560010161015c565b90565b600082601f830112610183578081fd5b81516001600160401b0380821115610199578283fd5b6040516020601f8401601f19168201810183811183821017156101ba578586fd5b806040525081945083825286818588010111156101d657600080fd5b600092505b838310156101f857858301810151828401820152918201916101db565b838311156102095760008185840101525b5050505092915050565b805163ffffffff8116811461022757600080fd5b92915050565b60008060008060008060c08789031215610245578182fd5b86516001600160a01b038116811461025b578283fd5b955061026a8860208901610213565b60408801519095506001600160401b0380821115610286578384fd5b6102928a838b01610173565b955060608901519150808211156102a7578384fd5b506102b489828a01610173565b9350506102c48860808901610213565b91506102d38860a08901610213565b90509295509295509295565b610400806102ee6000396000f3fe6080604052600436106100295760003560e01c80636e57b7001461002b578063f60ca60d1461005a575b005b34801561003757600080fd5b5061004061006f565b604051610051959493929190610377565b60405180910390f35b34801561006657600080fd5b506100406101d4565b6005546003805460408051602060026101006001861615026000190190941693909304601f810184900484028201840190925281815260609485946000948594859492936004936001600160a01b03821693600160a01b830463ffffffff90811694600160c01b9094041692879183018282801561012e5780601f106101035761010080835404028352916020019161012e565b820191906000526020600020905b81548152906001019060200180831161011157829003601f168201915b5050875460408051602060026001851615610100026000190190941693909304601f8101849004840282018401909252818152959a50899450925084019050828280156101bc5780601f10610191576101008083540402835291602001916101bc565b820191906000526020600020905b81548152906001019060200180831161019f57829003601f168201915b50505050509350945094509450945094509091929394565b60038054604080516020601f6002600019610100600188161502019095169490940493840181900481028201810190925282815291839183018282801561025c5780601f106102315761010080835404028352916020019161025c565b820191906000526020600020905b81548152906001019060200180831161023f57829003601f168201915b505050505090806001018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102fa5780601f106102cf576101008083540402835291602001916102fa565b820191906000526020600020905b8154815290600101906020018083116102dd57829003601f168201915b505050600290930154919250506001600160a01b0381169063ffffffff600160a01b8204811691600160c01b90041685565b60008151808452815b8181101561035157602081850181015186830182015201610335565b818111156103625782602083870101525b50601f01601f19169290920160200192915050565b600060a0825261038a60a083018861032c565b828103602084015261039c818861032c565b6001600160a01b03969096166040840152505063ffffffff928316606082015291166080909101529291505056fea264697066735822122080588c8e911291e0372f170eac2a5e6d0036468c4e6868aca5ddbe55cb4223b464736f6c63430006020033",
+  "deployedBytecode": "0x6080604052600436106100295760003560e01c80636e57b7001461002b578063f60ca60d1461005a575b005b34801561003757600080fd5b5061004061006f565b604051610051959493929190610377565b60405180910390f35b34801561006657600080fd5b506100406101d4565b6005546003805460408051602060026101006001861615026000190190941693909304601f810184900484028201840190925281815260609485946000948594859492936004936001600160a01b03821693600160a01b830463ffffffff90811694600160c01b9094041692879183018282801561012e5780601f106101035761010080835404028352916020019161012e565b820191906000526020600020905b81548152906001019060200180831161011157829003601f168201915b5050875460408051602060026001851615610100026000190190941693909304601f8101849004840282018401909252818152959a50899450925084019050828280156101bc5780601f10610191576101008083540402835291602001916101bc565b820191906000526020600020905b81548152906001019060200180831161019f57829003601f168201915b50505050509350945094509450945094509091929394565b60038054604080516020601f6002600019610100600188161502019095169490940493840181900481028201810190925282815291839183018282801561025c5780601f106102315761010080835404028352916020019161025c565b820191906000526020600020905b81548152906001019060200180831161023f57829003601f168201915b505050505090806001018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102fa5780601f106102cf576101008083540402835291602001916102fa565b820191906000526020600020905b8154815290600101906020018083116102dd57829003601f168201915b505050600290930154919250506001600160a01b0381169063ffffffff600160a01b8204811691600160c01b90041685565b60008151808452815b8181101561035157602081850181015186830182015201610335565b818111156103625782602083870101525b50601f01601f19169290920160200192915050565b600060a0825261038a60a083018861032c565b828103602084015261039c818861032c565b6001600160a01b03969096166040840152505063ffffffff928316606082015291166080909101529291505056fea264697066735822122080588c8e911291e0372f170eac2a5e6d0036468c4e6868aca5ddbe55cb4223b464736f6c63430006020033",
+  "sourceMap": "422:1478:4:-:0;;;745:582;;;;;;;;;;;;;;;;;;;;1001:5;:14;;-1:-1:-1;;;;;;1001:14:4;-1:-1:-1;;;;;1001:14:4;;;;;1025:7;:24;;-1:-1:-1;;1025:24:4;-1:-1:-1;1025:24:4;;;;;1059:48;;;;:26;;:48;;;;;:::i;:::-;-1:-1:-1;1117:20:4;:29;;-1:-1:-1;;;;;;1117:29:4;-1:-1:-1;;;;;1117:29:4;;;;;1156:36;;;;1117:7;;1156:36;;;;;:::i;:::-;-1:-1:-1;1202:26:4;:48;;;1260:60;;;-1:-1:-1;;;1260:60:4;-1:-1:-1;;;;1202:48:4;;;;-1:-1:-1;;;1202:48:4;-1:-1:-1;;;;1202:48:4;;;;1260:60;;;;;;;-1:-1:-1;422:1478:4;;-1:-1:-1;;;422:1478:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;422:1478:4;;;-1:-1:-1;422:1478:4;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;:::o;147:444:-1:-;;260:3;253:4;245:6;241:17;237:27;227:2;;-1:-1;;268:12;227:2;302:13;;-1:-1;;;;;2279:30;;;2276:2;;;-1:-1;;2312:12;2276:2;1945;1939:9;2453:4;-1:-1;;2385:9;2366:17;;2362:33;1971:17;;;;2067:22;;;2031:34;;;2028:62;2025:2;;;-1:-1;;2093:12;2025:2;2123:10;1945:2;2112:22;;321:74;;;415:6;408:5;401:21;519:3;2453:4;510:6;443;501:16;;498:25;495:2;;;536:1;;526:12;495:2;2862:1;2853:10;;2869:101;2883:6;2880:1;2877:13;2869:101;;;2950:11;;;;;2944:18;2931:11;;;;;2924:39;2898:10;;;;2869:101;;;2985:6;2982:1;2979:13;2976:2;;;2862:1;2453:4;3041:6;477:5;3032:16;;3025:27;2976:2;;;;;220:371;;;;;599:132;676:13;;2773:10;2762:22;;3255:34;;3245:2;;3303:1;;3293:12;3245:2;661:70;;;;;738:1138;;;;;;;955:3;943:9;934:7;930:23;926:33;923:2;;;-1:-1;;962:12;923:2;83:13;;-1:-1;;;;;2635:54;;3132:35;;3122:2;;-1:-1;;3171:12;3122:2;1014:74;-1:-1;1143:63;1198:7;1125:2;1174:22;;1143:63;;;1264:2;1249:18;;1243:25;1133:73;;-1:-1;;;;;;1277:30;;;1274:2;;;-1:-1;;1310:12;1274:2;1340:74;1406:7;1397:6;1386:9;1382:22;1340:74;;;1330:84;;1472:2;1461:9;1457:18;1451:25;1437:39;;1288:18;1488:6;1485:30;1482:2;;;-1:-1;;1518:12;1482:2;;1548:74;1614:7;1605:6;1594:9;1590:22;1548:74;;;1538:84;;;1678:63;1733:7;1659:3;1713:9;1709:22;1678:63;;;1668:73;;1797:63;1852:7;1778:3;1832:9;1828:22;1797:63;;;1787:73;;917:959;;;;;;;;;;422:1478:4;;;;;;",
+  "deployedSourceMap": "422:1478:4:-:0;;;;;;;;;;;;;;;;;;;;;;;;1438:424;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1438:424:4;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;518:22;;8:9:-1;5:2;;;30:1;27;20:12;5:2;518:22:4;;;:::i;1438:424::-;1739:20;;1665:7;1644:211;;;;;;1739:20;;1699:26;1644:211;;;;-1:-1:-1;;1644:211:4;;;;;;;;;;;;;;;;;;;;;;;;;;1518:13;;;;-1:-1:-1;;;;;;1665:7:4;;1699:26;;-1:-1:-1;;;;;1739:20:4;;;-1:-1:-1;;;1773:32:4;;;;;;;-1:-1:-1;;;1819:26:4;;;;;1665:7;;1644:211;;1665:7;1644:211;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;1644:211:4;;;;;;;;;;;;;-1:-1:-1;;1644:211:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;1644:211:4;;-1:-1:-1;1644:211:4;-1:-1:-1;1644:211:4;;;-1:-1:-1;1644:211:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1438:424;;;;;:::o;518:22::-;;;;;;;;;;;;;;;-1:-1:-1;;518:22:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;518:22:4;;;;;;;;-1:-1:-1;;;;;;518:22:4;;;;-1:-1:-1;;;518:22:4;;;;;-1:-1:-1;;;518:22:4;;;;:::o;125:347:-1:-;;270:5;2678:12;2964:6;2959:3;2952:19;-1:-1;3414:101;3428:6;3425:1;3422:13;3414:101;;;3001:4;3495:11;;;;;3489:18;3476:11;;;;;3469:39;3443:10;3414:101;;;3530:6;3527:1;3524:13;3521:2;;;-1:-1;3001:4;3586:6;2996:3;3577:16;;3570:27;3521:2;-1:-1;3702:7;3686:14;-1:-1;;3682:28;428:39;;;;3001:4;428:39;;217:255;-1:-1;;217:255;942:827;;1208:3;1230:17;1223:47;1284:78;1208:3;1197:9;1193:19;1348:6;1284:78;;;1410:9;1404:4;1400:20;1395:2;1384:9;1380:18;1373:48;1435:78;1508:4;1499:6;1435:78;;;-1:-1;;;;;3180:54;;;;1592:2;1577:18;;76:37;-1:-1;;3318:10;3307:22;;;1673:2;1658:18;;894:36;3307:22;;1754:3;1739:19;;;894:36;3180:54;1427:86;-1:-1;;1179:590",
+  "source": "pragma solidity ^0.6.2;\npragma experimental ABIEncoderV2;\n\nenum Status {Free, Requested, Donated, Inactive, Burned}\n\nstruct Asset {\n    uint32 assetId;\n    string assetTitle;\n    string assetDescription;\n    uint32 availablityDate;\n    string location;\n    Status status;\n    address owner;\n    address recipient;\n    uint32 donatedDateFrom;\n    uint32 donatedDateTo;\n    uint32 requestCount;\n    string imageIPFSHash;\n}\n\ncontract ProjectFunding {\n    address owner;\n    Asset[] donatedAssets;\n    uint32 balance;\n    Project public project;\n\n    struct Project {\n        string projectTitle;\n        string projectDescription;\n        address projectOwner;\n        uint32 projectKickOffMinBalance;\n        uint32 projectKickOffTime;\n    }\n\n    constructor(\n        address _owner,\n        uint32 initialBalance,\n        string memory _projectDescription,\n        string memory _projectTitle,\n        uint32 _projectKickOffTime,\n        uint32 _projectKickOffMinBalance\n    ) public payable {\n        owner = _owner;\n        balance = initialBalance;\n        project.projectDescription = _projectDescription;\n        project.projectOwner = _owner;\n        project.projectTitle = _projectTitle;\n        project.projectKickOffTime = _projectKickOffTime;\n        project.projectKickOffMinBalance = _projectKickOffMinBalance;\n    }\n\n    // function getProject() public view returns (Project memory) {\n    //     return project;\n    // }\n\n    function getProject()\n        public\n        view\n        returns (\n            string memory,\n            string memory,\n            address,\n            uint32,\n            uint32\n        )\n    {\n        return (\n            project.projectTitle,\n            project.projectDescription,\n            project.projectOwner,\n            project.projectKickOffMinBalance,\n            project.projectKickOffTime\n        );\n    }\n\n    fallback() external payable {}\n}\n",
   "sourcePath": "/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol",
   "ast": {
     "absolutePath": "/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol",
     "exportedSymbols": {
+      "Asset": [
+        1051
+      ],
       "ProjectFunding": [
-        784
+        1156
+      ],
+      "Status": [
+        1026
       ]
     },
-    "id": 785,
+    "id": 1157,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 783,
+        "id": 1019,
         "literals": [
           "solidity",
           "^",
@@ -27,7 +140,394 @@
           ".2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:3"
+        "src": "0:23:4"
+      },
+      {
+        "id": 1020,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "24:33:4"
+      },
+      {
+        "canonicalName": "Status",
+        "id": 1026,
+        "members": [
+          {
+            "id": 1021,
+            "name": "Free",
+            "nodeType": "EnumValue",
+            "src": "72:4:4"
+          },
+          {
+            "id": 1022,
+            "name": "Requested",
+            "nodeType": "EnumValue",
+            "src": "78:9:4"
+          },
+          {
+            "id": 1023,
+            "name": "Donated",
+            "nodeType": "EnumValue",
+            "src": "89:7:4"
+          },
+          {
+            "id": 1024,
+            "name": "Inactive",
+            "nodeType": "EnumValue",
+            "src": "98:8:4"
+          },
+          {
+            "id": 1025,
+            "name": "Burned",
+            "nodeType": "EnumValue",
+            "src": "108:6:4"
+          }
+        ],
+        "name": "Status",
+        "nodeType": "EnumDefinition",
+        "src": "59:56:4"
+      },
+      {
+        "canonicalName": "Asset",
+        "id": 1051,
+        "members": [
+          {
+            "constant": false,
+            "id": 1028,
+            "name": "assetId",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "136:14:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1027,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "136:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1030,
+            "name": "assetTitle",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "156:17:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage_ptr",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 1029,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "156:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1032,
+            "name": "assetDescription",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "179:23:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage_ptr",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 1031,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "179:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1034,
+            "name": "availablityDate",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "208:22:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1033,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "208:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1036,
+            "name": "location",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "236:15:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage_ptr",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 1035,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "236:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1038,
+            "name": "status",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "257:13:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_enum$_Status_$1026",
+              "typeString": "enum Status"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1037,
+              "name": "Status",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1026,
+              "src": "257:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_enum$_Status_$1026",
+                "typeString": "enum Status"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1040,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "276:13:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1039,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "276:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1042,
+            "name": "recipient",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "295:17:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1041,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "295:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1044,
+            "name": "donatedDateFrom",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "318:22:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1043,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "318:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1046,
+            "name": "donatedDateTo",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "346:20:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1045,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "346:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1048,
+            "name": "requestCount",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "372:19:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1047,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "372:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1050,
+            "name": "imageIPFSHash",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "397:20:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage_ptr",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 1049,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "397:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          }
+        ],
+        "name": "Asset",
+        "nodeType": "StructDefinition",
+        "scope": 1157,
+        "src": "117:303:4",
+        "visibility": "public"
       },
       {
         "abstract": false,
@@ -36,31 +536,1282 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 784,
+        "id": 1156,
         "linearizedBaseContracts": [
-          784
+          1156
         ],
         "name": "ProjectFunding",
         "nodeType": "ContractDefinition",
-        "nodes": [],
-        "scope": 785,
-        "src": "24:27:3"
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1053,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1156,
+            "src": "452:13:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1052,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "452:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1056,
+            "name": "donatedAssets",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1156,
+            "src": "471:21:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_struct$_Asset_$1051_storage_$dyn_storage",
+              "typeString": "struct Asset[]"
+            },
+            "typeName": {
+              "baseType": {
+                "contractScope": null,
+                "id": 1054,
+                "name": "Asset",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 1051,
+                "src": "471:5:4",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Asset_$1051_storage_ptr",
+                  "typeString": "struct Asset"
+                }
+              },
+              "id": 1055,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "471:7:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_struct$_Asset_$1051_storage_$dyn_storage_ptr",
+                "typeString": "struct Asset[]"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1058,
+            "name": "balance",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1156,
+            "src": "498:14:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1057,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "498:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "functionSelector": "f60ca60d",
+            "id": 1060,
+            "name": "project",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1156,
+            "src": "518:22:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_Project_$1071_storage",
+              "typeString": "struct ProjectFunding.Project"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1059,
+              "name": "Project",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1071,
+              "src": "518:7:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_Project_$1071_storage_ptr",
+                "typeString": "struct ProjectFunding.Project"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ProjectFunding.Project",
+            "id": 1071,
+            "members": [
+              {
+                "constant": false,
+                "id": 1062,
+                "name": "projectTitle",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "572:19:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 1061,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "572:6:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1064,
+                "name": "projectDescription",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "601:25:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 1063,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "601:6:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1066,
+                "name": "projectOwner",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "636:20:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 1065,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "636:7:4",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1068,
+                "name": "projectKickOffMinBalance",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "666:31:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 1067,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "666:6:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1070,
+                "name": "projectKickOffTime",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "707:25:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 1069,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "707:6:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Project",
+            "nodeType": "StructDefinition",
+            "scope": 1156,
+            "src": "547:192:4",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1124,
+              "nodeType": "Block",
+              "src": "991:336:4",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1088,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1086,
+                      "name": "owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1053,
+                      "src": "1001:5:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1087,
+                      "name": "_owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1073,
+                      "src": "1009:6:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "1001:14:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 1089,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1001:14:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1092,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1090,
+                      "name": "balance",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1058,
+                      "src": "1025:7:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1091,
+                      "name": "initialBalance",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1075,
+                      "src": "1035:14:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "src": "1025:24:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "id": 1093,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1025:24:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1098,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1094,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1059:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1096,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectDescription",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1064,
+                      "src": "1059:26:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1097,
+                      "name": "_projectDescription",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1077,
+                      "src": "1088:19:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "1059:48:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 1099,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1059:48:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1104,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1100,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1117:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1102,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectOwner",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1066,
+                      "src": "1117:20:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1103,
+                      "name": "_owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1073,
+                      "src": "1140:6:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "1117:29:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 1105,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1117:29:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1110,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1106,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1156:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1108,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectTitle",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1062,
+                      "src": "1156:20:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1109,
+                      "name": "_projectTitle",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1079,
+                      "src": "1179:13:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "1156:36:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 1111,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1156:36:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1116,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1112,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1202:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1114,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectKickOffTime",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1070,
+                      "src": "1202:26:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1115,
+                      "name": "_projectKickOffTime",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1081,
+                      "src": "1231:19:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "src": "1202:48:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "id": 1117,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1202:48:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1122,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1118,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1260:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1120,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectKickOffMinBalance",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1068,
+                      "src": "1260:32:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1121,
+                      "name": "_projectKickOffMinBalance",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1083,
+                      "src": "1295:25:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "src": "1260:60:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "id": 1123,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1260:60:4"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1125,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1084,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1073,
+                  "name": "_owner",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "766:14:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1072,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "766:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1075,
+                  "name": "initialBalance",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "790:21:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1074,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "790:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1077,
+                  "name": "_projectDescription",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "821:33:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1076,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "821:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1079,
+                  "name": "_projectTitle",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "864:27:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1078,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "864:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1081,
+                  "name": "_projectKickOffTime",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "901:26:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1080,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "901:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1083,
+                  "name": "_projectKickOffMinBalance",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "937:32:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1082,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "937:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "756:219:4"
+            },
+            "returnParameters": {
+              "id": 1085,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "991:0:4"
+            },
+            "scope": 1156,
+            "src": "745:582:4",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1150,
+              "nodeType": "Block",
+              "src": "1634:228:4",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1138,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1665:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1139,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectTitle",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1062,
+                        "src": "1665:20:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage",
+                          "typeString": "string storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1140,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1699:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1141,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectDescription",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1064,
+                        "src": "1699:26:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage",
+                          "typeString": "string storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1142,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1739:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1143,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectOwner",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1066,
+                        "src": "1739:20:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1144,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1773:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1145,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectKickOffMinBalance",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1068,
+                        "src": "1773:32:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1146,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1819:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1147,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectKickOffTime",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1070,
+                        "src": "1819:26:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        }
+                      }
+                    ],
+                    "id": 1148,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "1651:204:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_string_storage_$_t_string_storage_$_t_address_$_t_uint32_$_t_uint32_$",
+                      "typeString": "tuple(string storage ref,string storage ref,address,uint32,uint32)"
+                    }
+                  },
+                  "functionReturnParameters": 1137,
+                  "id": 1149,
+                  "nodeType": "Return",
+                  "src": "1644:211:4"
+                }
+              ]
+            },
+            "documentation": null,
+            "functionSelector": "6e57b700",
+            "id": 1151,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getProject",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1126,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1457:2:4"
+            },
+            "returnParameters": {
+              "id": 1137,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1128,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1518:13:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1127,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1518:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1130,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1545:13:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1129,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1545:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1132,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1572:7:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1131,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1572:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1134,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1593:6:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1133,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1593:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1136,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1613:6:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1135,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1613:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1504:125:4"
+            },
+            "scope": 1156,
+            "src": "1438:424:4",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1154,
+              "nodeType": "Block",
+              "src": "1896:2:4",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 1155,
+            "implemented": true,
+            "kind": "fallback",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1152,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1876:2:4"
+            },
+            "returnParameters": {
+              "id": 1153,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1896:0:4"
+            },
+            "scope": 1156,
+            "src": "1868:30:4",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 1157,
+        "src": "422:1478:4"
       }
     ],
-    "src": "0:51:3"
+    "src": "0:1901:4"
   },
   "legacyAST": {
     "absolutePath": "/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol",
     "exportedSymbols": {
+      "Asset": [
+        1051
+      ],
       "ProjectFunding": [
-        784
+        1156
+      ],
+      "Status": [
+        1026
       ]
     },
-    "id": 785,
+    "id": 1157,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 783,
+        "id": 1019,
         "literals": [
           "solidity",
           "^",
@@ -68,7 +1819,394 @@
           ".2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:3"
+        "src": "0:23:4"
+      },
+      {
+        "id": 1020,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "24:33:4"
+      },
+      {
+        "canonicalName": "Status",
+        "id": 1026,
+        "members": [
+          {
+            "id": 1021,
+            "name": "Free",
+            "nodeType": "EnumValue",
+            "src": "72:4:4"
+          },
+          {
+            "id": 1022,
+            "name": "Requested",
+            "nodeType": "EnumValue",
+            "src": "78:9:4"
+          },
+          {
+            "id": 1023,
+            "name": "Donated",
+            "nodeType": "EnumValue",
+            "src": "89:7:4"
+          },
+          {
+            "id": 1024,
+            "name": "Inactive",
+            "nodeType": "EnumValue",
+            "src": "98:8:4"
+          },
+          {
+            "id": 1025,
+            "name": "Burned",
+            "nodeType": "EnumValue",
+            "src": "108:6:4"
+          }
+        ],
+        "name": "Status",
+        "nodeType": "EnumDefinition",
+        "src": "59:56:4"
+      },
+      {
+        "canonicalName": "Asset",
+        "id": 1051,
+        "members": [
+          {
+            "constant": false,
+            "id": 1028,
+            "name": "assetId",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "136:14:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1027,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "136:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1030,
+            "name": "assetTitle",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "156:17:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage_ptr",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 1029,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "156:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1032,
+            "name": "assetDescription",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "179:23:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage_ptr",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 1031,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "179:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1034,
+            "name": "availablityDate",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "208:22:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1033,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "208:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1036,
+            "name": "location",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "236:15:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage_ptr",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 1035,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "236:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1038,
+            "name": "status",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "257:13:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_enum$_Status_$1026",
+              "typeString": "enum Status"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1037,
+              "name": "Status",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1026,
+              "src": "257:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_enum$_Status_$1026",
+                "typeString": "enum Status"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1040,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "276:13:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1039,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "276:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1042,
+            "name": "recipient",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "295:17:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1041,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "295:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1044,
+            "name": "donatedDateFrom",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "318:22:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1043,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "318:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1046,
+            "name": "donatedDateTo",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "346:20:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1045,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "346:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1048,
+            "name": "requestCount",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "372:19:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1047,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "372:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1050,
+            "name": "imageIPFSHash",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1051,
+            "src": "397:20:4",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage_ptr",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 1049,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "397:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          }
+        ],
+        "name": "Asset",
+        "nodeType": "StructDefinition",
+        "scope": 1157,
+        "src": "117:303:4",
+        "visibility": "public"
       },
       {
         "abstract": false,
@@ -77,18 +2215,1263 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 784,
+        "id": 1156,
         "linearizedBaseContracts": [
-          784
+          1156
         ],
         "name": "ProjectFunding",
         "nodeType": "ContractDefinition",
-        "nodes": [],
-        "scope": 785,
-        "src": "24:27:3"
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1053,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1156,
+            "src": "452:13:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1052,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "452:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1056,
+            "name": "donatedAssets",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1156,
+            "src": "471:21:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_struct$_Asset_$1051_storage_$dyn_storage",
+              "typeString": "struct Asset[]"
+            },
+            "typeName": {
+              "baseType": {
+                "contractScope": null,
+                "id": 1054,
+                "name": "Asset",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 1051,
+                "src": "471:5:4",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Asset_$1051_storage_ptr",
+                  "typeString": "struct Asset"
+                }
+              },
+              "id": 1055,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "471:7:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_struct$_Asset_$1051_storage_$dyn_storage_ptr",
+                "typeString": "struct Asset[]"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1058,
+            "name": "balance",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1156,
+            "src": "498:14:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint32",
+              "typeString": "uint32"
+            },
+            "typeName": {
+              "id": 1057,
+              "name": "uint32",
+              "nodeType": "ElementaryTypeName",
+              "src": "498:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint32",
+                "typeString": "uint32"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "functionSelector": "f60ca60d",
+            "id": 1060,
+            "name": "project",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1156,
+            "src": "518:22:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_Project_$1071_storage",
+              "typeString": "struct ProjectFunding.Project"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1059,
+              "name": "Project",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1071,
+              "src": "518:7:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_Project_$1071_storage_ptr",
+                "typeString": "struct ProjectFunding.Project"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ProjectFunding.Project",
+            "id": 1071,
+            "members": [
+              {
+                "constant": false,
+                "id": 1062,
+                "name": "projectTitle",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "572:19:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 1061,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "572:6:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1064,
+                "name": "projectDescription",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "601:25:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 1063,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "601:6:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1066,
+                "name": "projectOwner",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "636:20:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 1065,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "636:7:4",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1068,
+                "name": "projectKickOffMinBalance",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "666:31:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 1067,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "666:6:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1070,
+                "name": "projectKickOffTime",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 1071,
+                "src": "707:25:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 1069,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "707:6:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Project",
+            "nodeType": "StructDefinition",
+            "scope": 1156,
+            "src": "547:192:4",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1124,
+              "nodeType": "Block",
+              "src": "991:336:4",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1088,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1086,
+                      "name": "owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1053,
+                      "src": "1001:5:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1087,
+                      "name": "_owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1073,
+                      "src": "1009:6:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "1001:14:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 1089,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1001:14:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1092,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1090,
+                      "name": "balance",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1058,
+                      "src": "1025:7:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1091,
+                      "name": "initialBalance",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1075,
+                      "src": "1035:14:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "src": "1025:24:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "id": 1093,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1025:24:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1098,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1094,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1059:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1096,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectDescription",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1064,
+                      "src": "1059:26:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1097,
+                      "name": "_projectDescription",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1077,
+                      "src": "1088:19:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "1059:48:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 1099,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1059:48:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1104,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1100,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1117:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1102,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectOwner",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1066,
+                      "src": "1117:20:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1103,
+                      "name": "_owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1073,
+                      "src": "1140:6:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "1117:29:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 1105,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1117:29:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1110,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1106,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1156:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1108,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectTitle",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1062,
+                      "src": "1156:20:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1109,
+                      "name": "_projectTitle",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1079,
+                      "src": "1179:13:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "1156:36:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 1111,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1156:36:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1116,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1112,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1202:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1114,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectKickOffTime",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1070,
+                      "src": "1202:26:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1115,
+                      "name": "_projectKickOffTime",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1081,
+                      "src": "1231:19:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "src": "1202:48:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "id": 1117,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1202:48:4"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1122,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 1118,
+                        "name": "project",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1060,
+                        "src": "1260:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Project_$1071_storage",
+                          "typeString": "struct ProjectFunding.Project storage ref"
+                        }
+                      },
+                      "id": 1120,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "projectKickOffMinBalance",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1068,
+                      "src": "1260:32:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1121,
+                      "name": "_projectKickOffMinBalance",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1083,
+                      "src": "1295:25:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "src": "1260:60:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "id": 1123,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1260:60:4"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1125,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1084,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1073,
+                  "name": "_owner",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "766:14:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1072,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "766:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1075,
+                  "name": "initialBalance",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "790:21:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1074,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "790:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1077,
+                  "name": "_projectDescription",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "821:33:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1076,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "821:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1079,
+                  "name": "_projectTitle",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "864:27:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1078,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "864:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1081,
+                  "name": "_projectKickOffTime",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "901:26:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1080,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "901:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1083,
+                  "name": "_projectKickOffMinBalance",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1125,
+                  "src": "937:32:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1082,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "937:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "756:219:4"
+            },
+            "returnParameters": {
+              "id": 1085,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "991:0:4"
+            },
+            "scope": 1156,
+            "src": "745:582:4",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1150,
+              "nodeType": "Block",
+              "src": "1634:228:4",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1138,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1665:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1139,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectTitle",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1062,
+                        "src": "1665:20:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage",
+                          "typeString": "string storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1140,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1699:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1141,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectDescription",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1064,
+                        "src": "1699:26:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage",
+                          "typeString": "string storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1142,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1739:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1143,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectOwner",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1066,
+                        "src": "1739:20:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1144,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1773:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1145,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectKickOffMinBalance",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1068,
+                        "src": "1773:32:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 1146,
+                          "name": "project",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1060,
+                          "src": "1819:7:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Project_$1071_storage",
+                            "typeString": "struct ProjectFunding.Project storage ref"
+                          }
+                        },
+                        "id": 1147,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "projectKickOffTime",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1070,
+                        "src": "1819:26:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        }
+                      }
+                    ],
+                    "id": 1148,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "1651:204:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_string_storage_$_t_string_storage_$_t_address_$_t_uint32_$_t_uint32_$",
+                      "typeString": "tuple(string storage ref,string storage ref,address,uint32,uint32)"
+                    }
+                  },
+                  "functionReturnParameters": 1137,
+                  "id": 1149,
+                  "nodeType": "Return",
+                  "src": "1644:211:4"
+                }
+              ]
+            },
+            "documentation": null,
+            "functionSelector": "6e57b700",
+            "id": 1151,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getProject",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1126,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1457:2:4"
+            },
+            "returnParameters": {
+              "id": 1137,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1128,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1518:13:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1127,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1518:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1130,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1545:13:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1129,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1545:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1132,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1572:7:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1131,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1572:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1134,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1593:6:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1133,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1593:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1136,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1151,
+                  "src": "1613:6:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 1135,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1613:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1504:125:4"
+            },
+            "scope": 1156,
+            "src": "1438:424:4",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1154,
+              "nodeType": "Block",
+              "src": "1896:2:4",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 1155,
+            "implemented": true,
+            "kind": "fallback",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1152,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1876:2:4"
+            },
+            "returnParameters": {
+              "id": 1153,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1896:0:4"
+            },
+            "scope": 1156,
+            "src": "1868:30:4",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 1157,
+        "src": "422:1478:4"
       }
     ],
-    "src": "0:51:3"
+    "src": "0:1901:4"
   },
   "compiler": {
     "name": "solc",
@@ -96,7 +3479,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.1",
-  "updatedAt": "2020-12-10T22:08:16.300Z",
+  "updatedAt": "2020-12-13T00:41:01.379Z",
   "devdoc": {
     "methods": {}
   },

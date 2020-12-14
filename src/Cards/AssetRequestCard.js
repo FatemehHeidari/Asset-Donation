@@ -61,7 +61,7 @@ class AssetRequestCard extends Component {
                                 <Card.Text>
                                     Status: {this.decodeStatus(this.props.asset.status)}
                                 </Card.Text>
-                                <Button variant="primary" onClick={this.click}>Request Asset</Button>
+                                <Button variant="secondary" onClick={this.click}>Request Asset</Button>
                             </Card.Body>
                         </Card>
                         <Modal show={this.state.requestPopup} onHide={this.handleClose}>
@@ -122,7 +122,7 @@ class AssetRequestCard extends Component {
                                 <Button variant="secondary" onClick={this.handleClose} disabled={this.state.buttonDisabled}>
                                     Close
           </Button>
-                                <Button variant="primary" onClick={this.saveRequest} disabled={this.state.buttonDisabled}>
+                                <Button variant="secondary" onClick={this.saveRequest} disabled={this.state.buttonDisabled}>
                                     Save Changes
           </Button>
                             </Modal.Footer>

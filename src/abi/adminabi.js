@@ -311,8 +311,18 @@ export const Administration = [
     "outputs": [
       {
         "internalType": "bool",
-        "name": "",
+        "name": "exists",
         "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint32",
+        "name": "requestCount",
+        "type": "uint32"
       }
     ],
     "stateMutability": "view",
@@ -369,6 +379,56 @@ export const Administration = [
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiverAddress",
+        "type": "address"
+      }
+    ],
+    "name": "addReceiver",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiverAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getReceiver",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "approved",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint32",
+            "name": "requestCount",
+            "type": "uint32"
+          }
+        ],
+        "internalType": "struct Administration.receiver",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
     "inputs": [],
     "name": "getDonor",
     "outputs": [
@@ -408,13 +468,6 @@ export const Administration = [
       }
     ],
     "name": "approveDonor",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "addReceiver",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

@@ -28,10 +28,20 @@ contract Administration is AccessControl, Pausable {
         //uint32 pageNo;
     }
 
+    struct receiver {
+        bool exists;
+        bool approved;
+        uint32 requestCount;
+        //uint32 pageNo;
+    }
+
     mapping(address => donor) public donors;
-    mapping(address => bool) public receivers;
+    mapping(address => receiver) public receivers;
     modifier isAdmin() {
-        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender),"Sender is not ADMIN.");
+        require(
+            hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
+            "Sender is not ADMIN."
+        );
         _;
     }
 
@@ -57,8 +67,37 @@ contract Administration is AccessControl, Pausable {
                 donationCount: 1
             });
         } else {
-            d.donationCount = SafeCast.toUint32(SafeMath.add(uint256(donors[donorAddress].donationCount), 1));
+            d.donationCount = SafeCast.toUint32(
+                SafeMath.add(uint256(donors[donorAddress].donationCount), 1)
+            );
         }
+    }
+
+    /// @notice Adds an address to list of receivers
+    function addReceiver(address receiverAddress) public {
+        receiver storage r = receivers[receiverAddress];
+        if (!r.exists) {
+            receivers[receiverAddress] = receiver({
+                exists: true,
+                approved: false,
+                requestCount: 1
+            });
+        } else {
+            r.requestCount = SafeCast.toUint32(
+                SafeMath.add(
+                    uint256(receivers[receiverAddress].requestCount),
+                    1
+                )
+            );
+        }
+    }
+
+    function getReceiver(address receiverAddress)
+        public
+        view
+        returns (receiver memory)
+    {
+        return receivers[receiverAddress];
     }
 
     function getDonor() public view returns (donor memory) {
@@ -73,17 +112,17 @@ contract Administration is AccessControl, Pausable {
     }
 
     /// @notice Adds an address to list of receivers
-    function addReceiver() public {
-        if (!receivers[msg.sender]) {
-            receivers[msg.sender] = false;
-        }
-    }
+    // function addReceiver() public {
+    //     if (!receivers[msg.sender]) {
+    //         receivers[msg.sender] = false;
+    //     }
+    // }
 
     /// @notice Admin approves an address to have the receiver role
     /// @param receiverAddress The address of receiver to be approved
     function approveReceiver(address receiverAddress) public {
         grantRole(RECEIVER, receiverAddress);
-        receivers[receiverAddress] = true;
+        receivers[receiverAddress].approved = true;
     }
 
     function pause() public isAdmin {

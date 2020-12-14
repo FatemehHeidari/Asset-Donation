@@ -20,8 +20,16 @@ class AddDonation extends Component {
         this.state = {
             buttonDisabled: false,
             buffer: null,
-            ipfsHash:''
+            ipfsHash: '',
+            selectedAccoutnt: "0x0000000000000000000000000000000000000000"
         };
+    }
+    componentDidMount() {
+        setInterval(async() => {
+            const accounts = await window.ethereum.enable();
+            const account = accounts[0];
+            this.setState({ selectedAccoutnt: account });
+        }, 1000)
     }
 
     addAsset = async (t) => {
@@ -29,22 +37,26 @@ class AddDonation extends Component {
         this.setState({ buttonDisabled: true });
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
+        console.log("account");
+        console.log(account);
+        this.setState({ selectedAccoutnt: account });
         //const account = await web3.givenProvider.selectedAddress;//accounts[0];
         console.log('selectedAddress');
         console.log(account);
         const tit = this.assetTitle.current.value;
         const des = this.assetDes.current.value;
         const loc = this.assetLocation.current.value;
-        const gasAmount = await donateAssetContract.methods.addAsset(tit,des, 0, loc,this.state.ipfsHash).estimateGas({ from: account });
+        const gasAmount = await donateAssetContract.methods.addAsset(tit, des, 0, loc, this.state.ipfsHash).estimateGas({ from: account });
         console.log('gasAmount');
         console.log(gasAmount);
-        const result = await donateAssetContract.methods.addAsset(tit,des, 0, loc,this.state.ipfsHash).send({
+        const result = await donateAssetContract.methods.addAsset(tit, des, 0, loc, this.state.ipfsHash).send({
             from: account,
             gasAmount,
         });
         this.setState({ buttonDisabled: false });
         console.log('result');
         console.log(result);
+        this.setState({ buttonDisabled: false });
     };
 
     fileUploaded = async (t) => {
@@ -58,37 +70,41 @@ class AddDonation extends Component {
         var fileBuffer = new Uint8Array(contentBuffer);
         console.log("Buffer: ", fileBuffer);
         this.setState({ buffer: fileBuffer });
-        
-                           
-        const hash = await ipfs.files.add(Buffer.from(this.state.buffer));
-        this.setState({ipfsHash:hash});
-        console.log('hash',hash[0].hash);
-        this.setState({ipfsHash:hash[0].hash});
-        console.log('https://ipfs.io/ipfs/'+ this.state.ipfsHash);
 
-        
+
+        const hash = await ipfs.files.add(Buffer.from(this.state.buffer));
+        this.setState({ ipfsHash: hash });
+        console.log('hash', hash[0].hash);
+        this.setState({ ipfsHash: hash[0].hash });
+        console.log('https://ipfs.io/ipfs/' + this.state.ipfsHash);
+
+
 
     }
 
 
-    readFileAsync = async(file)  =>{
+    readFileAsync = async (file) => {
         return new Promise((resolve, reject) => {
-          let reader = new FileReader();
-      
-          reader.onload = () => {
-            resolve(reader.result);
-          };
-      
-          reader.onerror = reject;
-      
-          reader.readAsArrayBuffer(file);
+            let reader = new FileReader();
+
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+
+            reader.onerror = reject;
+
+            reader.readAsArrayBuffer(file);
         })
-      }
+    }
     render() {
         return (<div>
-            <div class="container">
-                <div class="jumbotron">
-                    <h2> Asset Donation  </h2>
+            <div class="jumbotron">
+                <h2> Asset Donation  </h2>
+
+            </div>
+            <div class="form-row">
+                <div class="col xs = {12}">
+                    <h7> Asddress:{this.state.selectedAccoutnt}  </h7>
                 </div>
             </div>
             <div class="container">
@@ -136,7 +152,7 @@ class AddDonation extends Component {
                                                         aria-describedby="AssetLocation"
                                                     />
                                                 </InputGroup>
-                                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/'+ this.state.ipfsHash} alt=""/>
+                                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.state.ipfsHash} alt="" />
                                                 <br></br>
                                                 <Form>
                                                     <Form.File
@@ -150,7 +166,7 @@ class AddDonation extends Component {
                                                 </Form>
                                                 <br></br>
                                                 <div class=" form-group col-md-6">
-                                                    <button type="button" class="btn btn-outline-primary btn-block" onClick={this.addAsset} disabled={this.state.buttonDisabled}>Save</button>
+                                                    <button type="button" class="btn btn-outline-secondary btn-block" onClick={this.addAsset} disabled={this.state.buttonDisabled}>Save</button>
                                                 </div>
                                                 {/* <InputGroup className="mb-3">
                                                     <FormControl

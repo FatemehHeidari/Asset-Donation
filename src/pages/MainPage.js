@@ -20,21 +20,26 @@ class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            AdminUser: false
+            AdminUser: false,
+            selectedAccoutnt: "0x0000000000000000000000000000000000000000"
         };
         this.setAdmin();
     }
-
+    componentDidMount() {
+        setInterval(async() => {
+            this.setAdmin();
+        }, 1000)
+    }
     setAdmin = async () => {
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
+
+        this.setState({ selectedAccoutnt: account });
         const gasAmount = await admincontract.methods.isAdminUser().estimateGas({ from: account });
         const result = await admincontract.methods.isAdminUser().call({
             from: account,
             gasAmount,
         });
-        console.log('result');
-        console.log(result);
 
         this.setState({ AdminUser: result });
     }
@@ -58,27 +63,31 @@ class MainPage extends Component {
     render() {
         return (
             <div>
-                <div class="container">
-                    <div class="jumbotron">
-                        <h2> Asset Donation  </h2>
-                    </div>
+                <div class="jumbotron">
+                    <h2> Asset Donation  </h2>
                 </div>
+                <h7> Asddress:{this.state.selectedAccoutnt}  </h7>
                 <div class="container">
                     <div class="row top-buffer">
                         <Col xs={6}>
                             <div class="row top-buffer">
                                 <div class="col-xl-6">
-                                    <Button variant="primary" onClick={() => history.push('/DonarPage')}>Enter As a Donor</Button>
+                                    <Button variant="secondary btn-block" onClick={() => history.push('/DonarPage')} size={20}>Enter As a Donor</Button>
                                 </div>
                             </div>
                             <div class="row top-buffer">
                                 <div class="col-xl-6">
-                                    <Button variant="primary" onClick={() => history.push('/RequestPage')}>Request Donation</Button>
+                                    <Button variant="secondary btn-block" onClick={() => history.push('/RequestPage')}>Request Donation</Button>
                                 </div>
                             </div>
                             <div class="row top-buffer">
                                 <div class="col-xl-6">
-                                    {this.state.AdminUser && <Button variant="primary" active={false} class="btn btn-outline-primary btn-block" onClick={() => history.push('/AdminPage')}>Admin</Button>}
+                                    <Button variant="secondary btn-block" onClick={() => history.push('/ProjectOwnerPage')}>Enter as Project Owner</Button>
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <div class="col-xl-6">
+                                    {this.state.AdminUser && <Button variant="secondary btn-block" active={false} class="btn btn-outline-secondary btn-block" onClick={() => history.push('/AdminPage')}>Admin</Button>}
                                 </div>
                             </div>
                         </Col>

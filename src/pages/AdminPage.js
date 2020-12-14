@@ -16,14 +16,23 @@ class DonarPage extends Component {
         super(props);
         this.state = {
             status: false,
-            statusText: ""
+            statusText: "",
+            selectedAccoutnt: "0x0000000000000000000000000000000000000000"
         };
         this.getStatus();
+    }
+    componentDidMount() {
+        setInterval(async() => {
+            const accounts = await window.ethereum.enable();
+            const account = accounts[0];
+            this.setState({ selectedAccoutnt: account });
+        }, 1000)
     }
     getStatus = async () => {
         //t.preventDefault();
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
+        this.setState({ selectedAccoutnt: account });
         const gasAmount = await adminContract.methods.paused().estimateGas({ from: account });
         const result = await adminContract.methods.paused().call({
             from: account,
@@ -31,13 +40,13 @@ class DonarPage extends Component {
         });
         console.log('result');
         console.log(result);
-        this.setState({ statusText: result ? 'Stopped' : 'Running' ,status:!result});
+        this.setState({ statusText: result ? 'Stopped' : 'Running', status: !result });
     };
     handleChange = async (t) => {
-        if(this.state.status){
+        if (this.state.status) {
             this.emergencyStop(t);
         }
-        else{
+        else {
             this.start(t);
         }
     }
@@ -76,10 +85,12 @@ class DonarPage extends Component {
 
         return (
             <div>
-
-                <div class="container">
-                    <div class="jumbotron">
-                        <h2> Admin Dashboard  </h2>
+                <div class="jumbotron">
+                    <h2> Admin Dashboard  </h2>
+                </div>
+                <div class="form-row">
+                    <div class="col xs = {12}">
+                        <h7> Asddress:{this.state.selectedAccoutnt}  </h7>
                     </div>
                 </div>
                 <Form>
@@ -91,7 +102,7 @@ class DonarPage extends Component {
                         <Form.Check column sm="8"
                             type="switch"
                             id="custom-switch"
-                            checked={ this.state.status }
+                            checked={this.state.status}
                             label={this.state.statusText}
                             onChange={this.handleChange}
                         />

@@ -1,9 +1,21 @@
 pragma solidity ^0.6.2;
 pragma experimental ABIEncoderV2;
+struct donor {
+    bool exists;
+    bool approved;
+    uint32 donationCount;
+}
 
 contract Administration {
-    function systemPaused() public returns(bool){}
+    function systemPaused() public returns (bool) {}
+
     function addDonor(address donorAddress) public {}
+
+    function getDonor(address donorAddress)
+        public
+        view
+        returns (donor memory)
+    {}
 }
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -20,52 +32,60 @@ contract DonateAsset is ERC721 {
     Administration ADM;
 
     uint32 lastAssetId;
+    uint32 lastDonationId;
 
     constructor(address _adm) public ERC721("MyToken", "MTS") {
         ADM = Administration(_adm);
         lastAssetId = 0;
+        lastDonationId = 0;
     }
 
     enum Status {Free, Requested, Donated, Inactive, Burned}
 
     struct Asset {
-        uint32 assetId;
         string assetTitle;
         string assetDescription;
+        uint32 availablityDate;
+        string location;
+        address owner;
+        string imageIPFSHash;
+    }
+
+    struct Donation {
+        uint256 assetId;
         uint32 availablityDate;
         string location;
         Status status;
         address owner;
         address recipient;
-        uint32 donatedDateFrom;
-        uint32 donatedDateTo;
         uint32 requestCount;
-        string imageIPFSHash;
     }
 
-    mapping(uint32 => Asset) public donationList;
+    mapping(uint32 => Donation) public donationList;
+    mapping(uint256 => Asset) public AssetList;
 
-    modifier assetIsFree(uint32 assetId) {
+    modifier assetIsFree(uint32 donationId) {
         require(
-            donationList[assetId].recipient == address(0) &&
-                (donationList[assetId].status == Status.Free ||
-                    donationList[assetId].status == Status.Requested)
-        ,"Asset is not Free.");
+            donationList[donationId].recipient == address(0) &&
+                (donationList[donationId].status == Status.Free ||
+                    donationList[donationId].status == Status.Requested),
+            "Asset is not Free."
+        );
         _;
     }
 
-    modifier assetExists(uint32 assetId) {
-        require(donationList[assetId].owner != address(0), "Invalid asset");
+    modifier assetExists(uint32 donationId) {
+        require(donationList[donationId].owner != address(0), "Invalid asset");
         _;
     }
 
     modifier isAssetOwner(uint256 assetId) {
-        require(ownerOf(assetId) == msg.sender,"Sender nis ot asset owner.");
+        require(ownerOf(assetId) == msg.sender, "Sender nis ot asset owner.");
         _;
     }
 
-    modifier whenNotPaused(){
-        require(!ADM.systemPaused(),"System is in emergency stop.");
+    modifier whenNotPaused() {
+        require(!ADM.systemPaused(), "System is in emergency stop.");
         _;
     }
 
@@ -76,11 +96,13 @@ contract DonateAsset is ERC721 {
     // event LogInactive(uint32 assetId);
     // event LogIBurned(uint32 assetId);
 
-    function UpdateAsset(Asset memory asset) public {
-        if (asset.status > donationList[asset.assetId].status) {
-            donationList[asset.assetId].status = asset.status;
+    function UpdateDonation(Donation memory donation, uint32 donationId)
+        public
+    {
+        if (donation.status > donationList[donationId].status) {
+            donationList[donationId].status = donation.status;
         }
-        donationList[asset.assetId].requestCount = asset.requestCount;
+        donationList[donationId].requestCount = donation.requestCount;
     }
 
     /// @notice Adds a new asset to list of donated assets(Should be called by a donor)
@@ -98,70 +120,93 @@ contract DonateAsset is ERC721 {
     ) public whenNotPaused {
         ADM.addDonor(msg.sender);
         uint32 assetId = mintToken(msg.sender);
-        donationList[assetId] = Asset({
-            assetId: assetId,
+        AssetList[assetId] = Asset({
             assetTitle: assetTitle,
             assetDescription: assetDescription,
+            availablityDate: availablityDate,
+            location: location,
+            owner: msg.sender,
+            imageIPFSHash: imageIPFSHash
+        });
+        donationList[lastDonationId] = Donation({
+            assetId: assetId,
             availablityDate: availablityDate,
             location: location,
             status: Status.Free,
             owner: msg.sender,
             recipient: address(0),
-            donatedDateFrom: 0,
-            donatedDateTo: 0,
-            requestCount: 0,
-            imageIPFSHash: imageIPFSHash
+            requestCount: 0
         });
+        lastDonationId = SafeCast.toUint32(
+            SafeMath.add(uint256(lastDonationId), 1)
+        );
         emit LogFree(assetId);
     }
 
     /// @notice Returns all donations of an donor(it shoud be called by a donor)
     /// @dev There must be better way than returing always an array of 16
     /// @return Asset returns an array of type asset and length 16 of donations of msg.sender
-    function getDonationsByOwner(uint pageNo)
+    function getDonationsByOwner(uint256 pageNo)
         public
         view
-        returns (Asset[8] memory)
+        returns (Donation[8] memory)
     {
-        uint tokenCount = uint(balanceOf(msg.sender)); //donors[msg.sender].donationCount;
+        donor memory d = ADM.getDonor(msg.sender);
+        uint256 donationCount = d.donationCount; //uint(balanceOf(msg.sender)); //donors[msg.sender].donationCount;
         //uint32 pageNo = donors[msg.sender].pageNo;
-        uint nextStart = SafeMath.mul(pageNo , 8);//0
-        uint rem = SafeMath.sub( tokenCount , nextStart);//1
-        uint index = 0;
-        uint32 tokenId;
-        Asset[8] memory assetList;
+        uint256 nextStart = SafeMath.mul(pageNo, 8); //0
+        uint256 rem = SafeMath.sub(donationCount, nextStart); //1
+        uint256 index = 0;
+        uint32 j = 0;
+        Donation[8] memory _donationList;
         if (rem < 0) {
-            return assetList;
+            return _donationList;
         } else {
             if ((rem) < 8) {
-                index = rem;//1
+                index = rem; //1
             } else {
                 index = 8;
             }
-            uint loopEnd = SafeMath.add( nextStart , index);//9
-            for (uint i = nextStart; i < loopEnd; i++) {
-                tokenId = uint32(tokenOfOwnerByIndex(msg.sender, i));
-                assetList[SafeMath.sub(i , nextStart)] = donationList[tokenId];
+            uint256 loopEnd = SafeMath.add(nextStart, index); //9
+            for (uint32 i = 0; i < lastDonationId; i++) {
+                if (donationList[i].owner == msg.sender) {
+                    if (j > nextStart) {
+                        _donationList[SafeMath.sub(
+                            j,
+                            nextStart
+                        )] = donationList[i];
+                        j++;
+                    } else {
+                        j++;
+                    }
+                }
+                if (j == loopEnd) {
+                    break;
+                }
             }
-            return assetList;
+            // for (uint i = nextStart; i < loopEnd; i++) {
+            //     tokenId = uint32(donationOfOwnerByIndex(msg.sender, i));
+            //     assetList[SafeMath.sub(i , nextStart)] = donationList[tokenId];
+            // }
+            return _donationList;
         }
     }
 
     /// @notice returns all donations
     /// @dev There must be better way than returing always an array of 16
     /// @return Asset returns an array of type asset and length 16 of all donations
-    function getAllDonations() public view returns (Asset[16] memory) {
+    function getAllDonations() public view returns (Donation[16] memory) {
         uint32 index = 0;
-        Asset[16] memory assetList;
+        Donation[16] memory _donationList;
         if (lastAssetId <= 16) {
-            index = lastAssetId;
+            index = lastDonationId;
         } else {
             index = 16;
         }
         for (uint32 i = 0; i < index; i++) {
-            assetList[i] = donationList[i];
+            _donationList[i] = donationList[i];
         }
-        return assetList;
+        return _donationList;
     }
 
     /// @notice The ERC721 stadard for nunfungible token is used to maintain ownership of assets
@@ -173,34 +218,44 @@ contract DonateAsset is ERC721 {
     ) public whenNotPaused returns (uint32) {
         _safeMint(assetOwner, lastAssetId);
         uint32 assetId = lastAssetId;
-        lastAssetId = SafeCast.toUint32(SafeMath.add(uint256(lastAssetId),1));
+        lastAssetId = SafeCast.toUint32(SafeMath.add(uint256(lastAssetId), 1));
         return assetId;
     }
 
     /// @notice a donor can approve a specific request and this function assigns the recipient of this asset to the recipientAddress
     /// @notice caller should be a donor and recipient should be a receiver
     /// @dev change related request's status to approved
-    /// @param assetId unique id of asset to be donated
+    /// @param donationId unique id of donation to be donated
     /// @param recipientAddress donation receiver
-    function donateAsset(uint32 assetId, address recipientAddress)
+    function donateAsset(uint32 donationId, address recipientAddress)
         public
-        assetExists(assetId)
+        //assetExists(assetId)
         //isReceiver(recipientAddress)
-        assetIsFree(assetId)
-        isAssetOwner(assetId)
+        //assetIsFree(assetId)
+        //isAssetOwner(assetId)
         //isDonor(msg.sender)
         whenNotPaused
     {
-        donationList[assetId].recipient = recipientAddress;
-        donationList[assetId].status = Status.Donated;
-        emit LogDonated(assetId);
+        uint tokenId = donationList[donationId].assetId;
+        safeTransferFrom(msg.sender, recipientAddress, tokenId);
+        donationList[donationId].recipient = recipientAddress;
+        donationList[donationId].status = Status.Donated;
+        emit LogDonated(donationId);
     }
 
-    function getAssetRequestCount(uint32 assetId) public view returns (uint32) {
-        return donationList[assetId].requestCount;
+    function getAssetRequestCount(uint32 donationId)
+        public
+        view
+        returns (uint32)
+    {
+        return donationList[donationId].requestCount;
     }
 
-    function getDonation(uint32 assetId) public view returns (Asset memory) {
-        return donationList[assetId];
+    function getDonation(uint32 donationId)
+        public
+        view
+        returns (Donation memory)
+    {
+        return donationList[donationId];
     }
 }

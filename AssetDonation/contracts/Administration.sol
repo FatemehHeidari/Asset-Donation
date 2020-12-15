@@ -25,7 +25,6 @@ contract Administration is AccessControl, Pausable {
         bool exists;
         bool approved;
         uint32 donationCount;
-        //uint32 pageNo;
     }
 
     struct receiver {
@@ -100,8 +99,8 @@ contract Administration is AccessControl, Pausable {
         return receivers[receiverAddress];
     }
 
-    function getDonor() public view returns (donor memory) {
-        return donors[msg.sender];
+    function getDonor(address donorAddress) public view returns (donor memory) {
+        return donors[donorAddress];
     }
 
     /// @notice Admin approves an address to have the donor role

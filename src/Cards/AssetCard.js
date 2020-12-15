@@ -12,9 +12,9 @@ import '../App.css';
 import Web3 from "web3";
 
 const OPTIONS = {
-  defaultBlock: "latest",
-  transactionConfirmationBlocks: 1,
-  transactionBlockTimeout: 5
+    defaultBlock: "latest",
+    transactionConfirmationBlocks: 1,
+    transactionBlockTimeout: 5
 }
 const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
 
@@ -24,7 +24,7 @@ class AssetCard extends Component {
         super(props);
         this.state = {
             Requests: [],
-            project:[],
+            project: [],
             requestPopup: false
         };
     }
@@ -32,11 +32,11 @@ class AssetCard extends Component {
         t.preventDefault();
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
-        let assetId = this.props.asset.assetId;
-        let requestCount = this.props.asset.requestCount;
- 
-        const gasAmount = await receiveAssetContract.methods.getDonationRequests(assetId, requestCount).estimateGas({ from: account });
-        const result = await receiveAssetContract.methods.getDonationRequests(assetId, requestCount).call({
+        let donationId = this.props.donation.donationId;
+        let requestCount = this.props.donation.requestCount;
+
+        const gasAmount = await receiveAssetContract.methods.getDonationRequests(donationId, requestCount).estimateGas({ from: account });
+        const result = await receiveAssetContract.methods.getDonationRequests(donationId, requestCount).call({
             from: account,
             gasAmount,
         });
@@ -63,9 +63,9 @@ class AssetCard extends Component {
             from: account,
             gasAmount,
         });
-        let projResult = {ProjectTitle:result[0],ProjectDescription:result[1]};
+        let projResult = { ProjectTitle: result[0], ProjectDescription: result[1] };
         projResult.donated = await this.getProjectBalance(t);
-        this.setState({project:projResult});
+        this.setState({ project: projResult });
         return projResult;
 
     };
@@ -90,9 +90,10 @@ class AssetCard extends Component {
 
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
-
-        const gasAmount = await donateAssetContract.methods.donateAsset(t.assetId, t.receiver).estimateGas({ from: account });
-        const result = await donateAssetContract.methods.donateAsset(t.assetId, t.receiver).send({
+        console.log('t');
+        console.log(t);
+        const gasAmount = await donateAssetContract.methods.donateAsset(t.donationId, t.assetId, t.receiver).estimateGas({ from: account });
+        const result = await donateAssetContract.methods.donateAsset(t.donationId, t.assetId, t.receiver).send({
             from: account,
             gasAmount,
         });
@@ -120,30 +121,30 @@ class AssetCard extends Component {
             if (request.receiver != "0x0000000000000000000000000000000000000000") {
                 if (request.requestType == 0) {
                     return (
-                        <RequestCard request={request} assetId={this.props.asset.assetId} requestApprove={this.requestApprove} readOnly = {false}/>)
+                        <RequestCard request={request} donationId={this.props.donation.donationId} assetId={this.props.donation.assetId} requestApprove={this.requestApprove} readOnly={false} />)
                 }
                 else if (request.requestType == 1) {
                     return (
-                        <ProjectRequestCard request={request} assetId={this.props.asset.assetId} requestApprove={this.requestApprove} readOnly = {false}/>)
+                        <ProjectRequestCard request={request} donationId={this.props.donation.donationId} assetId={this.props.donation.assetId} requestApprove={this.requestApprove} readOnly={false} />)
                 }
             }
         });
         return (
             <div>
                 <br></br>
-                <div class="col xs = {3}" key={this.props.asset.assetId}>
+                <div class="col xs = {3}" key={this.props.donation.donationId}>
                     <div class="container" >
                         <Card style={{ flex: 1 }} >
                             <div id="yourContainer">
-                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.asset.imageIPFSHash} alt="" />
+                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.donation.asset.imageIPFSHash} alt="" />
                             </div>
                             <Card.Body>
                                 <Card.Text>
-                                    Description: {this.props.asset.assetDescription}</Card.Text>
+                                    Description: {this.props.donation.asset.assetDescription}</Card.Text>
                                 <Card.Text>
-                                    Location: {this.props.asset.location}</Card.Text>
+                                    Location: {this.props.donation.location}</Card.Text>
                                 <Card.Text>
-                                    Status: {this.decodeStatus(this.props.asset.status)}
+                                    Status: {this.decodeStatus(this.props.donation.status)}
                                 </Card.Text>
                                 <Button variant="secondary" onClick={this.getRequests}>Show Requests</Button>
                             </Card.Body>

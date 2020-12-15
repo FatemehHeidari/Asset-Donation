@@ -12,20 +12,23 @@ contract Administration {
 
     function addReceiver(address receiverAddress) public {}
 
-function getReceiver(address receiverAddress)
+    function getReceiver(address receiverAddress)
         public
         view
-        returns (receiver memory){}
+        returns (receiver memory)
+    {}
 }
 
 contract DonateAsset {
-    function getAssetRequestCount(uint32 assetId)
+    function getDonationRequestCount(uint32 donationId)
         public
         view
         returns (uint32)
     {}
 
-    function UpdateAsset(Asset memory asset) public {}
+    function UpdateDonation(Donation memory donation, uint32 donationId)
+        public
+    {}
 }
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -39,20 +42,25 @@ import "@openzeppelin/contracts/utils/SafeCast.sol";
 /// @dev time
 enum Status {Free, Requested, Donated, Inactive, Burned}
 
-struct Asset {
-    uint32 assetId;
-    string assetTitle;
-    string assetDescription;
-    uint32 availablityDate;
-    string location;
-    Status status;
-    address owner;
-    address recipient;
-    uint32 donatedDateFrom;
-    uint32 donatedDateTo;
-    uint32 requestCount;
-    string imageIPFSHash;
-}
+    struct Asset {
+        string assetTitle;
+        string assetDescription;
+        uint32 availablityDate;
+        string location;
+        address owner;
+        string imageIPFSHash;
+    }
+
+    struct Donation {
+        uint32 donationId;
+        uint256 assetId;
+        uint32 availablityDate;
+        string location;
+        Status status;
+        address owner;
+        address recipient;
+        uint32 requestCount;
+    }
 
 contract ReceiveAsset {
     Administration ADM;
@@ -82,7 +90,7 @@ contract ReceiveAsset {
         _;
     }
     event LogRequested(uint32 assetId);
-    event LogRequest(Request r,uint32 reCount,address receiver);
+    event LogRequest(Request r, uint32 reCount, address receiver);
     event LogRequestApproved(uint32 assetId, address recAddress);
 
     /// @notice retrieves all request for a specific donation
@@ -108,21 +116,21 @@ contract ReceiveAsset {
     /// @notice A receiver can register a request for a specific donation previousely added
     /// @notice to list of donation by a donor
     /// @dev date conflicts can be checked
-    /// @param assetId The unique id of donation
+    /// @param donationId The unique id of donation
     /// @param requestDescription The description entered by the receiver
     /// @param requestDateFrom The starting date receiver needs this asset
     /// @param requestDateTo The ending date receiver needs this asset
     function requestAsset(
-        uint32 assetId,
+        uint32 donationId,
         string memory requestDescription,
         uint32 requestDateFrom,
         uint32 requestDateTo
     ) public whenNotPaused {
         ADM.addReceiver(msg.sender);
         receiver memory r = ADM.getReceiver(msg.sender);
-        uint32 requestCount = DA.getAssetRequestCount(assetId); ///donationList[assetId];
+        uint32 requestCount = DA.getDonationRequestCount(donationId); ///donationList[assetId];
         //if (requestedItem.requestCount < maxNoOfReqsPerAsst) {
-        assetRequestList[assetId][requestCount] = Request({
+        assetRequestList[donationId][requestCount] = Request({
             receiver: msg.sender,
             requestDescription: requestDescription,
             requestDateFrom: requestDateFrom,
@@ -130,43 +138,39 @@ contract ReceiveAsset {
             status: RequestStatus.Open,
             requestType: RequestType.Individual
         });
-        Request storage req = assetRequestList[assetId][requestCount];
-        addressRequestList[msg.sender][r.requestCount-1] = req;
-        emit LogRequested(assetId);
-        emit LogRequest(req,r.requestCount,msg.sender);
+        Request storage req = assetRequestList[donationId][requestCount];
+        addressRequestList[msg.sender][r.requestCount - 1] = req;
+        emit LogRequested(donationId);
+        emit LogRequest(req, r.requestCount, msg.sender);
         requestCount = SafeCast.toUint32(
             SafeMath.add(uint256(requestCount), 1)
         );
-        Asset memory asset = Asset({
-            assetId: assetId,
-            assetTitle: "",
-            assetDescription: "",
+        Donation memory donation = Donation({
+            donationId:donationId,
+            assetId: 0,
             availablityDate: 0,
             location: "",
             status: Status.Requested,
             owner: address(0),
             recipient: address(0),
-            donatedDateFrom: 0,
-            donatedDateTo: 0,
-            requestCount: requestCount,
-            imageIPFSHash: ""
+            requestCount: requestCount
         });
-        DA.UpdateAsset(asset);
+        DA.UpdateDonation(donation,donationId);
     }
 
     /// @notice A Project can register a request for a specific donation previousely added
     /// @notice to list of donation by a donor
     /// @dev date conflicts can be checked
-    /// @param assetId The unique id of donation
+    /// @param donationId The unique id of donation
     /// @param projectAddress address of the project
-    function requestAsset(uint32 assetId, address projectAddress)
+    function requestAsset(uint32 donationId, address projectAddress)
         public
         whenNotPaused
     {
         ADM.addReceiver(msg.sender);
-        uint32 requestCount = DA.getAssetRequestCount(assetId); ///donationList[assetId];
+        uint32 requestCount = DA.getDonationRequestCount(donationId); ///donationList[assetId];
         //if (requestedItem.requestCount < maxNoOfReqsPerAsst) {
-        assetRequestList[assetId][requestCount] = Request({
+        assetRequestList[donationId][requestCount] = Request({
             receiver: projectAddress,
             requestDescription: "",
             requestDateFrom: 0,
@@ -174,25 +178,21 @@ contract ReceiveAsset {
             status: RequestStatus.Open,
             requestType: RequestType.Project
         });
-        emit LogRequested(assetId);
+        emit LogRequested(donationId);
         requestCount = SafeCast.toUint32(
             SafeMath.add(uint256(requestCount), 1)
         );
-        Asset memory asset = Asset({
-            assetId: assetId,
-            assetTitle: "",
-            assetDescription: "",
+        Donation memory donation = Donation({
+            donationId:donationId,
+            assetId: 0,
             availablityDate: 0,
             location: "",
             status: Status.Requested,
             owner: address(0),
             recipient: address(0),
-            donatedDateFrom: 0,
-            donatedDateTo: 0,
-            requestCount: requestCount,
-            imageIPFSHash: ""
+            requestCount: requestCount
         });
-        DA.UpdateAsset(asset);
+        DA.UpdateDonation(donation,donationId);
     }
 
     function getReceiver(address receiverAddress)
@@ -225,7 +225,7 @@ contract ReceiveAsset {
 
             mapping(uint32 => Request) storage assetRequests
          = assetRequestList[assetId];
-        uint32 requestCount = DA.getAssetRequestCount(assetId);
+        uint32 requestCount = DA.getDonationRequestCount(assetId);
         for (uint32 i = 0; i < requestCount; i++) {
             if (assetRequests[i].receiver == recipientAddress) {
                 Request storage r = assetRequests[i];
@@ -235,10 +235,16 @@ contract ReceiveAsset {
         }
     }
 
-    function getRequests(address receiverAddress) public view returns (Request[8] memory) {
+    function getRequests(address receiverAddress)
+        public
+        view
+        returns (Request[8] memory)
+    {
         receiver memory r = getReceiver(receiverAddress);
         Request[8] memory requestList;
-        mapping(uint32 => Request) storage t = addressRequestList[receiverAddress];
+
+            mapping(uint32 => Request) storage t
+         = addressRequestList[receiverAddress];
         for (uint32 i = 0; i < r.requestCount; i++) {
             requestList[i] = t[i];
         }

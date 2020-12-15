@@ -265,7 +265,7 @@ export const ReceiveAsset =  [
     "inputs": [
       {
         "internalType": "uint32",
-        "name": "assetId",
+        "name": "donationId",
         "type": "uint32"
       },
       {
@@ -293,7 +293,7 @@ export const ReceiveAsset =  [
     "inputs": [
       {
         "internalType": "uint32",
-        "name": "assetId",
+        "name": "donationId",
         "type": "uint32"
       },
       {

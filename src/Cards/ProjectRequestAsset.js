@@ -23,8 +23,8 @@ class ProjectRequestAsset extends Component {
         const account = accounts[0];
         console.log(' this.props.projrctAddress');
         console.log( this.props.projrctAddress);
-        const gasAmount = await receiveAssetContract.methods.requestAsset(this.props.asset.assetId, this.props.projrctAddress).estimateGas({ from: account });
-        const result = await receiveAssetContract.methods.requestAsset(this.props.asset.assetId,  this.props.projrctAddress).send({
+        const gasAmount = await receiveAssetContract.methods.requestAsset(this.props.donation.donationId, this.props.projrctAddress).estimateGas({ from: account });
+        const result = await receiveAssetContract.methods.requestAsset(this.props.donation.donationId,  this.props.projrctAddress).send({
             from: account,
             gasAmount,
         });
@@ -51,19 +51,19 @@ class ProjectRequestAsset extends Component {
         return (
             <div>
                 <br></br>
-                <div class="col xs = {3}" key={this.props.asset.assetId}>
+                <div class="col xs = {3}" key={this.props.donation.donationId}>
                     <div class="container" >
                         <Card style={{ flex: 1 }} >
                             <div id="yourContainer">
-                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.asset.imageIPFSHash} alt="" />
+                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.donation.asset.imageIPFSHash} alt="" />
                             </div>
                             <Card.Body>
                                 <Card.Text>
-                                    Description: {this.props.asset.assetDescription}</Card.Text>
+                                    Description: {this.props.donation.asset.assetDescription}</Card.Text>
                                 <Card.Text>
-                                    Location: {this.props.asset.location}</Card.Text>
+                                    Location: {this.props.donation.location}</Card.Text>
                                 <Card.Text>
-                                    Status: {this.decodeStatus(this.props.asset.status)}
+                                    Status: {this.decodeStatus(this.props.donation.status)}
                                 </Card.Text>
                                 <Button variant="secondary" onClick={this.requestAssetForProject}>Request Asset</Button>
                             </Card.Body>

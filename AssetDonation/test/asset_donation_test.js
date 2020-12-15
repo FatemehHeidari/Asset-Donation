@@ -32,15 +32,13 @@ contract('donationTest', function (accounts) {
         let instanceDonate = await DonateAsset.deployed(adminInstance.address);
         const tx2 = await instanceDonate.addAsset(title, des, availablitydate, loc, ipfsHash, { from: donor })
 
-        const result = await instanceDonate.getDonation.call(0)
+        const result = await instanceDonate.getDonation.call(0);
 
-        assert.equal(result.assetDescription, des, 'asset description is not saved properly')
         assert.equal(result.availablityDate, availablitydate, 'availablitydate is not saved properly')
         assert.equal(result.location, loc, 'location is not saved properly')
         assert.equal(result.status, 0, 'the status should be Free')
         assert.equal(result.owner, donor, 'the owner of asset should be equal to donor')
         assert.equal(result.recipient, emptyAddress, 'the receiver address should be empty')
-        assert.equal(result.imageIPFSHash, ipfsHash, 'the stored ipfs Hash should be equal to ipfsHash')
     })
 
 
@@ -48,9 +46,17 @@ contract('donationTest', function (accounts) {
         let adminInstance = await Administration.deployed();
         let instanceDonate = await DonateAsset.deployed(adminInstance.address);
         const tx = await instanceDonate.addAsset(title, des, availablitydate, loc, ipfsHash, { from: donor })
-        const result = await adminInstance.getDonor.call({ from: donor });
+        const result = await adminInstance.getDonor.call(donor);
         assert.equal(result.exists, true, 'donation count is not increased appropriately')
         assert.equal(result.donationCount.toString(10), 2, 'donation count is not increased appropriately');
+    })
+
+
+    it("List of an donor donations", async () => {
+        let adminInstance = await Administration.deployed();
+        let instanceDonate = await DonateAsset.deployed(adminInstance.address);
+        const result = await instanceDonate.getDonationsByOwner(0,{from:donor});
+        assert.equal(result[0][5], donor, 'donation count is not increased appropriately')
     })
 
     it("emit LogFree event when an asset is added", async () => {
@@ -141,7 +147,7 @@ contract('donationTest', function (accounts) {
         let instanceDonate = await DonateAsset.deployed(adminInstance.address);
         const tx2 = await instanceDonate.addAsset(title, des, availablitydate, loc, ipfsHash, { from: donor })
 
-        await catchRevert(instanceDonate.donateAsset(5, receiver, { from: other }))
+        await catchRevert(instanceDonate.donateAsset(5,5, receiver, { from: other }))
 
     })
 
@@ -150,7 +156,7 @@ contract('donationTest', function (accounts) {
         let instanceDonate = await DonateAsset.deployed(adminInstance.address);
         const tx2 = await instanceDonate.addAsset(title, des, availablitydate, loc, ipfsHash, { from: donor })
 
-        const tx3 = await instanceDonate.donateAsset(5, receiver, { from: donor })
+        const tx3 = await instanceDonate.donateAsset(5,5, receiver, { from: donor })
 
         const resultAsset = await instanceDonate.getDonation.call(5)
 
@@ -164,8 +170,8 @@ contract('donationTest', function (accounts) {
         let instanceDonate = await DonateAsset.deployed(adminInstance.address);
         const tx = await instanceDonate.addAsset(title, des, availablitydate, loc, ipfsHash, { from: donor })
 
-        const tx1 = await instanceDonate.donateAsset(6, receiver, { from: donor })
-        if (tx1.logs[0].event == "LogDonated") {
+        const tx1 = await instanceDonate.donateAsset(6, 6,receiver, { from: donor })
+        if (tx1.logs[2].event == "LogDonated") {
             eventEmitted = true
         }
 

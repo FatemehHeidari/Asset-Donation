@@ -52,6 +52,7 @@ contract DonateAsset is ERC721 {
     }
 
     struct Donation {
+        uint32 donationId;
         uint256 assetId;
         uint32 availablityDate;
         string location;
@@ -129,6 +130,7 @@ contract DonateAsset is ERC721 {
             imageIPFSHash: imageIPFSHash
         });
         donationList[lastDonationId] = Donation({
+            donationId:lastDonationId,
             assetId: assetId,
             availablityDate: availablityDate,
             location: location,
@@ -168,17 +170,17 @@ contract DonateAsset is ERC721 {
                 index = 8;
             }
             uint256 loopEnd = SafeMath.add(nextStart, index); //9
-            for (uint32 i = 0; i < lastDonationId; i++) {
+            for (uint32 i = SafeCast.toUint32( nextStart); i < lastDonationId; i++) {
                 if (donationList[i].owner == msg.sender) {
-                    if (j > nextStart) {
+                    //if (j > nextStart) {
                         _donationList[SafeMath.sub(
                             j,
                             nextStart
                         )] = donationList[i];
                         j++;
-                    } else {
-                        j++;
-                    }
+                    //} else {
+                    //    j++;
+                    //}
                 }
                 if (j == loopEnd) {
                     break;
@@ -222,28 +224,27 @@ contract DonateAsset is ERC721 {
         return assetId;
     }
 
-    /// @notice a donor can approve a specific request and this function assigns the recipient of this asset to the recipientAddress
+    /// @notice a donor can approve a specific request and this function assigns the recipient of this asset to the recipientAddress and transfers the token ownership
     /// @notice caller should be a donor and recipient should be a receiver
-    /// @dev change related request's status to approved
+    /// @dev change related request's status to approved, Project should implement onERC721Received
     /// @param donationId unique id of donation to be donated
     /// @param recipientAddress donation receiver
-    function donateAsset(uint32 donationId, address recipientAddress)
-        public
-        //assetExists(assetId)
-        //isReceiver(recipientAddress)
-        //assetIsFree(assetId)
-        //isAssetOwner(assetId)
-        //isDonor(msg.sender)
-        whenNotPaused
+    function donateAsset(
+        uint32 donationId,
+        uint256 assetId,
+        address recipientAddress
+    ) public 
+    assetIsFree(donationId) 
+    isAssetOwner(assetId) 
+    whenNotPaused 
     {
-        uint tokenId = donationList[donationId].assetId;
-        safeTransferFrom(msg.sender, recipientAddress, tokenId);
+        safeTransferFrom(msg.sender, recipientAddress, assetId);
         donationList[donationId].recipient = recipientAddress;
         donationList[donationId].status = Status.Donated;
         emit LogDonated(donationId);
     }
 
-    function getAssetRequestCount(uint32 donationId)
+    function getDonationRequestCount(uint32 donationId)
         public
         view
         returns (uint32)
@@ -257,5 +258,9 @@ contract DonateAsset is ERC721 {
         returns (Donation memory)
     {
         return donationList[donationId];
+    }
+
+    function getAsset(uint256 assetId) public view returns (Asset memory) {
+        return AssetList[assetId];
     }
 }

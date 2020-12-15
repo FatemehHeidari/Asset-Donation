@@ -429,7 +429,13 @@ export const Administration = [
     "constant": true
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "donorAddress",
+        "type": "address"
+      }
+    ],
     "name": "getDonor",
     "outputs": [
       {

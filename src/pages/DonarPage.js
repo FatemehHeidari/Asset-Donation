@@ -9,7 +9,14 @@ import AssetCard from '../Cards/AssetCard';
 import donatecontract from '../utils/donatecontract.js'
 import admincontract from '../utils/admincontract.js'
 import Pagination from 'react-bootstrap/Pagination'
+import Web3 from "web3";
 
+const OPTIONS = {
+  defaultBlock: "latest",
+  transactionConfirmationBlocks: 1,
+  transactionBlockTimeout: 5
+}
+const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
 
 
 class DonarPage extends Component {
@@ -17,7 +24,8 @@ class DonarPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Assets: [],
+      Donations: [],
+      asset: [],
       Requests: [],
       donor: {},
       NextPageVisible: false,
@@ -39,8 +47,8 @@ class DonarPage extends Component {
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
     this.setState({ selectedAccoutnt: account });
-    const gasAmount = await admincontract.methods.getDonor().estimateGas({ from: account });
-    const result = await admincontract.methods.getDonor().call({
+    const gasAmount = await admincontract.methods.getDonor(account).estimateGas({ from: account });
+    const result = await admincontract.methods.getDonor(account).call({
       from: account,
       gasAmount,
     });
@@ -68,14 +76,31 @@ class DonarPage extends Component {
       from: account,
       gasAmount,
     });
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].owner != "0x0000000000000000000000000000000000000000") {
+        let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
+        result[i].asset = this.state.asset;
+      }
+    }
     console.log('result');
     console.log(result);
-    this.setState({ Assets: result, NextPageVisible: true });
+    this.setState({ Donations: result, NextPageVisible: true });
     if (this.state.pageCount > 1) {
       this.setState({ querized: true });
     }
   };
-
+  getAsset = async (t) => {
+    const accounts = await window.ethereum.enable();
+    const account = accounts[0];
+    const gasAmount = await donatecontract.methods.getAsset(t).estimateGas({ from: account });
+    const result = await donatecontract.methods.getAsset(t).call({
+      from: account,
+      gasAmount,
+    });
+    let assetResult = { assetDescription: result[0], imageIPFSHash: result[5] };
+    this.setState({ asset: assetResult });
+    return assetResult;
+  }
   getNextDonations = async (t) => {
     t.preventDefault();
     //console.log('donateContract');
@@ -90,9 +115,15 @@ class DonarPage extends Component {
       from: account,
       gasAmount,
     });
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].owner != "0x0000000000000000000000000000000000000000") {
+        let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
+        result[i].asset = this.state.asset;
+      }
+    }
     console.log('result');
     console.log(result);
-    this.setState({ Assets: result, NextPageVisible: true });
+    this.setState({ Donations: result, NextPageVisible: true });
     if (this.state.pageCount > 1) {
       this.setState({ querized: true });
     }
@@ -113,9 +144,15 @@ class DonarPage extends Component {
         from: account,
         gasAmount,
       });
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].owner != "0x0000000000000000000000000000000000000000") {
+          let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
+          result[i].asset = this.state.asset;
+        }
+      }
       console.log('result');
       console.log(result);
-      this.setState({ Assets: result, NextPageVisible: true });
+      this.setState({ Donations: result, NextPageVisible: true });
       if (this.state.pageCount > 1) {
         this.setState({ querized: true });
       }
@@ -136,9 +173,15 @@ class DonarPage extends Component {
       from: account,
       gasAmount,
     });
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].owner != "0x0000000000000000000000000000000000000000") {
+        let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
+        result[i].asset = this.state.asset;
+      }
+    }
     console.log('result');
     console.log(result);
-    this.setState({ Assets: result, NextPageVisible: true });
+    this.setState({ Donations: result, NextPageVisible: true });
     if (this.state.pageCount > 1) {
       this.setState({ querized: true });
     }
@@ -152,10 +195,10 @@ class DonarPage extends Component {
     this.getDonationsByPageNo(clickValue - 1);
   }
   render() {
-    let assetCards = this.state.Assets.map(asset => {
-      if (asset.owner != "0x0000000000000000000000000000000000000000") {
+    let assetCards = this.state.Donations.map(donation => {
+      if (donation.owner != "0x0000000000000000000000000000000000000000") {
         return (<div class="col-xl-5 col-lg-6">
-          <AssetCard asset={asset} />
+          <AssetCard donation={donation} />
         </div>)
       }
     });

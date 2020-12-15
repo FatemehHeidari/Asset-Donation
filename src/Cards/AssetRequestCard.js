@@ -22,7 +22,7 @@ class AssetRequestCard extends Component {
 
     saveRequest = async () => {
         //this.setState({ requestPopup: true });
-        this.props.RequestDonation({ assetId: this.props.asset.assetId, reqDes: this.reqDes.current.value, datFrom: this.datFrom.current.value, datTo: this.datTo.current.value });
+        this.props.RequestDonation({ assetId: this.props.donation.assetId, reqDes: this.reqDes.current.value, datFrom: this.datFrom.current.value, datTo: this.datTo.current.value });
     }
 
     handleClose = () => {
@@ -45,21 +45,21 @@ class AssetRequestCard extends Component {
 
             <div>
                 <br></br>
-                <div class="col xs = {3}" key={this.props.asset.assetId}>
+                <div class="col xs = {3}" key={this.props.donation.assetId}>
 
                     <div class="container" >
                         <Card style={{ flex: 1 }} >
                             <div id="yourContainer">
-                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.asset.imageIPFSHash} alt="" />
+                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.donation.asset.imageIPFSHash} alt="" />
                             </div>
                             <Card.Body>
-                                <Card.Title>Title: {this.props.asset.title}</Card.Title>
+                                <Card.Title>Title: {this.props.donation.asset.title}</Card.Title>
                                 <Card.Text>
-                                    Description: {this.props.asset.assetDescription}</Card.Text>
+                                    Description: {this.props.donation.asset.assetDescription}</Card.Text>
                                 <Card.Text>
-                                    Location: {this.props.asset.location}</Card.Text>
+                                    Location: {this.props.donation.location}</Card.Text>
                                 <Card.Text>
-                                    Status: {this.decodeStatus(this.props.asset.status)}
+                                    Status: {this.decodeStatus(this.props.donation.status)}
                                 </Card.Text>
                                 <Button variant="secondary" onClick={this.click}>Request Asset</Button>
                             </Card.Body>

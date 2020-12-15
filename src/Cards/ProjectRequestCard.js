@@ -5,6 +5,17 @@ import Image from 'react-bootstrap/Image';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+
+
+import Web3 from "web3";
+
+const OPTIONS = {
+    defaultBlock: "latest",
+    transactionConfirmationBlocks: 1,
+    transactionBlockTimeout: 5
+}
+const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
+
 class ProjectRequestCard extends Component {
     constructor(props) {
         super(props);
@@ -12,14 +23,17 @@ class ProjectRequestCard extends Component {
         };
     }
     requestApprove = async () => {
-        this.props.requestApprove({ assetId: this.props.assetId, receiver: this.props.request.receiver });
+        let t = { donationId: this.props.donationId, assetId: web3.utils.hexToNumber(this.props.assetId._hex), receiver: this.props.request.receiver };
+        console.log('tr');
+        console.log(t);
+        this.props.requestApprove(t);
     }
     render() {
         return (
 
             <div>
                 <br></br>
-                <div class="col xs = {3}" key={this.props.assetId}>
+                <div class="col xs = {3}" key={this.props.donationId}>
                     <div class="container" >
                         <Card style={{ flex: 1 }} >
                             <div id="yourContainer">

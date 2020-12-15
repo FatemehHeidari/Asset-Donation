@@ -9,11 +9,14 @@ import ProjectRequestCard from '../Cards/ProjectRequestCard';
 import receiveAssetContract from '../utils/receivecontract.js';
 import donateAssetContract from '../utils/donatecontract.js';
 
+import Web3 from "web3";
+
 const OPTIONS = {
     defaultBlock: "latest",
     transactionConfirmationBlocks: 1,
     transactionBlockTimeout: 5
 }
+const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
 
 class RequestPage extends Component {
 
@@ -21,7 +24,8 @@ class RequestPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Assets: [],
+            Donations: [],
+            asset:[],
             Requests: [],
             requestsFlag: false,
             assetsFlag: false,
@@ -70,12 +74,30 @@ class RequestPage extends Component {
             from: account,
             gasAmount,
         });
-        this.setState({ Assets: result });
+        let i;
+        for (let i = 0; i < result.length; i++) {
+            if (result[i].owner != "0x0000000000000000000000000000000000000000") {
+                let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
+                result[i].asset = this.state.asset;
+            }
+        }
+        this.setState({ Donations: result });
         //this.state.Assets = result;
         console.log('result');
         console.log(result);
     };
-
+    getAsset = async (t) => {
+        const accounts = await window.ethereum.enable();
+        const account = accounts[0];
+        const gasAmount = await donateAssetContract.methods.getAsset(t).estimateGas({ from: account });
+        const result = await donateAssetContract.methods.getAsset(t).call({
+            from: account,
+            gasAmount,
+        });
+        let assetResult = {assetDescription:result[0],imageIPFSHash:result[5]};
+        this.setState({asset:assetResult});
+        return assetResult;
+    }
     getRequests = async (t) => {
         t.preventDefault();
         this.setState({ assetsFlag: false, requestsFlag: true });
@@ -97,10 +119,10 @@ class RequestPage extends Component {
         console.log(result);
     };
     render() {
-        let assetCards = this.state.Assets.map(asset => {
-            if (asset.owner != "0x0000000000000000000000000000000000000000") {
+        let assetCards = this.state.Donations.map(donation => {
+            if (donation.owner != "0x0000000000000000000000000000000000000000") {
                 return (
-                    <AssetRequestCard asset={asset} RequestDonation={this.RequestDonation} />)
+                    <AssetRequestCard donation={donation} RequestDonation={this.RequestDonation} />)
             }
         });
         let requestCard = this.state.Requests.map(request => {

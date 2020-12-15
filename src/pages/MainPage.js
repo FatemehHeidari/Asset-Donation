@@ -26,10 +26,12 @@ class MainPage extends Component {
         this.setAdmin();
     }
     componentDidMount() {
-        setInterval(async() => {
-            this.setAdmin();
+        setInterval(async () => {
+          const accounts = await window.ethereum.enable();
+          const account = accounts[0];
+          this.setState({ selectedAccoutnt: account });
         }, 1000)
-    }
+      }
     setAdmin = async () => {
         const accounts = await window.ethereum.enable();
         const account = accounts[0];

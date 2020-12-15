@@ -8,7 +8,7 @@ const OPTIONS = {
 }
 const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
 
-const receiveContractAddress = "0x70f8867116A3A8887feAeC980613454816ca8612";
+const receiveContractAddress = "0x9E5864eEEdEAB2FB43C408775c40Dea052fa0277";
 const receiveAssetContract = new web3.eth.Contract(ReceiveAsset, receiveContractAddress);
 
 export default receiveAssetContract;

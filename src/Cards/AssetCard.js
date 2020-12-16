@@ -33,50 +33,10 @@ class AssetCard extends Component {
             from: account,
             gasAmount,
         });
-        for (let i = 0; i < result.length; i++) {
-            if (result[i].receiver != "0x0000000000000000000000000000000000000000" && result[i].requestType == 1) {
-                let x = await this.getProject(result[i].receiver);
-                result[i].project = this.state.project;
-            }
-        }
         console.log('result');
         console.log(result);
 
         this.setState({ Requests: result, requestPopup: true });
-    };
-
-    getProject = async (t) => {
-        //t.preventDefault();
-        const accounts = await window.ethereum.enable();
-        const account = accounts[0];
-
-        const gasAmount = await projectfactorycontract.methods.getProjectByAddress(t).estimateGas({ from: account });
-
-        const result = await projectfactorycontract.methods.getProjectByAddress(t).call({
-            from: account,
-            gasAmount,
-        });
-        let projResult = { ProjectTitle: result[0], ProjectDescription: result[1] };
-        projResult.donated = await this.getProjectBalance(t);
-        this.setState({ project: projResult });
-        return projResult;
-
-    };
-
-    getProjectBalance = async (t) => {
-        //t.preventDefault();
-        const accounts = await window.ethereum.enable();
-        const account = accounts[0];
-        const gasAmount = await projectfactorycontract.methods.getProjectBalanceByAddress(t).estimateGas({ from: account });
-
-        const result = await projectfactorycontract.methods.getProjectBalanceByAddress(t).call({
-            from: account,
-            gasAmount,
-        });
-        //console.log('result');
-        const etherValue = web3.utils.fromWei(result.toString(10), 'ether');
-        //console.log(etherValue);
-        return etherValue;
     };
 
     requestApprove = async (t) => {

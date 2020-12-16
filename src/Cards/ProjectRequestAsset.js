@@ -55,11 +55,11 @@ class ProjectRequestAsset extends Component {
                     <div class="container" >
                         <Card style={{ flex: 1 }} >
                             <div id="yourContainer">
-                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.donation.asset.imageIPFSHash} alt="" />
+                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.asset.imageIPFSHash} alt="" />
                             </div>
                             <Card.Body>
                                 <Card.Text>
-                                    Description: {this.props.donation.asset.assetDescription}</Card.Text>
+                                    Description: {this.props.asset.assetDescription}</Card.Text>
                                 <Card.Text>
                                     Location: {this.props.donation.location}</Card.Text>
                                 <Card.Text>

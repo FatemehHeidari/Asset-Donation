@@ -9,14 +9,7 @@ import AssetCard from '../Cards/AssetCard';
 import donatecontract from '../utils/donatecontract.js'
 import admincontract from '../utils/admincontract.js'
 import Pagination from 'react-bootstrap/Pagination'
-import Web3 from "web3";
 
-const OPTIONS = {
-  defaultBlock: "latest",
-  transactionConfirmationBlocks: 1,
-  transactionBlockTimeout: 5
-}
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
 
 
 class DonarPage extends Component {
@@ -28,11 +21,10 @@ class DonarPage extends Component {
       asset: [],
       Requests: [],
       donor: {},
-      NextPageVisible: false,
-      nextPageNo: 0,
       pageCount: 0,
       querized: false,
-      selectedAccoutnt: "0x0000000000000000000000000000000000000000"
+      selectedAccoutnt: "0x0000000000000000000000000000000000000000",
+      renderCards:false
     };
     this.getDonor();
   }
@@ -76,90 +68,19 @@ class DonarPage extends Component {
       from: account,
       gasAmount,
     });
-    for (let i = 0; i < result.length; i++) {
-      if (result[i].owner != "0x0000000000000000000000000000000000000000") {
-        let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
-        result[i].asset = this.state.asset;
-      }
-    }
+
     console.log('result');
     console.log(result);
     this.setState({ Donations: result, NextPageVisible: true });
     if (this.state.pageCount > 1) {
       this.setState({ querized: true });
     }
-  };
-  getAsset = async (t) => {
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    const gasAmount = await donatecontract.methods.getAsset(t).estimateGas({ from: account });
-    const result = await donatecontract.methods.getAsset(t).call({
-      from: account,
-      gasAmount,
-    });
-    let assetResult = { assetDescription: result[0], imageIPFSHash: result[5] };
-    this.setState({ asset: assetResult });
-    return assetResult;
-  }
-  getNextDonations = async (t) => {
-    t.preventDefault();
-    //console.log('donateContract');
-    //console.log(donatecontract);
-    this.setState({ nextPageNo: this.state.nextPageNo + 1 });
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    console.log('this.state.nextPageNo');
-    console.log(this.state.nextPageNo);
-    const gasAmount = await donatecontract.methods.getDonationsByOwner(this.state.nextPageNo).estimateGas({ from: account });
-    const result = await donatecontract.methods.getDonationsByOwner(this.state.nextPageNo).call({
-      from: account,
-      gasAmount,
-    });
-    for (let i = 0; i < result.length; i++) {
-      if (result[i].owner != "0x0000000000000000000000000000000000000000") {
-        let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
-        result[i].asset = this.state.asset;
-      }
-    }
-    console.log('result');
-    console.log(result);
-    this.setState({ Donations: result, NextPageVisible: true });
-    if (this.state.pageCount > 1) {
-      this.setState({ querized: true });
-    }
+    this.setState({renderCards : true});
   };
 
-  getPrevDonations = async (t) => {
-    t.preventDefault();
-    if (this.state.nextPageNo - 1 >= 0) {
-      this.setState({ nextPageNo: this.state.nextPageNo - 1 });
-      //console.log('donateContract');
-      //console.log(donatecontract);
-      const accounts = await window.ethereum.enable();
-      const account = accounts[0];
-      console.log('this.state.nextPageNo');
-      console.log(this.state.nextPageNo);
-      const gasAmount = await donatecontract.methods.getDonationsByOwner(this.state.nextPageNo).estimateGas({ from: account });
-      const result = await donatecontract.methods.getDonationsByOwner(this.state.nextPageNo).call({
-        from: account,
-        gasAmount,
-      });
-      for (let i = 0; i < result.length; i++) {
-        if (result[i].owner != "0x0000000000000000000000000000000000000000") {
-          let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
-          result[i].asset = this.state.asset;
-        }
-      }
-      console.log('result');
-      console.log(result);
-      this.setState({ Donations: result, NextPageVisible: true });
-      if (this.state.pageCount > 1) {
-        this.setState({ querized: true });
-      }
-    }
-  };
+
   getDonationsByPageNo = async (t) => {
-    this.setState({ nextPageNo: 0 });
+    this.setState({ nextPageNo: 0});
     //console.log('donateContract');
     //console.log(donatecontract);
     const accounts = await window.ethereum.enable();
@@ -173,18 +94,14 @@ class DonarPage extends Component {
       from: account,
       gasAmount,
     });
-    for (let i = 0; i < result.length; i++) {
-      if (result[i].owner != "0x0000000000000000000000000000000000000000") {
-        let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
-        result[i].asset = this.state.asset;
-      }
-    }
+
     console.log('result');
     console.log(result);
     this.setState({ Donations: result, NextPageVisible: true });
     if (this.state.pageCount > 1) {
       this.setState({ querized: true });
     }
+    this.setState({renderCards : true});
   };
   changePage = async (e) => {
     console.log('pagination');
@@ -195,13 +112,16 @@ class DonarPage extends Component {
     this.getDonationsByPageNo(clickValue - 1);
   }
   render() {
-    let assetCards = this.state.Donations.map(donation => {
-      if (donation.owner != "0x0000000000000000000000000000000000000000") {
-        return (<div class="col-xl-5 col-lg-6">
-          <AssetCard donation={donation} />
-        </div>)
-      }
-    });
+    let assetCards;
+    if (this.state.renderCards) {
+      assetCards = this.state.Donations[0].map((donation, index) => {
+        if (donation.owner != "0x0000000000000000000000000000000000000000") {
+          return (<div class="col-xl-5 col-lg-6">
+            <AssetCard donation={donation} asset={this.state.Donations[1][index]} />
+          </div>)
+        }
+      });
+    }
     let active = 1;
     let items = [];
     for (let number = 1; number <= this.state.pageCount; number++) {

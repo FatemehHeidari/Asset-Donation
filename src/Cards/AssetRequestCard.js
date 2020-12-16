@@ -50,12 +50,12 @@ class AssetRequestCard extends Component {
                     <div class="container" >
                         <Card style={{ flex: 1 }} >
                             <div id="yourContainer">
-                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.donation.asset.imageIPFSHash} alt="" />
+                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.asset.imageIPFSHash} alt="" />
                             </div>
                             <Card.Body>
-                                <Card.Title>Title: {this.props.donation.asset.title}</Card.Title>
+                                <Card.Title>Title: {this.props.asset.title}</Card.Title>
                                 <Card.Text>
-                                    Description: {this.props.donation.asset.assetDescription}</Card.Text>
+                                    Description: {this.props.asset.assetDescription}</Card.Text>
                                 <Card.Text>
                                     Location: {this.props.donation.location}</Card.Text>
                                 <Card.Text>

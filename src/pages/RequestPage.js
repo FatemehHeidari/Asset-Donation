@@ -8,32 +8,24 @@ import RequestCard from '../Cards/RequestCard';
 import ProjectRequestCard from '../Cards/ProjectRequestCard';
 import receiveAssetContract from '../utils/receivecontract.js';
 import donateAssetContract from '../utils/donatecontract.js';
-
-import Web3 from "web3";
-
-const OPTIONS = {
-    defaultBlock: "latest",
-    transactionConfirmationBlocks: 1,
-    transactionBlockTimeout: 5
-}
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
+import web3 from '../utils/web3.js'
 
 class RequestPage extends Component {
 
-    //const account = web3.givenProvider.selectedAddress;//accounts[0];      
     constructor(props) {
         super(props);
         this.state = {
             Donations: [],
-            asset:[],
+            asset: [],
             Requests: [],
             requestsFlag: false,
             assetsFlag: false,
-            selectedAccoutnt: "0x0000000000000000000000000000000000000000"
+            selectedAccoutnt: "0x0000000000000000000000000000000000000000",
+            renderCards: false
         };
     }
     componentDidMount() {
-        setInterval(async() => {
+        setInterval(async () => {
             const accounts = await window.ethereum.enable();
             const account = accounts[0];
             this.setState({ selectedAccoutnt: account });
@@ -74,30 +66,13 @@ class RequestPage extends Component {
             from: account,
             gasAmount,
         });
-        let i;
-        for (let i = 0; i < result.length; i++) {
-            if (result[i].owner != "0x0000000000000000000000000000000000000000") {
-                let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
-                result[i].asset = this.state.asset;
-            }
-        }
         this.setState({ Donations: result });
         //this.state.Assets = result;
         console.log('result');
         console.log(result);
+        this.setState({ renderCards: true });
     };
-    getAsset = async (t) => {
-        const accounts = await window.ethereum.enable();
-        const account = accounts[0];
-        const gasAmount = await donateAssetContract.methods.getAsset(t).estimateGas({ from: account });
-        const result = await donateAssetContract.methods.getAsset(t).call({
-            from: account,
-            gasAmount,
-        });
-        let assetResult = {assetDescription:result[0],imageIPFSHash:result[5]};
-        this.setState({asset:assetResult});
-        return assetResult;
-    }
+
     getRequests = async (t) => {
         t.preventDefault();
         this.setState({ assetsFlag: false, requestsFlag: true });
@@ -119,12 +94,15 @@ class RequestPage extends Component {
         console.log(result);
     };
     render() {
-        let assetCards = this.state.Donations.map(donation => {
-            if (donation.owner != "0x0000000000000000000000000000000000000000") {
-                return (
-                    <AssetRequestCard donation={donation} RequestDonation={this.RequestDonation} />)
-            }
-        });
+        let assetCards;
+        if (this.state.renderCards) {
+            assetCards = this.state.Donations[0].map((donation, index) => {
+                if (donation.owner != "0x0000000000000000000000000000000000000000") {
+                    return (
+                        <AssetRequestCard donation={donation}asset={this.state.Donations[1][index]} RequestDonation={this.RequestDonation} />)
+                }
+            });
+        }
         let requestCard = this.state.Requests.map(request => {
             if (request.receiver != "0x0000000000000000000000000000000000000000") {
                 if (request.requestType == 0) {

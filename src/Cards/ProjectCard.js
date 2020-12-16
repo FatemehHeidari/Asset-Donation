@@ -7,23 +7,17 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import ProjectRequestAsset from './ProjectRequestAsset';
 import donateAssetContract from '../utils/donatecontract.js';
 import projectfactorycontract from '../utils/projectfactorycontract.js';
-import Web3 from "web3";
-
-const OPTIONS = {
-    defaultBlock: "latest",
-    transactionConfirmationBlocks: 1,
-    transactionBlockTimeout: 5
-}
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
+import web3 from '../utils/web3.js'
 
 class ProjectCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Donations:[],
+            Donations: [],
             donated: 0,
             assetPopup: false,
-            asset:[]
+            asset: [],
+            renderCards: false
         };
     }
     getDonations = async (t) => {
@@ -35,14 +29,7 @@ class ProjectCard extends Component {
             from: account,
             gasAmount,
         });
-        let i;
-        for (let i = 0; i < result.length; i++) {
-            if (result[i].owner != "0x0000000000000000000000000000000000000000") {
-                let x = await this.getAsset(web3.utils.hexToNumber(result[i].assetId._hex));
-                result[i].asset = this.state.asset;
-            }
-        }
-        this.setState({ Donations: result,assetPopup:true });
+        this.setState({ Donations: result, assetPopup: true ,renderCards:true});
         console.log('result');
         console.log(result);
         //this.state.Assets = result;
@@ -56,8 +43,8 @@ class ProjectCard extends Component {
             from: account,
             gasAmount,
         });
-        let assetResult = {assetDescription:result[0],imageIPFSHash:result[5]};
-        this.setState({asset:assetResult});
+        let assetResult = { assetDescription: result[0], imageIPFSHash: result[5] };
+        this.setState({ asset: assetResult });
         return assetResult;
     }
     claimDonaition = async (t) => {
@@ -77,12 +64,15 @@ class ProjectCard extends Component {
         this.setState({ assetPopup: false });
     }
     render() {
-        let assetCards = this.state.Donations.map(donation => {
-            if (donation.owner != "0x0000000000000000000000000000000000000000") {
-                return (
-                    <ProjectRequestAsset donation={donation} projrctAddress={this.props.project.address}/>)
-            }
-        });
+        let assetCards;
+        if (this.state.renderCards) {
+            assetCards = this.state.Donations[0].map((donation, index) => {
+                if (donation.owner != "0x0000000000000000000000000000000000000000") {
+                    return (
+                        <ProjectRequestAsset donation={donation} asset={this.state.Donations[1][index]} projrctAddress={this.props.project.address} />)
+                }
+            });
+        }
         return (
 
 
@@ -106,25 +96,25 @@ class ProjectCard extends Component {
                     </Card.Body>
                 </Card>
                 <Modal show={this.state.assetPopup} onHide={this.handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Donated Assets</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body><div class="card shadow mb-4">
-                                <div class="form-row">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Donated Assets</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body><div class="card shadow mb-4">
+                        <div class="form-row">
 
-                                    <CardDeck tyle={{ display: 'flex', flexDirection: 'row' }}>
-                                        {assetCards}
-                                    </CardDeck >
+                            <CardDeck tyle={{ display: 'flex', flexDirection: 'row' }}>
+                                {assetCards}
+                            </CardDeck >
 
-                                </div>
-                            </div>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={this.handleClose} disabled={false}>
-                                    Close
+                        </div>
+                    </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleClose} disabled={false}>
+                            Close
                                 </Button>
-                            </Modal.Footer>
-                        </Modal>
+                    </Modal.Footer>
+                </Modal>
             </div>
         )
     }

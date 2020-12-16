@@ -5,14 +5,7 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import React, { Component, useState } from "react";
 import projectfactorycontract from '../utils/projectfactorycontract.js';
 import ProjectInfoCard from '../Cards/ProjectInfoCard.js'
-import Web3 from "web3";
-
-const OPTIONS = {
-    defaultBlock: "latest",
-    transactionConfirmationBlocks: 1,
-    transactionBlockTimeout: 5
-}
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
+import web3 from '../utils/web3.js'
 
 
 class DonateToProject extends Component {

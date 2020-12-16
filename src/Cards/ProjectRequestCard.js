@@ -5,16 +5,7 @@ import Image from 'react-bootstrap/Image';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-
-
-import Web3 from "web3";
-
-const OPTIONS = {
-    defaultBlock: "latest",
-    transactionConfirmationBlocks: 1,
-    transactionBlockTimeout: 5
-}
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
+import web3 from '../utils/web3.js'
 
 class ProjectRequestCard extends Component {
     constructor(props) {

@@ -9,14 +9,7 @@ import donateAssetContract from '../utils/donatecontract'
 import receiveAssetContract from '../utils/receivecontract'
 import projectfactorycontract from '../utils/projectfactorycontract.js'
 import '../App.css';
-import Web3 from "web3";
-
-const OPTIONS = {
-    defaultBlock: "latest",
-    transactionConfirmationBlocks: 1,
-    transactionBlockTimeout: 5
-}
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
+import web3 from '../utils/web3.js'
 
 
 class AssetCard extends Component {
@@ -136,11 +129,11 @@ class AssetCard extends Component {
                     <div class="container" >
                         <Card style={{ flex: 1 }} >
                             <div id="yourContainer">
-                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.donation.asset.imageIPFSHash} alt="" />
+                                <Card.Img variant="top" src={'https://ipfs.io/ipfs/' + this.props.asset.imageIPFSHash} alt="" />
                             </div>
                             <Card.Body>
                                 <Card.Text>
-                                    Description: {this.props.donation.asset.assetDescription}</Card.Text>
+                                    Description: {this.props.asset.assetDescription}</Card.Text>
                                 <Card.Text>
                                     Location: {this.props.donation.location}</Card.Text>
                                 <Card.Text>

@@ -696,6 +696,43 @@ export const DonateAsset = [
         "internalType": "struct DonateAsset.Donation[8]",
         "name": "",
         "type": "tuple[8]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "assetTitle",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "assetDescription",
+            "type": "string"
+          },
+          {
+            "internalType": "uint32",
+            "name": "availablityDate",
+            "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "location",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "imageIPFSHash",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DonateAsset.Asset[8]",
+        "name": "",
+        "type": "tuple[8]"
       }
     ],
     "stateMutability": "view",
@@ -750,6 +787,43 @@ export const DonateAsset = [
           }
         ],
         "internalType": "struct DonateAsset.Donation[16]",
+        "name": "",
+        "type": "tuple[16]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "assetTitle",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "assetDescription",
+            "type": "string"
+          },
+          {
+            "internalType": "uint32",
+            "name": "availablityDate",
+            "type": "uint32"
+          },
+          {
+            "internalType": "string",
+            "name": "location",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "imageIPFSHash",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DonateAsset.Asset[16]",
         "name": "",
         "type": "tuple[16]"
       }

@@ -151,7 +151,7 @@ contract DonateAsset is ERC721 {
     function getDonationsByOwner(uint256 pageNo)
         public
         view
-        returns (Donation[8] memory)
+        returns (Donation[8] memory,Asset[8] memory)
     {
         donor memory d = ADM.getDonor(msg.sender);
         uint256 donationCount = d.donationCount; //uint(balanceOf(msg.sender)); //donors[msg.sender].donationCount;
@@ -161,23 +161,24 @@ contract DonateAsset is ERC721 {
         uint256 index = 0;
         uint32 j = 0;
         Donation[8] memory _donationList;
+        Asset[8] memory _assetList;
         if (rem < 0) {
-            return _donationList;
+            return (_donationList,_assetList);
         } else {
             if ((rem) < 8) {
                 index = rem; //1
             } else {
                 index = 8;
             }
+            uint nextInd = 0;
             uint256 loopEnd = SafeMath.add(nextStart, index); //9
             for (uint32 i = SafeCast.toUint32( nextStart); i < lastDonationId; i++) {
                 if (donationList[i].owner == msg.sender) {
                     //if (j > nextStart) {
-                        _donationList[SafeMath.sub(
-                            j,
-                            nextStart
-                        )] = donationList[i];
+                        nextInd = SafeMath.sub(j,nextStart); 
+                        _donationList[nextInd] = donationList[i];
                         j++;
+                        _assetList[nextInd] = AssetList[donationList[i].assetId];
                     //} else {
                     //    j++;
                     //}
@@ -190,16 +191,17 @@ contract DonateAsset is ERC721 {
             //     tokenId = uint32(donationOfOwnerByIndex(msg.sender, i));
             //     assetList[SafeMath.sub(i , nextStart)] = donationList[tokenId];
             // }
-            return _donationList;
+            return (_donationList,_assetList);
         }
     }
 
     /// @notice returns all donations
     /// @dev There must be better way than returing always an array of 16
     /// @return Asset returns an array of type asset and length 16 of all donations
-    function getAllDonations() public view returns (Donation[16] memory) {
+    function getAllDonations() public view returns (Donation[16] memory,Asset[16] memory) {
         uint32 index = 0;
         Donation[16] memory _donationList;
+        Asset[16] memory _assetList;
         if (lastAssetId <= 16) {
             index = lastDonationId;
         } else {
@@ -207,8 +209,9 @@ contract DonateAsset is ERC721 {
         }
         for (uint32 i = 0; i < index; i++) {
             _donationList[i] = donationList[i];
+            _assetList[i] = AssetList[donationList[i].assetId];
         }
-        return _donationList;
+        return (_donationList,_assetList);
     }
 
     /// @notice The ERC721 stadard for nunfungible token is used to maintain ownership of assets

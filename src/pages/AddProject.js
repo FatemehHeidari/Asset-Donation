@@ -3,7 +3,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Card from 'react-bootstrap/Card';
 import '../App.css';
-import web3 from "../utils/web3";
 import React, { Component, useState } from "react";
 import Form from 'react-bootstrap/Form';
 import projectfactorycontract from '../utils/projectfactorycontract.js';
@@ -33,8 +32,6 @@ class AddProject extends Component {
         this.setState({ buttonDisabled: true });
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
-        console.log('web3');
-        console.log(web3);
         const tit = this.projectTitle.current.value;
         const des = this.projectDescription.current.value;
         const projectKickOffMinBalance = this.projectKickOffMinBalance.current.value;

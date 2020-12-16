@@ -3,7 +3,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Card from 'react-bootstrap/Card';
 import '../App.css';
-import Web3 from "web3";
 import React, { Component, useState } from "react";
 //import { AssetDonation } from "../abi/abi";
 import ipfs from '../utils/ipfs';

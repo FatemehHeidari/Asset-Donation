@@ -8,7 +8,7 @@ const OPTIONS = {
 }
 const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
 
-const donateContractAddress = "0xaD0A293225F12C6e4711EdD81e35B0EEb3DB8d5f";
+const donateContractAddress = "0xC069956052f43fc4C920e40227f2B6476846de81";
 const donatecontract = new web3.eth.Contract(DonateAsset, donateContractAddress);
 
 export default donatecontract;

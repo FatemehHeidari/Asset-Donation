@@ -81,19 +81,5 @@ contract('ProjectFactory', function (accounts) {
         assert.equal(resultAsset.status, 1, 'the status should be Requested')
         assert.equal(resultAsset.requestCount, 1, 'the status should be Requested')
     })   
-    
-    it("donate an asset", async () => {
-        let adminInstance = await Administration.deployed();
-        let instanceDonate = await DonateAsset.deployed(adminInstance.address);
-        let instance = await ProjectFactory.deployed();
-        const projAddress = await instance.getProjectAddress(0);
-        const tx2 = await instanceDonate.addAsset(title, des, availablitydate, loc, ipfsHash, { from: donor })
-
-        const tx3 = await instanceDonate.donateAsset(0,0, projAddress, { from: donor })
-
-        const resultAsset = await instanceDonate.getDonation.call(0)
-
-        assert.equal(resultAsset.status, 2, 'the status should be Donated')
-        assert.equal(resultAsset.recipient, projAddress, 'the recipient address should be updated to receiver')
-    })     
+        
 })

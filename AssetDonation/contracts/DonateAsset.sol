@@ -26,7 +26,6 @@ import "@openzeppelin/contracts/utils/SafeCast.sol";
 /// @title A Asset donation smart contract
 /// @author Fatemeh Heidari Soureshjani
 /// @notice This contract facilitates donation of physical assets for specific periods of time between asset owners and receivers
-/// @dev time
 
 contract DonateAsset is ERC721 {
     Administration ADM;

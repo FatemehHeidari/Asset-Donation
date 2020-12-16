@@ -17,7 +17,9 @@ struct Asset {
     uint32 requestCount;
     string imageIPFSHash;
 }
-
+/// @title ProjectFunding
+/// @author Fatemeh Heidari Soureshjani
+/// @notice Project is defined for raising funds and assets
 contract ProjectFunding {
     address payable owner;
     Asset[] donatedAssets;
@@ -52,10 +54,7 @@ contract ProjectFunding {
         require(ad == project.projectOwner, "Only Owner.");
         _;
     }
-    // function getProject() public view returns (Project memory) {
-    //     return project;
-    // }
-
+    /// @notice Returns the project info
     function getProject()
         public
         view
@@ -75,7 +74,8 @@ contract ProjectFunding {
             project.projectKickOffTime
         );
     }
-
+    /// @notice transfers balance of a project to its owner
+    /// @param claimAddress address of project owner
     function claimDonation(address claimAddress) public payable onlyOwner(claimAddress) {
         project.projectOwner.transfer(address(this).balance);
     }

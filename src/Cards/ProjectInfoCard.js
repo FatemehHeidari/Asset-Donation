@@ -33,6 +33,8 @@ class ProjectInfoCard extends Component {
 
     donate = async () => {
         const amn = this.donationAmount.current.value;
+        console.log('amn');
+        console.log(amn);
         this.props.donate({ projectId: this.props.id, donationAmount: amn });
     }
     render() {

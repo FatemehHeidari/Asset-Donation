@@ -6,16 +6,14 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/SafeCast.sol";
 
-/// @title A Asset donation smart contract
+/// @title Administration smart contract
 /// @author Fatemeh Heidari Soureshjani
-/// @notice This contract facilitates donation of physical assets for specific periods of time between asset owners and receivers
-/// @dev time
+/// @notice Define the roles and implement pausable
 
 contract Administration is AccessControl, Pausable {
     //bool noAdmin;
 
     constructor() public AccessControl() Pausable() {
-        //noAdmin = true;
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
@@ -44,19 +42,10 @@ contract Administration is AccessControl, Pausable {
         _;
     }
 
-    // modifier isDonor(address donorAddress) {
-    //     if (!noAdmin) {
-    //         require(hasRole(DONOR, donorAddress));
-    //     }
-    //     _;
-    // }
-    // modifier isReceiver(address receiverAddress) {
-    //     if (!noAdmin) {
-    //         require(hasRole(RECEIVER, receiverAddress));
-    //     }
-    //     _;
-    // }
-
+    /// @notice Adds an address to list of donors
+    /// @dev approve donor role
+    /// @param donorAddress address to be added
+    
     function addDonor(address donorAddress) public {
         donor storage d = donors[donorAddress];
         if (!d.exists) {
@@ -72,7 +61,9 @@ contract Administration is AccessControl, Pausable {
         }
     }
 
-    /// @notice Adds an address to list of receivers
+    /// @notice Adds an address to list of Receiver
+    /// @dev approve Receiver role
+    /// @param receiverAddress address to be added
     function addReceiver(address receiverAddress) public {
         receiver storage r = receivers[receiverAddress];
         if (!r.exists) {
@@ -90,7 +81,8 @@ contract Administration is AccessControl, Pausable {
             );
         }
     }
-
+    /// @notice Return information of a Receiver
+    /// @param receiverAddress address or Receiver to be added
     function getReceiver(address receiverAddress)
         public
         view
@@ -98,7 +90,8 @@ contract Administration is AccessControl, Pausable {
     {
         return receivers[receiverAddress];
     }
-
+    /// @notice Return information of a Donor
+    /// @param donorAddress address or Donor to be added
     function getDonor(address donorAddress) public view returns (donor memory) {
         return donors[donorAddress];
     }
@@ -110,37 +103,27 @@ contract Administration is AccessControl, Pausable {
         donors[donorAddress].approved = true;
     }
 
-    /// @notice Adds an address to list of receivers
-    // function addReceiver() public {
-    //     if (!receivers[msg.sender]) {
-    //         receivers[msg.sender] = false;
-    //     }
-    // }
-
     /// @notice Admin approves an address to have the receiver role
     /// @param receiverAddress The address of receiver to be approved
     function approveReceiver(address receiverAddress) public {
         grantRole(RECEIVER, receiverAddress);
         receivers[receiverAddress].approved = true;
     }
-
+    /// @notice System emergency pause only by admin
     function pause() public isAdmin {
         _pause();
     }
 
-    // function getAdmin() public returns(address){
-    //     return getRoleAdmin(DEFAULT_ADMIN_ROLE);
-    // }
-
+    /// @notice System upause only by admin
     function unpause() public isAdmin {
         _unpause();
     }
-
+    /// @notice return true if system is paused
     function systemPaused() public view returns (bool) {
         bool paused = paused();
         return paused;
     }
-
+    /// @notice return true if caller is ADMIN
     function isAdminUser() public view returns (bool) {
         if (hasRole(DEFAULT_ADMIN_ROLE, msg.sender)) return true;
         else return false;

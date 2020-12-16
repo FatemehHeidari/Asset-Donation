@@ -63,7 +63,7 @@ class DonateToProject extends Component {
             if (project.projectOwner != "0x0000000000000000000000000000000000000000") {
 
                 return (
-                    <ProjectInfoCard project={project} id={index} />)
+                    <ProjectInfoCard project={project} id={index} donate={this.donate} />)
             }
         });
         return (

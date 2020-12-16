@@ -17066,8 +17066,8 @@
         }
       },
       "links": {},
-      "address": "0x4d7c6D081f28ddAc5d83482DEc301bcA23a16Aa9",
-      "transactionHash": "0x3749694a1a812d535601fb9268d803cc7e44517bb6ffd12c56a201be6f0cb3a9"
+      "address": "0xc2C55E04495E7540FC68fEd87b21022c17Da5655",
+      "transactionHash": "0xeb54f4636e7f4ab308924fe6321ee6cd0c965183131e5b18c7558982832b047d"
     },
     "1607104392524": {
       "events": {
@@ -20853,10 +20853,586 @@
       "links": {},
       "address": "0xb9a9b225d61E360CA92d8cceF0A6C02fdf615C5a",
       "transactionHash": "0x3cde2c6f00b478fb9ca8e1586712c1c0ddf5b593fe03d8b8590ae4d321be51b5"
+    },
+    "1608152374571": {
+      "events": {
+        "0x4c760da27c95c0ed78cb08d0a38d92b3355d4d5772a6821f583949b526796839": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "requestDescription",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateFrom",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestStatus",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestType",
+                  "name": "requestType",
+                  "type": "uint8"
+                }
+              ],
+              "indexed": false,
+              "internalType": "struct ReceiveAsset.Request",
+              "name": "r",
+              "type": "tuple"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "reCount",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequest",
+          "type": "event"
+        },
+        "0x8498acb3700ac1ae1066377dba19a3dbf6bc6dee3ae55d3f230e4fd5e741af86": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recAddress",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequestApproved",
+          "type": "event"
+        },
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xa112461B2250D8534d06bCBd68a4b9A10c880751",
+      "transactionHash": "0x2b5e2ea533b50910ef663ea05563603dd4cc15bbab37df618548cd84dde3aaa3"
+    },
+    "1608153060116": {
+      "events": {
+        "0x4c760da27c95c0ed78cb08d0a38d92b3355d4d5772a6821f583949b526796839": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "requestDescription",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateFrom",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestStatus",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestType",
+                  "name": "requestType",
+                  "type": "uint8"
+                }
+              ],
+              "indexed": false,
+              "internalType": "struct ReceiveAsset.Request",
+              "name": "r",
+              "type": "tuple"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "reCount",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequest",
+          "type": "event"
+        },
+        "0x8498acb3700ac1ae1066377dba19a3dbf6bc6dee3ae55d3f230e4fd5e741af86": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recAddress",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequestApproved",
+          "type": "event"
+        },
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xf4F67707acEA534B0127F00b1944768184FC2901",
+      "transactionHash": "0x60fd1be193e322989397ff57a466c6e00aa563d48527b6c79e5c07901c63efb1"
+    },
+    "1608153332227": {
+      "events": {
+        "0x4c760da27c95c0ed78cb08d0a38d92b3355d4d5772a6821f583949b526796839": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "requestDescription",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateFrom",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestStatus",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestType",
+                  "name": "requestType",
+                  "type": "uint8"
+                }
+              ],
+              "indexed": false,
+              "internalType": "struct ReceiveAsset.Request",
+              "name": "r",
+              "type": "tuple"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "reCount",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequest",
+          "type": "event"
+        },
+        "0x8498acb3700ac1ae1066377dba19a3dbf6bc6dee3ae55d3f230e4fd5e741af86": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recAddress",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequestApproved",
+          "type": "event"
+        },
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x6708c8324Fe1a2510d8087B95Ac43579ceE58C95",
+      "transactionHash": "0x0e819402fb2b302ce2a2172eebca5bb8b289acde29e3176e9058c03645cd8804"
+    },
+    "1608153974480": {
+      "events": {
+        "0x4c760da27c95c0ed78cb08d0a38d92b3355d4d5772a6821f583949b526796839": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "requestDescription",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateFrom",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestStatus",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestType",
+                  "name": "requestType",
+                  "type": "uint8"
+                }
+              ],
+              "indexed": false,
+              "internalType": "struct ReceiveAsset.Request",
+              "name": "r",
+              "type": "tuple"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "reCount",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequest",
+          "type": "event"
+        },
+        "0x8498acb3700ac1ae1066377dba19a3dbf6bc6dee3ae55d3f230e4fd5e741af86": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recAddress",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequestApproved",
+          "type": "event"
+        },
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xC9325cC461C98bd2D87B51F45e075033E4b0a860",
+      "transactionHash": "0x55baa0806894460e764a35bcafa941d28433570ad565dbe4ed4720f065325791"
+    },
+    "1608155417578": {
+      "events": {
+        "0x4c760da27c95c0ed78cb08d0a38d92b3355d4d5772a6821f583949b526796839": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "requestDescription",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateFrom",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestStatus",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestType",
+                  "name": "requestType",
+                  "type": "uint8"
+                }
+              ],
+              "indexed": false,
+              "internalType": "struct ReceiveAsset.Request",
+              "name": "r",
+              "type": "tuple"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "reCount",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequest",
+          "type": "event"
+        },
+        "0x8498acb3700ac1ae1066377dba19a3dbf6bc6dee3ae55d3f230e4fd5e741af86": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recAddress",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequestApproved",
+          "type": "event"
+        },
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x55AD57f4313b41D604afA3dBc3BA6b31481E948b",
+      "transactionHash": "0x0f99beb6b2f49810e3d9a770f6f44870847790828bfb640782b0952ab568f759"
+    },
+    "1608158674318": {
+      "events": {
+        "0x4c760da27c95c0ed78cb08d0a38d92b3355d4d5772a6821f583949b526796839": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "requestDescription",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateFrom",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "requestDateTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestStatus",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ReceiveAsset.RequestType",
+                  "name": "requestType",
+                  "type": "uint8"
+                }
+              ],
+              "indexed": false,
+              "internalType": "struct ReceiveAsset.Request",
+              "name": "r",
+              "type": "tuple"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "reCount",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequest",
+          "type": "event"
+        },
+        "0x8498acb3700ac1ae1066377dba19a3dbf6bc6dee3ae55d3f230e4fd5e741af86": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recAddress",
+              "type": "address"
+            }
+          ],
+          "name": "LogRequestApproved",
+          "type": "event"
+        },
+        "0xe6391fd03f941519ec364c5bb85023284b131a59297606d04b2eb06980485ea3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "assetId",
+              "type": "uint32"
+            }
+          ],
+          "name": "LogRequested",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x8Efdb1d95F913919A8EdED6a2b0B7fE302e9e8C2",
+      "transactionHash": "0x4fbfe93c0e253ea7c87840c5b307948bd305e46226ec0fa87959d4c8958efdb1"
     }
   },
   "schemaVersion": "3.3.1",
-  "updatedAt": "2020-12-16T14:34:15.581Z",
+  "updatedAt": "2020-12-16T22:44:59.018Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {

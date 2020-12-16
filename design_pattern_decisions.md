@@ -1,6 +1,6 @@
 # Design Patterns
 ## Access Control
-Used Access control to restrict the ability of emergency pause to Admin
+Used Access control from openZeppelin to restrict the ability of emergency pause to Admin
 ## Circuit Breaker
 Used Pausable from openZeppelin to restrict functionality when system is set to pause status in emergency by admin
 ## Factory

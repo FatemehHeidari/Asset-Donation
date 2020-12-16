@@ -17,9 +17,17 @@ it is assumed that you have nodejs and yarn installed. You also need to have met
 The next steps will be:
 1. Clone project
 2. yarn in main directory will install all dependencies
+```
+yarn
+```
 3. yarn start will run DApp http://localhost:3000/
-
-
+```
+yarn start
+```
+If you are going to redeploy the contracts to testtnet you can use:
+```
+truffle migrate --reset --network rinkeby
+```
 ## test locally using ganache
 You need to install truffle and ganache and truffle hdwallet-provider to compile, migrate, and test smart contracts locally.
 In a command line window run: ganache-cli
@@ -38,6 +46,6 @@ In AssetDonation sub-directory:
 4. truffle test
 ```
 
-## Used libraries extra points
+## Used libraries and additional services
 1. ERC721 from openzeppeline is used to control the ownership and safe transfer of assets
 2. IPFS used for saving image files and theIPFS hash of images saved on blockchain

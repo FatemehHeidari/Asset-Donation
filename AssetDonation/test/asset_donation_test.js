@@ -51,14 +51,6 @@ contract('donationTest', function (accounts) {
         assert.equal(result.donationCount.toString(10), 2, 'donation count is not increased appropriately');
     })
 
-
-    it("List of an donor donations", async () => {
-        let adminInstance = await Administration.deployed();
-        let instanceDonate = await DonateAsset.deployed(adminInstance.address);
-        const result = await instanceDonate.getDonationsByOwner(0,{from:donor});
-        assert.equal(result[0][5], donor, 'donation count is not increased appropriately')
-    })
-
     it("emit LogFree event when an asset is added", async () => {
         let eventEmitted = false
         let adminInstance = await Administration.deployed();

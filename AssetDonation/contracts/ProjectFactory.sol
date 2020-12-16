@@ -1,9 +1,9 @@
 pragma solidity ^0.6.2;
 pragma experimental ABIEncoderV2;
 
-// contract Administration {
-//     function systemPaused() public returns (bool) {}
-// }
+/// @title ProjectFactory
+/// @author Fatemeh Heidari Soureshjani
+/// @notice Project Factory is used to create new contract for each new project added to system
 import "./ProjectFunding.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 struct Project {
@@ -26,16 +26,17 @@ contract ProjectFactory is ReentrancyGuard {
         Owner = msg.sender;
     }
 
-    // modifier whenNotPaused() {
-    //     require(!ADM.systemPaused(), "System is in emergency stop.");
-    //     _;
-    // }
 
     modifier onlyOwner(address ad) {
         require(msg.sender == ad, "System is in emergency stop.");
         _;
     }
 
+    /// @notice Adds a new project contract and adds its addres to list of projects
+    /// @param _projectDescription Descrption of the project entered by project owner
+    /// @param _projectTitle DescrpTitletion of the project entered by project owner
+    /// @param _projectKickOffTime The time the owner plans to start the project
+    /// @param _projectKickOffMinBalance The minimum amount of balance project owner needs to be collected
     function createProject(
         string memory _projectDescription,
         string memory _projectTitle,
@@ -58,7 +59,7 @@ contract ProjectFactory is ReentrancyGuard {
         projects.push(addr);
         emit projectCreated(project);
     }
-
+    /// @notice Returns list of all projects
     function getProjects() external view returns (Project[8] memory) {
         Project[8] memory projectList;
         string memory _projectTitle;
@@ -117,7 +118,8 @@ contract ProjectFactory is ReentrancyGuard {
         }
         return projectList;
     }    
-
+    /// @notice Returns a project address by its index in list of projects
+    /// @param projectId project index in list of projects
     function getProjectAddress(uint256 projectId)
         external
         view
@@ -125,16 +127,8 @@ contract ProjectFactory is ReentrancyGuard {
     {
         return projects[projectId];
     }
-
-    // function getProject(uint32 projectId)
-    //     external
-    //     view
-    //     returns (Project memory
-    //     )
-    // {
-    //     return ProjectFunding(projects[projectId]).getProject();
-    // }
-
+    /// @notice Returns a project by its index in list of projects
+    /// @param projectId project index in list of projects
     function getProject(uint32 projectId)
         external
         view
@@ -148,7 +142,8 @@ contract ProjectFactory is ReentrancyGuard {
     {
         return ProjectFunding(projects[projectId]).getProject();
     }
-
+    /// @notice Returns a project by its address
+    /// @param projectAddress project contract address
     function getProjectByAddress(address payable projectAddress)
         external
         view
@@ -162,12 +157,14 @@ contract ProjectFactory is ReentrancyGuard {
     {
         return ProjectFunding(projectAddress).getProject();
     }
-
+    /// @notice Adds an amount to the balance of a project contract
+    /// @param projectId project index in list of projects
     function donateToProject(uint32 projectId) public payable //whenNotPaused 
     {
         projects[projectId].transfer(msg.value);
     }
-
+    /// @notice transfers balance of a project to its owner
+    /// @param projectAddress project contract address
     function claimDonaition(address payable projectAddress)
         public
         payable
@@ -175,7 +172,8 @@ contract ProjectFactory is ReentrancyGuard {
     {
         ProjectFunding(projectAddress).claimDonation(msg.sender);
     }
-
+    /// @notice returns balance of a project by its index in list of projects
+    /// @param projectId project index in list of projects
     function getProjectBalance(uint32 projectId)
         external
         view
@@ -185,7 +183,8 @@ contract ProjectFactory is ReentrancyGuard {
         //emit logBalance(x);
         //return x;
     }
-
+    /// @notice returns balance of a project by its address
+    /// @param projectAddress project contract address
     function getProjectBalanceByAddress(address payable projectAddress)
         external
         view
@@ -195,7 +194,8 @@ contract ProjectFactory is ReentrancyGuard {
         //emit logBalance(x);
         //return x;
     }
-
+    /// @notice returns address of a project by its index in list of projects
+    /// @param projectId project index in list of projects
     function getProjectAddress(uint32 projectId)
         public
         view

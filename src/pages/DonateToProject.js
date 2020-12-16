@@ -5,7 +5,6 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import React, { Component, useState } from "react";
 import projectfactorycontract from '../utils/projectfactorycontract.js';
 import ProjectInfoCard from '../Cards/ProjectInfoCard.js'
-import web3 from '../utils/web3.js'
 
 
 class DonateToProject extends Component {
@@ -38,32 +37,10 @@ class DonateToProject extends Component {
             gasAmount,
         });
         var i;
-        for (i = 0; i < result.length; i++) {
-            if (result[i].projectOwner != "0x0000000000000000000000000000000000000000") {
-                result[i].donated = await this.getProjectBalance(i);
-                console.log('result');
-                console.log(result[i].donated);
-            }
-            else { result[i].donated = 0; }
-        }
         this.setState({ Projects: result });
 
     };
-    getProjectBalance = async (t) => {
-        //t.preventDefault();
-        const accounts = await window.ethereum.enable();
-        const account = accounts[0];
-        const gasAmount = await projectfactorycontract.methods.getProjectBalance(t).estimateGas({ from: account });
 
-        const result = await projectfactorycontract.methods.getProjectBalance(t).call({
-            from: account,
-            gasAmount,
-        });
-        //console.log('result');
-        const etherValue = web3.utils.fromWei(result.toString(10), 'ether');
-        //console.log(etherValue);
-        return etherValue;
-    };
 
     donate = async (t) => {
         //t.preventDefault();
@@ -86,7 +63,7 @@ class DonateToProject extends Component {
             if (project.projectOwner != "0x0000000000000000000000000000000000000000") {
 
                 return (
-                    <ProjectInfoCard project={project} id={index} donate={this.donate} />)
+                    <ProjectInfoCard project={project} id={index} />)
             }
         });
         return (

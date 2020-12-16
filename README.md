@@ -8,6 +8,8 @@ Application demo [here]
 
 ## developement
 The smart contracts are build using truffle and tested locally using ganache-cli. The project is also deployed on rinkedby testnet. The front end is developed using React.js.
+IPFS is also used to store image files related to donated assets.
+
 ## test DApp on reinkedby
 it is assumed that you have nodejs and yarn installed. You also need to have metamask extension added to your chrome beowser.
 The next steps will be:
@@ -25,3 +27,7 @@ In AssetDonation sub-directory:
 2. truffle migrate
 3. truffle console
 4. truffle test
+
+## Used libraries extra points
+1. ERC721 from openzeppeline is used to control the ownership and safe transfer of assets
+2. IPFS used for saving image files and theIPFS hash of images saved on blockchain

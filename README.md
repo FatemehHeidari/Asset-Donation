@@ -4,7 +4,7 @@ It is based on two ideas of donation:
 1. Donation of assets from a donor to an individual.
 2. Fund and Asset raising from donors for projects which can be defined in this platform.
 
-Application demo [here](https://backo.netlify.app).
+Application demo [here]
 
 ## developement
 The smart contracts are build using truffle and tested locally using ganache-cli. The project is also deployed on rinkedby testnet. The front end is developed using React.js.

@@ -11,6 +11,7 @@ import AdminPage from "./pages/AdminPage";
 import AddProject from "./pages/AddProject";
 import ProjectOwnerPage from "./pages/ProjectOwnerPage";
 import DonateToProject from "./pages/DonateToProject";
+import AccessControlPage from "./pages/AccessControlPage";
 import history from './utils/history';
 
 export default class Routes extends Component {
@@ -26,6 +27,7 @@ export default class Routes extends Component {
                     <Route path="/AddProject" component={AddProject} />
                     <Route path="/ProjectOwnerPage" component={ProjectOwnerPage} />
                     <Route path="/AdminPage" component={AdminPage} />
+                    <Route path="/AccessControlPage" component={AccessControlPage} />
                 </Switch>
             </Router>
         )

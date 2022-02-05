@@ -74,7 +74,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -102,7 +103,8 @@
       "name": "createProject",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [],
@@ -142,7 +144,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -182,7 +185,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -221,7 +225,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -260,7 +265,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -273,7 +279,8 @@
       "name": "donateToProject",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -286,7 +293,8 @@
       "name": "claimDonaition",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -305,7 +313,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -324,7 +333,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -343,7 +353,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -362,7 +373,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"LogTransfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"x\",\"type\":\"uint256\"}],\"name\":\"logBalance\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"contract ProjectFunding\",\"name\":\"project\",\"type\":\"address\"}],\"name\":\"projectCreated\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"projectAddress\",\"type\":\"address\"}],\"name\":\"claimDonaition\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_projectDescription\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_projectTitle\",\"type\":\"string\"},{\"internalType\":\"uint32\",\"name\":\"_projectKickOffTime\",\"type\":\"uint32\"},{\"internalType\":\"uint32\",\"name\":\"_projectKickOffMinBalance\",\"type\":\"uint32\"}],\"name\":\"createProject\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"projectId\",\"type\":\"uint32\"}],\"name\":\"donateToProject\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllProjects\",\"outputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"projectTitle\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"projectDescription\",\"type\":\"string\"},{\"internalType\":\"address payable\",\"name\":\"projectOwner\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"projectKickOffMinBalance\",\"type\":\"uint32\"},{\"internalType\":\"uint32\",\"name\":\"projectKickOffTime\",\"type\":\"uint32\"}],\"internalType\":\"struct Project[8]\",\"name\":\"\",\"type\":\"tuple[8]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"projectId\",\"type\":\"uint32\"}],\"name\":\"getProject\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"address payable\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"projectId\",\"type\":\"uint256\"}],\"name\":\"getProjectAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"projectId\",\"type\":\"uint32\"}],\"name\":\"getProjectAddress\",\"outputs\":[{\"internalType\":\"address payable\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"projectId\",\"type\":\"uint32\"}],\"name\":\"getProjectBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"projectAddress\",\"type\":\"address\"}],\"name\":\"getProjectBalanceByAddress\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"projectAddress\",\"type\":\"address\"}],\"name\":\"getProjectByAddress\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"address payable\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getProjects\",\"outputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"projectTitle\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"projectDescription\",\"type\":\"string\"},{\"internalType\":\"address payable\",\"name\":\"projectOwner\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"projectKickOffMinBalance\",\"type\":\"uint32\"},{\"internalType\":\"uint32\",\"name\":\"projectKickOffTime\",\"type\":\"uint32\"}],\"internalType\":\"struct Project[8]\",\"name\":\"\",\"type\":\"tuple[8]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"projects\",\"outputs\":[{\"internalType\":\"address payable\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"claimDonaition(address)\":{\"params\":{\"projectAddress\":\"project contract address\"}},\"createProject(string,string,uint32,uint32)\":{\"params\":{\"_projectDescription\":\"Descrption of the project entered by project owner\",\"_projectKickOffMinBalance\":\"The minimum amount of balance project owner needs to be collected\",\"_projectKickOffTime\":\"The time the owner plans to start the project\",\"_projectTitle\":\"DescrpTitletion of the project entered by project owner\"}},\"donateToProject(uint32)\":{\"params\":{\"projectId\":\"project index in list of projects\"}},\"getProject(uint32)\":{\"params\":{\"projectId\":\"project index in list of projects\"}},\"getProjectAddress(uint256)\":{\"params\":{\"projectId\":\"project index in list of projects\"}},\"getProjectAddress(uint32)\":{\"params\":{\"projectId\":\"project index in list of projects\"}},\"getProjectBalance(uint32)\":{\"params\":{\"projectId\":\"project index in list of projects\"}},\"getProjectBalanceByAddress(address)\":{\"params\":{\"projectAddress\":\"project contract address\"}},\"getProjectByAddress(address)\":{\"params\":{\"projectAddress\":\"project contract address\"}}}},\"userdoc\":{\"methods\":{\"claimDonaition(address)\":{\"notice\":\"transfers balance of a project to its owner\"},\"createProject(string,string,uint32,uint32)\":{\"notice\":\"Adds a new project contract and adds its addres to list of projects\"},\"donateToProject(uint32)\":{\"notice\":\"Adds an amount to the balance of a project contract\"},\"getProject(uint32)\":{\"notice\":\"Returns a project by its index in list of projects\"},\"getProjectAddress(uint256)\":{\"notice\":\"Returns a project address by its index in list of projects\"},\"getProjectAddress(uint32)\":{\"notice\":\"returns address of a project by its index in list of projects\"},\"getProjectBalance(uint32)\":{\"notice\":\"returns balance of a project by its index in list of projects\"},\"getProjectBalanceByAddress(address)\":{\"notice\":\"returns balance of a project by its address\"},\"getProjectByAddress(address)\":{\"notice\":\"Returns a project by its address\"},\"getProjects()\":{\"notice\":\"Returns list of all projects\"}}}},\"settings\":{\"compilationTarget\":{\"/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFactory.sol\":\"ProjectFactory\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFactory.sol\":{\"keccak256\":\"0x74b7c5b1a6f8a6abaa21b949a35ca1bae564af8cf52389edb060a4961c3185cb\",\"urls\":[\"bzz-raw://38e987c8c56cc62be375574616768756e3a71ec25a682a9b73020dfc60d01f80\",\"dweb:/ipfs/QmcrThA2inZLnW2wk8jpbrc7Tc2a2GeDmH9ffLjJ5wdzU3\"]},\"/home/fatemeh/Desktop/Consensys Course/assetdonation/AssetDonation/contracts/ProjectFunding.sol\":{\"keccak256\":\"0xb3e618532110b1a4b4471c791da952311bc12c444e9e7e9eeb132c4014bcec52\",\"urls\":[\"bzz-raw://1b250253cf5d0cbc46f183c021bce72a8ec4e40b70be99d9a50d284bc3d6b977\",\"dweb:/ipfs/QmVtFdhzPywiDbJr3D4uhpEdmQopTnf9jDEpmQXp2ShxfV\"]},\"@openzeppelin/contracts/utils/ReentrancyGuard.sol\":{\"keccak256\":\"0x7ff0067f2d7df4187eaa1cb4800949b929602c9d9cb20fcaee6922a7613ef2fb\",\"urls\":[\"bzz-raw://78aa63fd7fbb8df2942b6c6e7bd89349507e306edbd5909ee8d9575c31be57e5\",\"dweb:/ipfs/Qmf6z9KWKCJCfEVokgTBhBVq5yHtE6is31N8AV5BHdMkqQ\"]}},\"version\":1}",
@@ -11833,10 +11845,243 @@
       "links": {},
       "address": "0xE8d6EF679dc7A1791ccB9f693dfE03d3B0728795",
       "transactionHash": "0x997b8064c9c39446464c5d738754cc1a5b0c017422e4bbcf056512cba93356d8"
+    },
+    "1615409196798": {
+      "events": {
+        "0x0a85107a334eae0d22d21cdf13af0f8e8125039ec60baaa843d2c4c5b0680174": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogTransfer",
+          "type": "event"
+        },
+        "0x70328770d492e9b55f04b5501d5e29de4ae817261e5673696e3ecc30cf10147c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "x",
+              "type": "uint256"
+            }
+          ],
+          "name": "logBalance",
+          "type": "event"
+        },
+        "0xcebf67068bdf6731b69879642c22dbe7f75cbd4e664bccb6c931362b33e69a33": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "contract ProjectFunding",
+              "name": "project",
+              "type": "address"
+            }
+          ],
+          "name": "projectCreated",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x46f5F720B713C678376dfaF19c28d9355c4BD7ee",
+      "transactionHash": "0x46982e951d6e1dc2ad59945e1e34f0d0aac70181f11b0226cf235b5f05fe4290"
+    },
+    "1616556805412": {
+      "events": {
+        "0x0a85107a334eae0d22d21cdf13af0f8e8125039ec60baaa843d2c4c5b0680174": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogTransfer",
+          "type": "event"
+        },
+        "0x70328770d492e9b55f04b5501d5e29de4ae817261e5673696e3ecc30cf10147c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "x",
+              "type": "uint256"
+            }
+          ],
+          "name": "logBalance",
+          "type": "event"
+        },
+        "0xcebf67068bdf6731b69879642c22dbe7f75cbd4e664bccb6c931362b33e69a33": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "contract ProjectFunding",
+              "name": "project",
+              "type": "address"
+            }
+          ],
+          "name": "projectCreated",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xE5E3B84B8904b9Bf0B197949ad912083A805E370",
+      "transactionHash": "0x87557bdd1412c84b0def7d5bf38fb1b7542aa8ec0d3d7c115bc529caae114fea"
+    },
+    "1616609471030": {
+      "events": {
+        "0x0a85107a334eae0d22d21cdf13af0f8e8125039ec60baaa843d2c4c5b0680174": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogTransfer",
+          "type": "event"
+        },
+        "0x70328770d492e9b55f04b5501d5e29de4ae817261e5673696e3ecc30cf10147c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "x",
+              "type": "uint256"
+            }
+          ],
+          "name": "logBalance",
+          "type": "event"
+        },
+        "0xcebf67068bdf6731b69879642c22dbe7f75cbd4e664bccb6c931362b33e69a33": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "contract ProjectFunding",
+              "name": "project",
+              "type": "address"
+            }
+          ],
+          "name": "projectCreated",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x00d41c427DD209C06276005A379811DBaC9CdcC5",
+      "transactionHash": "0xe0b5b98e993d0e497bc8377be0565b34a5dcba58f82a782a7f46c0ac95ca848e"
+    },
+    "1616717576392": {
+      "events": {
+        "0x0a85107a334eae0d22d21cdf13af0f8e8125039ec60baaa843d2c4c5b0680174": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogTransfer",
+          "type": "event"
+        },
+        "0x70328770d492e9b55f04b5501d5e29de4ae817261e5673696e3ecc30cf10147c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "x",
+              "type": "uint256"
+            }
+          ],
+          "name": "logBalance",
+          "type": "event"
+        },
+        "0xcebf67068bdf6731b69879642c22dbe7f75cbd4e664bccb6c931362b33e69a33": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "contract ProjectFunding",
+              "name": "project",
+              "type": "address"
+            }
+          ],
+          "name": "projectCreated",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x42B397eCb5590aD9f4C402DBfe37E951a84D21e7",
+      "transactionHash": "0xa5914234d99f6fee7edf47a21af252b6d8381005f3f7ce142594c9cf12b14230"
     }
   },
   "schemaVersion": "3.3.1",
-  "updatedAt": "2020-12-16T23:33:52.700Z",
+  "updatedAt": "2021-03-26T00:16:15.283Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "claimDonaition(address)": {

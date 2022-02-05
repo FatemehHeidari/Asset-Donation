@@ -8,9 +8,10 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import adminContract from '../utils/admincontract.js';
+import history from '../utils/history';
 
 
-class DonarPage extends Component {
+class AdminPage extends Component {
 
     constructor(props) {
         super(props);
@@ -79,6 +80,21 @@ class DonarPage extends Component {
         this.getStatus();
     };
 
+    AccessControlList = async (t) =>{
+        t.preventDefault();
+        const accounts = await window.ethereum.enable();
+        const account = accounts[0];
+        const gasAmount = await adminContract.methods.unpause().estimateGas({ from: account });
+        const result = await adminContract.methods.unpause().send({
+            from: account,
+            gasAmount,
+        });
+        console.log('result');
+        console.log(result);
+        this.setState({ Assets: result });
+        this.getStatus();        
+    }
+
 
 
     render() {
@@ -108,12 +124,12 @@ class DonarPage extends Component {
                         />
                     </Form.Group>
                 </Form>
-                {/* <Button variant="danger" onClick={this.emergencyStop} type="button" size="lg">
-                        Emergency Stop
-          </Button> {'   '} */}
+                <Button variant="danger" onClick={() => history.push('/AccessControlPage')} type="button" size="lg">
+                        Access Control
+          </Button> {'   '}
             </div>
         );
     }
 }
 
-export default DonarPage;
+export default AdminPage;

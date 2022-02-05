@@ -8,7 +8,7 @@ const OPTIONS = {
 }
 const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545", null, OPTIONS);
 
-const projfactcontractAddress = "0xa7B6d80dA5cCbD9c2fc9D6A6E18F60CfF7CE3c3d";
+const projfactcontractAddress = "0x74570859a8f97F7bDB5888bd9B91146542959484";
 const projectfactorycontract = new web3.eth.Contract(ProjectFactory, projfactcontractAddress);
 
 export default projectfactorycontract;

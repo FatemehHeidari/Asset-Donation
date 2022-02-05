@@ -40,7 +40,7 @@ contract Administration is AccessControl, Pausable {
             "Sender is not ADMIN."
         );
         _;
-    }
+    }     
 
     /// @notice Adds an address to list of donors
     /// @dev approve donor role
